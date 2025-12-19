@@ -151,3 +151,37 @@
     -ms-overflow-style: none; /* IE & Edge */
     scrollbar-width: none;    /* Firefox */
 }
+
+.discount-wrapper {
+  position: absolute;
+  top: 5px;
+  left: -6px;
+  z-index: 20;
+}
+
+/* layer gelap (BELAKANG) */
+.discount-dark {
+  position: absolute;
+  top: 20px;
+
+  padding: 4px 3px;
+  background: rgb(179, 29, 64);
+
+  border-radius: 0 0 0 10px;
+}
+
+/* layer terang (DEPAN) */
+.discount-light {
+  position: relative;
+
+  padding: 2.5px 8px;
+  background: rgb(249, 77, 99);
+  color: #fff;
+
+  font-weight: 800;
+  font-size: 0.8rem;
+  line-height: 1;
+
+  border-radius: 10px 15px 15px 0;
+}
+

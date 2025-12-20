@@ -1,7 +1,9 @@
 import { Head, Link, router, usePage } from '@inertiajs/react';
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, JSX } from "react";
 import { type SharedData } from '@/types';
 import { ChevronRight, ChevronLeft, ShoppingCart, Star, Truck, Shield, Clock } from 'lucide-react';
+import NavMain from "@/components/nav-main";
+import { NavFooter } from '@/components/nav-footer';
 
 const dummyTopProducts = [
     {
@@ -206,25 +208,29 @@ const bannerData = [
         id: 1,
         title: "Promo Guncang 12.12",
         subtitle: "HALEON",
-        src: "images/banner/01.png",
+        slug: "banner-01",
+        src: "images/banner/01.webp",
     },
     {
         id: 2,
         title: "Flash Sale Akhir Tahun",
         subtitle: "SENSODYNE",
-        src: "images/banner/02.png",
+        slug: "banner-02",
+        src: "images/banner/02.webp",
     },
     {
         id: 3,
         title: "Paket Hemat Keluarga",
         subtitle: "PARAMONT",
-        src: "images/banner/03.png",
+        slug: "banner-03",
+        src: "images/banner/03.webp",
     },
     {
         id: 4,
         title: "Paket Hemat Keluarga",
         subtitle: "PARAMONT",
-        src: "images/banner/04.png",
+        slug: "banner-04",
+        src: "images/banner/04.webp",
     }
 ];
 
@@ -272,45 +278,260 @@ export default function Home({
     categories = [],
     flashSale = []
 }: HomePageProps) {
-    const [currentSlide, setCurrentSlide] = useState(0);
+    const [currentSlide, setCurrentSlide] = useState(1);
+    const [isTransitioning, setIsTransitioning] = useState(false);
+    const total = bannerData.length;
     const [isAutoPlaying, setIsAutoPlaying] = useState(true);
     const { auth } = usePage<SharedData>().props;
-    const flashSaleData = flashSale.length ? flashSale : manualFlashSale;
 
-    // Fungsi untuk slide berikutnya
+    // Banner navigation with transition lock
     const nextSlide = () => {
-        setCurrentSlide((prev) => (prev === bannerData.length - 1 ? 0 : prev + 1));
+        if (isTransitioning) return;
+        setIsTransitioning(true);
+        setCurrentSlide(prev => prev + 1);
     };
 
-    // Fungsi untuk slide sebelumnya
     const prevSlide = () => {
-        setCurrentSlide((prev) => (prev === 0 ? bannerData.length - 1 : prev - 1));
+        if (isTransitioning) return;
+        setIsTransitioning(true);
+        setCurrentSlide(prev => prev - 1);
     };
 
-    // Fungsi untuk pindah ke slide tertentu
     const goToSlide = (index: number) => {
+        if (isTransitioning) return;
+        setIsTransitioning(true);
         setCurrentSlide(index);
     };
 
-    // Auto-play slider
+    // Auto-play
     useEffect(() => {
         if (!isAutoPlaying) return;
-
         const interval = setInterval(() => {
             nextSlide();
-        }, 5000); // Ganti slide setiap 5 detik
-
+        }, 5000);
         return () => clearInterval(interval);
     }, [currentSlide, isAutoPlaying]);
 
     // Pause auto-play saat hover
-    const handleMouseEnter = () => {
-        setIsAutoPlaying(false);
+    const handleMouseEnter = () => setIsAutoPlaying(false);
+    const handleMouseLeave = () => setIsAutoPlaying(true);
+
+    const flashSaleData = flashSale.length ? flashSale : manualFlashSale;
+    const ITEM_WIDTH = 170;
+    const ITEM_GAP = 16;
+
+
+    const useCategorySlider = (ITEM_WIDTH: number, GAP: number) => {
+        const ref = useRef<HTMLDivElement>(null);
+        const [canPrev, setCanPrev] = useState(false);
+        const [canNext, setCanNext] = useState(false);
+
+        const updateArrows = () => {
+            const el = ref.current;
+            if (!el) return;
+
+            setCanPrev(el.scrollLeft > 0);
+            setCanNext(el.scrollLeft + el.clientWidth < el.scrollWidth - 1);
+        };
+
+        useEffect(() => {
+            const el = ref.current;
+            if (!el) return;
+
+            updateArrows();
+
+            let ticking = false;
+
+            const onScroll = () => {
+                if (!ticking) {
+                    window.requestAnimationFrame(() => {
+                        updateArrows();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            };
+
+            el.addEventListener("scroll", onScroll, { passive: true });
+            window.addEventListener("resize", updateArrows);
+
+            return () => {
+                el.removeEventListener("scroll", onScroll);
+                window.removeEventListener("resize", updateArrows);
+            };
+        }, []);
+
+        const scroll = (direction: "left" | "right") => {
+            const el = ref.current;
+            if (!el) return;
+
+            const MOVE_COL = 5;
+            const distance = MOVE_COL * (ITEM_WIDTH + GAP);
+
+            el.scrollBy({
+                left: direction === "right" ? distance : -distance,
+                behavior: "smooth",
+            });
+        };
+
+        return { ref, canPrev, canNext, scroll };
     };
 
-    const handleMouseLeave = () => {
-        setIsAutoPlaying(true);
+    const categorySlider = useCategorySlider(ITEM_WIDTH, ITEM_GAP);
+
+    const categoryItems = [
+        { icon: "images/category/00001.webp", label: "Elektronik" },
+        { icon: "images/category/00002.webp", label: "Komputer & Aksesoris" },
+        { icon: "images/category/00003.webp", label: "Handphone & Aksesoris" },
+        { icon: "images/category/00004.webp", label: "Pakaian Pria" },
+        { icon: "images/category/00005.webp", label: "Sepatu Pria" },
+        { icon: "images/category/00006.webp", label: "Tas Pria" },
+        { icon: "images/category/00007.webp", label: "Aksesoris Fashion" },
+        { icon: "images/category/00008.webp", label: "Jam Tangan" },
+        { icon: "images/category/00009.webp", label: "Kesehatan" },
+        { icon: "images/category/00010.webp", label: "Hobi & Koleksi" },
+        { icon: "images/category/00011.webp", label: "Makanan & Minuman" },
+        { icon: "images/category/00012.webp", label: "Perawatan & Kecantikan" },
+        { icon: "images/category/00013.webp", label: "Perlengkapan Rumah" },
+        { icon: "images/category/00014.webp", label: "Pakaian Wanita" },
+        { icon: "images/category/00015.webp", label: "Fashion Muslim" },
+        { icon: "images/category/00016.webp", label: "Fashion Bayi & Anak" },
+        { icon: "images/category/00017.webp", label: "Ibu & Bayi" },
+        { icon: "images/category/00018.webp", label: "Sepatu Wanita" },
+        { icon: "images/category/00019.webp", label: "Tas Wanita" },
+        { icon: "images/category/00020.webp", label: "Otomotif" },
+        { icon: "images/category/00021.webp", label: "Olahraga Outdoor" },
+        { icon: "images/category/00022.webp", label: "Souvenir & Perlengkapan" },
+        { icon: "images/category/00023.webp", label: "Voucher" },
+        { icon: "images/category/00024.webp", label: "Buku & Alat Tulis" },
+        { icon: "images/category/00025.webp", label: "Fotografi" },
+        { icon: "images/category/00026.webp", label: "Deals Sekitarmu" },
+    ];
+
+    const ITEMS_PER_PAGE = 20;
+    const [page, setPage] = useState(0);
+
+    const totalPages = Math.ceil(categoryItems.length / ITEMS_PER_PAGE);
+
+    const visibleItems = categoryItems.slice(
+        page * ITEMS_PER_PAGE,
+        (page + 1) * ITEMS_PER_PAGE
+    );
+
+    const canPrev = page > 0;
+    const canNext = page < totalPages - 1;
+
+    const useTopProductSlider = () => {
+        const ref = useRef<HTMLDivElement>(null);
+        const [canPrev, setCanPrev] = useState(false);
+        const [canNext, setCanNext] = useState(true);
+
+        const updateArrows = () => {
+            const el = ref.current;
+            if (!el) return;
+            setCanPrev(el.scrollLeft > 0);
+            setCanNext(el.scrollLeft + el.clientWidth < el.scrollWidth - 1);
+        };
+
+        useEffect(() => {
+            updateArrows();
+            const el = ref.current;
+            if (!el) return;
+            let ticking = false;
+
+            const onScroll = () => {
+                if (!ticking) {
+                    window.requestAnimationFrame(() => {
+                        updateArrows();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            };
+
+            el.addEventListener("scroll", onScroll, { passive: true });
+            window.addEventListener("resize", updateArrows);
+            return () => {
+                el.removeEventListener("scroll", updateArrows);
+                window.removeEventListener("resize", updateArrows);
+            };
+        }, []);
+
+        const scroll = (direction: "left" | "right") => {
+            const el = ref.current;
+            if (!el) return;
+
+            const ITEMS_PER_SCROLL = 3;
+
+            const distance =
+                (ITEM_WIDTH + ITEM_GAP) * Math.max(1, ITEMS_PER_SCROLL);
+
+            el.scrollBy({
+                left: direction === "right" ? distance : -distance,
+                behavior: "smooth",
+            });
+        };
+
+        return { ref, canPrev, canNext, scroll };
     };
+
+    const topProductSlider = useTopProductSlider();
+
+    const useChevronSlider = () => {
+        const ref = useRef<HTMLDivElement>(null);
+        const [canPrev, setCanPrev] = useState(false);
+        const [canNext, setCanNext] = useState(true);
+
+        const updateArrows = () => {
+            const el = ref.current;
+            if (!el) return;
+            setCanPrev(el.scrollLeft > 0);
+            setCanNext(el.scrollLeft + el.clientWidth < el.scrollWidth - 1);
+        };
+
+        useEffect(() => {
+            updateArrows();
+            const el = ref.current;
+            if (!el) return;
+            let ticking = false;
+
+            const onScroll = () => {
+                if (!ticking) {
+                    window.requestAnimationFrame(() => {
+                        updateArrows();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            };
+
+            el.addEventListener("scroll", onScroll, { passive: true });
+            window.addEventListener("resize", updateArrows);
+            return () => {
+                el.removeEventListener("scroll", updateArrows);
+                window.removeEventListener("resize", updateArrows);
+            };
+        }, []);
+
+        const scroll = (direction: "left" | "right") => {
+            const el = ref.current;
+            if (!el) return;
+
+            const ITEMS_PER_SCROLL = 3;
+
+            const distance =
+                (ITEM_WIDTH + ITEM_GAP) * Math.max(1, ITEMS_PER_SCROLL);
+
+            el.scrollBy({
+                left: direction === "right" ? distance : -distance,
+                behavior: "smooth",
+            });
+        };
+
+        return { ref, canPrev, canNext, scroll };
+    };
+
+    const flashSlider = useChevronSlider();
 
     const [timeLeft, setTimeLeft] = useState({ h: "00", m: "00", s: "00" });
 
@@ -353,168 +574,100 @@ export default function Home({
 
             <div className="min-h-screen bg-white text-gray-900 dark:bg-gray-600">
                 {/* Header Navigation */}
-                <header className="sticky top-0 z-50 bg-white border-b border-gray-200 dark:bg-gray-500 dark:border-gray-600">
-                    {/* Top Promo Bar */}
-                    <div className="bg-gray-100 text-xs py-0 border-b border-gray-200 px-4 dark:bg-gray-500 dark:border-gray-600">
-                        <div className="container mx-2 flex items-center justify-between text-gray-600 dark:text-gray-300">
-                            <Link
-                                href="/promo-aplikasi"
-                                className="flex items-center gap-1 px-4 py-1 text-gray-900 bg-transparent"
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
-                                </svg>
-
-                                <span className="font-bold text-xs">
-                                    Gratis Ongkir + Banyak Promo
-                                </span>
-
-                                <span className="text-xs font-medium hover:font-bold">
-                                    belanja di aplikasi
-                                </span>
-
-                                {/* Icon Arrow */}
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    strokeWidth={2}
-                                    stroke="currentColor"
-                                    className="w-4 h-4"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        d="m8.25 4.5 7.5 7.5-7.5 7.5"
-                                    />
-                                </svg>
-                            </Link>
-                            <div className="flex items-center gap-6">
-                                <nav className=" text-xs hover:text-green-600">
-                                    <Link href="/">Tentang Ditoekoe</Link>
-                                </nav>
-                                <nav className="text-xs hover:text-green-600">
-                                    <Link href="/">Mulai Berjualan</Link>
-                                </nav>
-                                <nav className="text-xs hover:text-green-600">
-                                    <Link href="/">Promo</Link>
-                                </nav>
-                                <nav className=" text-xs hover:text-green-600">
-                                    <Link href="/">Ditoekoe Care</Link>
-                                </nav>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Main Navbar */}
-                    <div className="container mx-auto px-4 py-2 bg-white">
-                        <div className="flex items-center justify-between gap-6">
-
-                            {/* LOGO */}
-                            <Link href="/" className="text-2xl font-bold text-green-600">
-                                Ditoekoe
-                            </Link>
-
-                            {/* SEARCH BAR */}
-                            <div className="flex-1 hidden md:flex">
-                                <div className="w-full relative">
-                                    <input
-                                        type="text"
-                                        placeholder="Cari di Ditoekoe"
-                                        className="w-full rounded-lg border border-gray-300 py-2.5 pl-10 pr-4 text-sm shadow-xs outline-none focus:ring-1 focus:ring-green-600 focus:border-green-600 dark:border-green-600 dark:bg-green-700 dark:text-gray-200"
-                                    />
-
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        className="h-5 w-5 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeWidth="2"
-                                            d="M21 21l-4.35-4.35M10.5 18a7.5 7.5 0 110-15 7.5 7.5 0 010 15z"
-                                        />
-                                    </svg>
-                                </div>
-                            </div>
-
-                            {/* RIGHT SIDE */}
-                            <div className="flex items-center gap-4">
-
-                                {/* Cart */}
-                                <Link href="/cart" className="relative">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
-                                    </svg>
-                                    <span className="absolute -right-2 -top-1 bg-[rgb(249,77,99)] text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
-                                        3
-                                    </span>
-                                </Link>
-
-                                {/* Divider */}
-                                <div className="h-6 w-[1px] bg-gray-300"></div>
-
-                                {/* AUTH */}
-                                {auth.user ? (
-                                    <Link
-                                        href="/dashboard"
-                                        className="rounded-md border border-gray-300 px-4 py-2 text-sm hover:border-gray-400 dark:border-[#3E3E3A] dark:hover:border-[#62605b]"
-                                    >
-                                        Dashboard
-                                    </Link>
-                                ) : (
-                                    <>
-                                        <Link
-                                            href="/login"
-                                            className="rounded-md border border-green-600 px-3 py-1 font-semibold text-sm text-green-600 hover:bg-green-100"
-                                        >
-                                            Masuk
-                                        </Link>
-
-                                        <Link
-                                            href="/register"
-                                            className="rounded-md bg-green-600 px-3 py-1 font-semibold text-sm text-white hover:bg-green-600"
-                                        >
-                                            Daftar
-                                        </Link>
-                                    </>
-                                )}
-                            </div>
-                        </div>
-                    </div>
-                </header>
+                <NavMain />
 
                 {/* Hero Section */}
                 <section
                     className="relative mt-15"
-                    onMouseEnter={handleMouseEnter}
-                    onMouseLeave={handleMouseLeave}
+                    onMouseEnter={() => setIsAutoPlaying(false)}
+                    onMouseLeave={() => setIsAutoPlaying(true)}
                 >
                     {/* Banner */}
                     <div className="group relative mx-4 max-w-6xl md:mx-auto overflow-hidden rounded-xl shadow-lg">
+                        <div className="relative h-64 md:h-72 w-full overflow-hidden">
+                            <div
+                                className="flex h-full"
+                                style={{
+                                    willChange: "transform",
+                                    transform: `translateX(-${currentSlide * 100}%)`,
+                                    transition: isTransitioning
+                                        ? "transform 1300ms cubic-bezier(0.22,1,0.36,1)"
+                                        : "none",
+                                }}
+                                onTransitionEnd={() => {
+                                    // Reset otomatis saat reach clone
+                                    if (currentSlide > total) {
+                                        setIsTransitioning(false);
+                                        setCurrentSlide(1);
+                                    } else if (currentSlide === 0) {
+                                        setIsTransitioning(false);
+                                        setCurrentSlide(total);
+                                    } else {
+                                        setIsTransitioning(false); // transisi selesai
+                                    }
+                                }}
+                            >
+                                {/* Clone last */}
+                                <Link
+                                    href={`/products/${bannerData[total - 1].slug}`}
+                                    className="h-full w-full flex-shrink-0"
+                                >
+                                    <img
+                                        src={bannerData[total - 1].src}
+                                        className="h-full w-full object-cover"
+                                        alt=""
+                                    />
+                                </Link>
 
-                        {/* Background */}
-                        <div className="relative h-64 md:h-72 w-full">
-                            <img
-                                src={bannerData[currentSlide].src}
-                                alt={`Banner ${currentSlide + 1}`}
-                                className="h-full w-full object-cover"
-                            />
+                                {/* Real slides */}
+                                {bannerData.map((banner, index) => (
+                                    <Link
+                                        key={index}
+                                        href={`/products/${banner.slug}`}
+                                        className="h-full w-full flex-shrink-0"
+                                    >
+                                        <img
+                                            src={banner.src}
+                                            alt={`Banner ${index + 1}`}
+                                            className="h-full w-full object-cover"
+                                            loading={index === 0 ? "eager" : "lazy"}
+                                        />
+                                    </Link>
+                                ))}
+
+                                {/* Clone first */}
+                                <Link
+                                    href={`/products/${bannerData[0].slug}`}
+                                    className="h-full w-full flex-shrink-0"
+                                >
+                                    <img
+                                        src={bannerData[0].src}
+                                        className="h-full w-full object-cover"
+                                        alt=""
+                                    />
+                                </Link>
+                            </div>
                         </div>
 
                         {/* CHEVRONS */}
                         <div className="absolute inset-0 pointer-events-none group">
                             <button
-                                onClick={prevSlide}
+                                onClick={() => {
+                                    if (isTransitioning) return;
+                                    setIsTransitioning(true);
+                                    setCurrentSlide(prev => prev - 1);
+                                }}
                                 className="pointer-events-auto absolute left-2 top-1/2 -translate-y-1/2 bg-white/90 dark:bg-[#333]/90 shadow-md p-3 rounded-full opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 hover:scale-110 transition-all duration-300"
                             >
                                 <ChevronLeft className="h-5 w-5" />
                             </button>
 
                             <button
-                                onClick={nextSlide}
+                                onClick={() => {
+                                    if (isTransitioning) return;
+                                    setIsTransitioning(true);
+                                    setCurrentSlide(prev => prev + 1);
+                                }}
                                 className="pointer-events-auto absolute right-2 top-1/2 -translate-y-1/2 bg-white/90 dark:bg-[#333]/90 shadow-md p-3 rounded-full opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 hover:scale-110 transition-all duration-300"
                             >
                                 <ChevronRight className="h-5 w-5" />
@@ -523,14 +676,21 @@ export default function Home({
 
                         {/* Dots */}
                         <div className="absolute bottom-4 left-4 z-20 flex gap-1">
-                            {bannerData.map((_, index) => (
-                                <button
-                                    key={index}
-                                    onClick={() => goToSlide(index)}
-                                    className={`h-1.5 w-1.5 rounded-full transition-all 
-                        ${index === currentSlide ? "w-0 bg-white" : "bg-white/70"}`}
-                                />
-                            ))}
+                            {bannerData.map((_, index) => {
+                                const activeIndex = (currentSlide - 1 + total) % total;
+                                return (
+                                    <button
+                                        key={index}
+                                        onClick={() => {
+                                            if (isTransitioning) return;
+                                            setIsTransitioning(true);
+                                            setCurrentSlide(index + 1);
+                                        }}
+                                        className={`h-1.5 w-1.5 rounded-full transition-all 
+                            ${index === activeIndex ? "w-0 bg-white" : "bg-white/70"}`}
+                                    />
+                                );
+                            })}
                         </div>
 
                         {/* Button promo kecil kanan bawah */}
@@ -547,11 +707,10 @@ export default function Home({
                                 className="h-full bg-green-600 transition-all duration-5000"
                                 style={{
                                     width: isAutoPlaying ? "100%" : "0%",
-                                    transitionDuration: isAutoPlaying ? "5s" : "0s"
+                                    transitionDuration: isAutoPlaying ? "5s" : "0s",
                                 }}
                             />
                         </div>
-
                     </div>
                 </section>
 
@@ -567,7 +726,7 @@ export default function Home({
                                 <div className="rounded-xl border border-gray-200 dark:border-gray-700 p-3 bg-white dark:bg-[#161615]">
                                     <img src="images/icon/icon_local.png" alt="Ditoekoe Lokal" className="h-8 w-8" />
                                 </div>
-                                <p className="mt-2 text-sm font-regular text-gray-800 dark:text-gray-200">Ditoekoe Lokal</p>
+                                <p className="mt-2 text-[13px] font-regular text-gray-900 dark:text-gray-200">Ditoekoe Lokal</p>
                             </Link>
 
                             {/* Item 2 */}
@@ -577,7 +736,7 @@ export default function Home({
                                 <div className="rounded-xl border border-gray-200 dark:border-gray-700 p-3 bg-white dark:bg-[#161615]">
                                     <img src="images/icon/icon_bag.png" alt="Ditoekoe Mall" className="h-8 w-8" />
                                 </div>
-                                <p className="mt-2 text-sm font-regular text-gray-800 dark:text-gray-200">Ditoekoe Mall</p>
+                                <p className="mt-2 text-[13px] font-regular text-gray-900 dark:text-gray-200">Ditoekoe Mall</p>
                             </Link>
 
                             {/* Item 3 */}
@@ -587,7 +746,7 @@ export default function Home({
                                 <div className="rounded-xl border border-gray-200 dark:border-gray-700 p-3 bg-white dark:bg-[#161615]">
                                     <img src="images/icon/icon_pulsa.png" alt="Pulsa Tagihan Tiket" className="h-8 w-8" />
                                 </div>
-                                <p className="mt-2 text-sm font-regular text-gray-800 dark:text-gray-200">Pulsa, Tagihan, dan Tiket</p>
+                                <p className="mt-2 text-[13px] font-regular text-gray-900 dark:text-gray-200">Pulsa, Tagihan, dan Tiket</p>
                             </Link>
 
                             {/* Item 4 */}
@@ -597,7 +756,7 @@ export default function Home({
                                 <div className="rounded-xl border border-gray-200 dark:border-gray-700 p-3 bg-white dark:bg-[#161615]">
                                     <img src="images/icon/icon_flashsale.png" alt="Flash Sale" className="h-8 w-8" />
                                 </div>
-                                <p className="mt-2 text-sm font-regular text-gray-800 dark:text-gray-200">Flash Sale</p>
+                                <p className="mt-2 text-[13px] font-regular text-gray-900 dark:text-gray-200">Flash Sale</p>
                             </Link>
 
                             {/* Item 5 */}
@@ -607,7 +766,7 @@ export default function Home({
                                 <div className="rounded-xl border border-gray-200 dark:border-gray-700 p-3 bg-white dark:bg-[#161615]">
                                     <img src="images/icon/icon_supermarket.png" alt="Supermarket" className="h-8 w-10" />
                                 </div>
-                                <p className="mt-2 text-sm font-regular text-gray-800 dark:text-gray-200">Ditoekoe Supermarket</p>
+                                <p className="mt-2 text-[13px] font-regular text-gray-900 dark:text-gray-200">Ditoekoe Supermarket</p>
                             </Link>
 
                             {/* Item 6 */}
@@ -617,7 +776,7 @@ export default function Home({
                                 <div className="rounded-xl border border-gray-200 dark:border-gray-700 p-3 bg-white dark:bg-[#161615]">
                                     <img src="images/icon/icon_kelola.png" alt="Dikelola Ditoekoe" className="h-8 w-8" />
                                 </div>
-                                <p className="mt-2 text-sm font-regular text-gray-800 dark:text-gray-200">Dikelola Ditoekoe</p>
+                                <p className="mt-2 text-[13px] font-regular text-gray-900 dark:text-gray-200">Dikelola Ditoekoe</p>
                             </Link>
 
                             {/* Item 7 */}
@@ -627,7 +786,7 @@ export default function Home({
                                 <div className="rounded-xl border border-gray-200 dark:border-gray-700 p-3 bg-white dark:bg-[#161615]">
                                     <img src="images/icon/icon_fitcheck.png" alt="FitCheck Diskon" className="h-8 w-8" />
                                 </div>
-                                <p className="mt-2 text-sm font-regular text-gray-800 dark:text-gray-200">FitCheck Diskon 35%</p>
+                                <p className="mt-2 text-[13px] font-regular text-gray-900 dark:text-gray-200">FitCheck Diskon 35%</p>
                             </Link>
 
                             {/* Item 8 */}
@@ -637,7 +796,7 @@ export default function Home({
                                 <div className="rounded-xl border border-gray-200 dark:border-gray-700 p-3 bg-white dark:bg-[#161615]">
                                     <img src="images/icon/icon_voucher.png" alt="Gratis Ongkir" className=" h-8 w-8.5" />
                                 </div>
-                                <p className="mt-2 text-sm font-regular text-gray-800 dark:text-gray-200">Gratis Ongkir & Voucher</p>
+                                <p className="mt-2 text-[13px] font-regular text-gray-900 dark:text-gray-200">Gratis Ongkir & Voucher</p>
                             </Link>
 
                             {/* Item 9 */}
@@ -647,7 +806,7 @@ export default function Home({
                                 <div className="rounded-xl border border-gray-200 dark:border-gray-700 p-3 bg-white dark:bg-[#161615]">
                                     <img src="images/icon/icon_berkah.png" alt="Ditoekoe Berkah" className="h-8 w-8" />
                                 </div>
-                                <p className="mt-2 text-sm font-regular text-gray-800 dark:text-gray-200">Ditoekoe Berkah</p>
+                                <p className="mt-2 text-[13px] font-regular text-gray-900 dark:text-gray-200">Ditoekoe Berkah</p>
                             </Link>
 
                             {/* Item 10 */}
@@ -657,87 +816,88 @@ export default function Home({
                                 <div className="rounded-xl border border-gray-200 dark:border-gray-700 p-3 bg-white dark:bg-[#161615]">
                                     <img src="images/icon/icon_promo.png" alt="Semua Promo" className="h-8 w-8" />
                                 </div>
-                                <p className="mt-2 text-sm font-regular text-gray-800 dark:text-gray-200">Semua Promo</p>
+                                <p className="mt-2 text-[13px] font-regular text-gray-900 dark:text-gray-200">Semua Promo</p>
                             </Link>
                         </div>
                     </div>
                 </section >
 
-                {/* Categori Section */}
-                <section className="py-0">
-                    <div className="max-w-6xl bg-white dark:bg-[#161615] rounded-xl mx-auto shadow-sm border border-gray-200 dark:border-gray-700 relative group">
+                {/* Category Section */}
+                <section className="py-0 relative">
+                    <div className="max-w-6xl mx-auto bg-white dark:bg-[#161615] rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 relative group overflow-hidden">
 
                         {/* Header */}
-                        <div className="p-6 pb-4 flex items-center justify-between">
-                            <h2 className="text-xl text-gray-700 font-bold">Kategori</h2>
+                        <div className="px-6 py-5 border-b border-gray-200 dark:border-gray-700">
+                            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-200">
+                                Kategori
+                            </h2>
                         </div>
 
-                        {/* Chevron */}
-                        <button
-                            onClick={nextSlide}
-                            className="absolute right-2 top-1/2 -translate-y-1/2 z-20 rounded-full bg-white/70 p-2 backdrop-blur-sm hover:bg-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                        >
-                            <ChevronRight className="h-6 w-6 text-black" />
-                        </button>
+                        {/* Chevron Left */}
+                        {categorySlider.canPrev && (
+                            <button
+                                onClick={() => categorySlider.scroll("left")}
+                                className="pointer-events-auto absolute left-0 top-1/2 -translate-y-1/2 bg-white/90 dark:bg-[#333]/90 shadow-md p-3 rounded-full opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 hover:scale-110 transition-all duration-300"
+                            >
+                                <ChevronLeft className="h-5 w-5" />
+                            </button>
+                        )}
 
-                        {/* Grid */}
-                        <div className="grid grid-cols-5 lg:grid-cols-10 md:grid-cols-5 sm:grid-cols-4 divide-x divide-gray-200 dark:divide-gray-700 border-t border-gray-200 dark:border-gray-700">
-                            {[
-                                { icon: "images/category/00001.png", label: "Elektronik" },
-                                { icon: "images/category/00002.png", label: "Komputer & Aksesoris" },
-                                { icon: "images/category/00003.png", label: "Handphone & Aksesoris" },
-                                { icon: "images/category/00004.png", label: "Pakaian Pria" },
-                                { icon: "images/category/00005.png", label: "Sepatu Pria" },
-                                { icon: "images/category/00006.png", label: "Tas Pria" },
-                                { icon: "images/category/00007.png", label: "Aksesoris Fashion" },
-                                { icon: "images/category/00008.png", label: "Jam Tangan" },
-                                { icon: "images/category/00009.png", label: "Kesehatan" },
-                                { icon: "images/category/00010.png", label: "Hobi & Koleksi" },
-                                { icon: "images/category/00011.png", label: "Makanan & Minuman" },
-                                { icon: "images/category/00012.png", label: "Perawatan & Kecantikan" },
-                                { icon: "images/category/00013.png", label: "Perlengkapan Rumah" },
-                                { icon: "images/category/00014.png", label: "Pakaian Wanita" },
-                                { icon: "images/category/00015.png", label: "Fashion Muslim" },
-                                { icon: "images/category/00016.png", label: "Fashion Bayi & Anak" },
-                                { icon: "images/category/00017.png", label: "Ibu & Bayi" },
-                                { icon: "images/category/00018.png", label: "Sepatu Wanita" },
-                                { icon: "images/category/00019.png", label: "Tas Wanita" },
-                                { icon: "images/category/00020.png", label: "Otomotif" },
-                            ].map((item) => (
-                                <div
-                                    key={item.label}
-                                    className="flex flex-col items-center py-4 px-2 text-center border-b border-gray-200 dark:border-gray-700 lg:[&:nth-last-child(-n+10)]:border-b-0 md:[&:nth-last-child(-n+5)]:border-b-0 sm:[&:nth-last-child(-n+4)]:border-b-0"
-                                >
-                                    {/* AREA ICON TINGGI FIXED */}
-                                    <div className="h-[90px] flex items-center justify-center">
-                                        <div className="rounded-full bg-gray-100/50 dark:bg-gray-100 p-4 w-20 h-20 flex items-center justify-center">
-                                            <img
-                                                src={item.icon}
-                                                alt={item.label}
-                                                className="max-h-full max-w-full scale-135 object-contain"
-                                            />
+                        {categorySlider.canNext && (
+                            <button
+                                onClick={() => categorySlider.scroll("right")}
+                                className="pointer-events-auto absolute right-0 top-1/2 -translate-y-1/2 bg-white/90 dark:bg-[#333]/90 shadow-md p-3 rounded-full opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 hover:scale-110 transition-all duration-300"
+                            >
+                                <ChevronRight className="h-5 w-5" />
+                            </button>
+                        )}
+
+                        {/* Scroll Wrapper */}
+                        <div ref={categorySlider.ref} className="overflow-x-hidden">
+
+                            {/* GRID */}
+                            <div
+                                className="inline-grid grid-rows-2 auto-cols-[10%] divide-x divide-y divide-gray-300 dark:divide-gray-700"
+                                style={{ gridAutoFlow: "column" }}
+                            >
+                                {categoryItems.map((item, index) => (
+                                    <div
+                                        key={index}
+                                        className="flex flex-col items-center bg-white dark:bg-[#161615]"
+                                    >
+                                        {/* ICON AREA (FIX HEIGHT) */}
+                                        <div className="flex items-center justify-center h-[104px]">
+                                            <div className="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center">
+                                                <img
+                                                    src={item.icon}
+                                                    alt={item.label}
+                                                    className="max-w-full max-h-full object-contain"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        {/* TEXT AREA (FIX HEIGHT) */}
+                                        <div className="h-[40px] px-2 mb-1.5 flex items-start justify-center text-center">
+                                            <p className="text-sm font-medium text-gray-800 dark:text-gray-200 leading-tight line-clamp-2">
+                                                {item.label}
+                                            </p>
                                         </div>
                                     </div>
-
-                                    {/* TEKS BEBAS PANJANG TAPI TIDAK GESER ICON */}
-                                    <p className="mt-2 text-sm font-medium text-gray-800 dark:text-gray-200 leading-tight text-center px-1">
-                                        {item.label}
-                                    </p>
-                                </div>
-                            ))}
+                                ))}
+                            </div>
                         </div>
                     </div>
                 </section>
 
+
                 {/* Flash Sale Section */}
                 <section className="bg-white py-10 dark:bg-[#1A1A19]">
                     <div className="container mx-auto max-w-6xl rounded-xl">
-
                         {/* WRAPPER FLASH SALE */}
                         <div className="bg-white dark:bg-[#252523] rounded-xl p-4 shadow-sm border border-[#19140020] dark:border-[#3E3E3A]">
 
                             {/* Header Flash Sale */}
-                            <div className="flex items-center justify-between mb-6">
+                            <div className="flex items-center justify-between mb-4">
                                 <div className="flex items-center space-x-3">
                                     <img
                                         src="images/icon/flashsale.png"
@@ -777,107 +937,92 @@ export default function Home({
                                 </Link>
                             </div>
 
-                            {/* Scroll Slider */}
                             <div className="relative group">
+                                {/* Scroll Slider */}
                                 <div
-                                    id="flash-sale-scroll"
-                                    className="flex overflow-x-auto overflow-y-hidden px-2 pb-4 scrollbar-hide gap-4"
+                                    ref={flashSlider.ref}
+                                    className="flex overflow-x-auto overflow-y-hidden scroll-smooth will-change-transform translate-z-0 px-2 pb-4 gap-4 scrollbar-hide"
                                 >
-                                    {(flashSale.length ? flashSale : manualFlashSale)
-                                        .slice(0, 12)
-                                        .map((prod) => {
-                                            const stock = prod.stock ?? 0;
-                                            const maxStock = prod.max_stock ?? 100;
-                                            const stockPercent = Math.max(
-                                                0,
-                                                Math.min(100, Math.round((stock / maxStock) * 100))
-                                            );
+                                    {(flashSale.length ? flashSale : manualFlashSale).map((prod) => {
+                                        const stock = prod.stock ?? 0;
+                                        const maxStock = prod.max_stock ?? 100;
+                                        const stockPercent = Math.max(0, Math.min(100, Math.round((stock / maxStock) * 100)));
+                                        const finalPrice = prod.discount_price || prod.price;
+                                        const discount = prod.discount_price
+                                            ? Math.round(((prod.price - prod.discount_price) / prod.price) * 100)
+                                            : null;
 
-                                            const finalPrice = prod.discount_price || prod.price;
-                                            const discount = prod.discount_price
-                                                ? Math.round(((prod.price - prod.discount_price) / prod.price) * 100)
-                                                : null;
+                                        return (
+                                            <Link
+                                                href={`/products/${prod.slug}`}
+                                                key={prod.id}
+                                                className="min-w-[170px] max-w-[170px] snap-start bg-white dark:bg-[#2A2A28] rounded-lg border border-gray-300 dark:border-gray-400 flex flex-col"
+                                            >
+                                                <div className="relative">
+                                                    <img
+                                                        src={prod.image || ""}
+                                                        className="w-full h-[150px] object-cover rounded-t-lg object-center"
+                                                    />
+                                                    {discount && (
+                                                        <div className="discount-wrapper">
+                                                            <span className="discount-dark"></span>
+                                                            <span className="discount-light">-{discount}%</span>
+                                                        </div>
+                                                    )}
+                                                </div>
 
-                                            return (
-                                                <Link
-                                                    href={`/products/${prod.slug}`}
-                                                    key={prod.id}
-                                                    className="min-w-[170px] max-w-[170px] bg-white dark:bg-[#2A2A28] rounded-lg border border-gray-300 dark:border-gray-400 flex flex-col"
-                                                >
-                                                    <div className="relative">
-                                                        <img
-                                                            src={prod.image || ""}
-                                                            className="w-full h-[150px] object-cover rounded-t-lg object-center"
-                                                        />
-
-                                                        {discount && (
-                                                            <div className="discount-wrapper">
-                                                                <span className="discount-dark"></span>
-                                                                <span className="discount-light">-{discount}%</span>
-                                                            </div>
-                                                        )}
-                                                    </div>
-
-                                                    <div className="pt-3 px-3 mb-[-15px] mt-3 flex flex-col min-h-[95px] items-center text-center"
-                                                    >
-                                                        <p className="text-xl font-semibold text-green-600 leading-tight">
-                                                            Rp {finalPrice.toLocaleString("id-ID")}
-                                                        </p>
-
-                                                        <div className="w-full mt-2">
-                                                            <div className="w-full bg-green-200 dark:bg-green-600 h-4.5 rounded-full overflow-hidden relative">
-                                                                <div
-                                                                    className="h-full bg-green-600 transition-all duration-700"
-                                                                    style={{ width: `${stockPercent}%` }}
-                                                                />
-                                                                <span className="absolute inset-0 flex items-center justify-center text-[11px] font-semibold text-white">
-                                                                    STOK TERBATAS
-                                                                </span>
-                                                            </div>
+                                                <div className="px-3 mb-[-15px] mt-2.5 flex flex-col min-h-[85px] items-center text-center">
+                                                    <p className="text-[19px] font-medium text-green-600 leading-tight">
+                                                        Rp {finalPrice.toLocaleString("id-ID")}
+                                                    </p>
+                                                    <div className="w-full mt-2">
+                                                        <div className="w-full bg-green-200 dark:bg-green-600 h-3.5 rounded-sm overflow-hidden relative">
+                                                            <div
+                                                                className="h-full bg-green-600 transition-all duration-700"
+                                                                style={{ width: `${stockPercent}%` }}
+                                                            />
+                                                            <span className="absolute inset-0 flex items-center justify-center text-[11px] font-semibold text-white">
+                                                                STOK TERBATAS
+                                                            </span>
                                                         </div>
                                                     </div>
-                                                </Link>
-                                            );
-                                        })}
+                                                </div>
+                                            </Link>
+                                        );
+                                    })}
                                 </div>
 
                                 {/* CHEVRONS */}
-                                <div className="absolute inset-0 pointer-events-none group">
+                                {flashSlider.canPrev && (
                                     <button
-                                        onClick={() =>
-                                            document
-                                                .getElementById("flash-sale-scroll")
-                                                ?.scrollBy({ left: -600, behavior: "smooth" })
-                                        }
+                                        onClick={() => flashSlider.scroll("left")}
                                         className="pointer-events-auto absolute left-0 top-1/2 -translate-y-1/2 bg-white/90 dark:bg-[#333]/90 shadow-md p-3 rounded-full opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 hover:scale-110 transition-all duration-300"
                                     >
                                         <ChevronLeft className="h-5 w-5" />
                                     </button>
+                                )}
 
+                                {flashSlider.canNext && (
                                     <button
-                                        onClick={() =>
-                                            document
-                                                .getElementById("flash-sale-scroll")
-                                                ?.scrollBy({ left: 600, behavior: "smooth" })
-                                        }
+                                        onClick={() => flashSlider.scroll("right")}
                                         className="pointer-events-auto absolute right-0 top-1/2 -translate-y-1/2 bg-white/90 dark:bg-[#333]/90 shadow-md p-3 rounded-full opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 hover:scale-110 transition-all duration-300"
                                     >
                                         <ChevronRight className="h-5 w-5" />
                                     </button>
-                                </div>
+                                )}
                             </div>
                         </div>
                     </div>
-                </section>
+                </section >
 
                 {/* Top Product Section */}
-                <section className="bg-white py-0 mb-10 dark:bg-[#1A1A19]">
+                < section className="bg-white py-0 mb-10 dark:bg-[#1A1A19]" >
                     <div className="container mx-auto max-w-6xl rounded-xl">
-                        <div className="bg-white dark:bg-[#252523] rounded-xl p-6 shadow-sm border border-[#19140020] dark:border-[#3E3E3A]">
+                        <div className="bg-white dark:bg-[#252523] rounded-xl px-6 py-4 shadow-sm border border-[#19140020] dark:border-[#3E3E3A]">
 
                             {/* HEADER */}
                             <div className="mb-6 flex items-center justify-between">
-                                <h2 className="text-xl font-bold text-gray-700 dark:text-white">
+                                <h2 className="text-xl font-bold text-gray-900 dark:text-white">
                                     Produk Terlaris
                                 </h2>
 
@@ -904,17 +1049,18 @@ export default function Home({
 
                                 {/* SCROLL VIEW */}
                                 <div
+                                    ref={topProductSlider.ref}
                                     id="top-products-scroll"
-                                    className="flex overflow-x-auto gap-6 pb-3 scrollbar-hide scroll-smooth"
+                                    className="flex overflow-x-auto overflow-y-hidden scroll-smooth will-change-transform translate-z-0 pb-4 gap-6 scrollbar-hide"
                                 >
                                     {dummyTopProducts.slice(0, 10).map((prod) => (
                                         <Link
                                             key={prod.id}
                                             href={`/products/${prod.id}`}
-                                            className="w-[200px] flex-shrink-0"
+                                            className="w-[calc((100%-5*1.5rem)/6)] flex-shrink-0"
                                         >
                                             {/* IMAGE */}
-                                            <div className="relative w-full h-[200px] overflow-hidden rounded-t-xl">
+                                            <div className="relative w-full h-[160px] overflow-hidden rounded-t-xl">
 
                                                 {/* BADGE TOP */}
                                                 <div className="absolute top-0 left-0 z-20 w-[35px] h-[44px] pointer-events-none">
@@ -947,9 +1093,9 @@ export default function Home({
                                             </div>
 
                                             {/* CONTENT */}
-                                            <div className="bg-white dark:bg-[#252523] rounded-b-xl px-2 py-4">
+                                            <div className="bg-white dark:bg-[#252523] rounded-b-xl px-1 pt-4">
                                                 <p
-                                                    className="text-sm font-semibold text-gray-900 dark:text-white line-clamp-1"
+                                                    className="text-sm font-medium text-gray-900 dark:text-white line-clamp-1"
                                                     title={prod.name}
                                                 >
                                                     {prod.name}
@@ -959,37 +1105,31 @@ export default function Home({
                                     ))}
                                 </div>
 
-                                {/* CHEVRON */}
-                                <div className="absolute inset-0 pointer-events-none">
+                                {/* CHEVRONS */}
+                                {topProductSlider.canPrev && (
                                     <button
-                                        onClick={() =>
-                                            document
-                                                .getElementById("top-products-scroll")
-                                                ?.scrollBy({ left: -600, behavior: "smooth" })
-                                        }
+                                        onClick={() => topProductSlider.scroll("left")}
                                         className="pointer-events-auto absolute left-0 top-1/2 -translate-y-1/2 bg-white/90 dark:bg-[#333]/90 shadow-md p-3 rounded-full opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 hover:scale-110 transition-all duration-300"
                                     >
                                         <ChevronLeft className="h-5 w-5" />
                                     </button>
+                                )}
 
+                                {topProductSlider.canNext && (
                                     <button
-                                        onClick={() =>
-                                            document
-                                                .getElementById("top-products-scroll")
-                                                ?.scrollBy({ left: 600, behavior: "smooth" })
-                                        }
+                                        onClick={() => topProductSlider.scroll("right")}
                                         className="pointer-events-auto absolute right-0 top-1/2 -translate-y-1/2 bg-white/90 dark:bg-[#333]/90 shadow-md p-3 rounded-full opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 hover:scale-110 transition-all duration-300"
                                     >
                                         <ChevronRight className="h-5 w-5" />
                                     </button>
-                                </div>
+                                )}
                             </div>
                         </div>
                     </div>
-                </section>
+                </section >
 
                 {/* CTA Section */}
-                < section className="bg-gradient-to-r from-[#1b1b18] to-[#2d2d2a] py-16 text-white" >
+                {/* < section className="bg-gradient-to-r from-[#1b1b18] to-[#2d2d2a] py-16 text-white" >
                     <div className="container mx-auto px-4 text-center">
                         <h2 className="mb-4 text-3xl font-bold">
                             Bergabung dengan Ribuan Pelanggan Puas
@@ -1005,49 +1145,10 @@ export default function Home({
                             <ChevronRight className="h-4 w-4" />
                         </Link>
                     </div>
-                </section >
+                </section > */}
 
-                {/* Footer */}
-                < footer className="border-t border-[#19140035] bg-white py-8 dark:border-[#3E3E3A] dark:bg-[#161615]" >
-                    <div className="container mx-auto px-4">
-                        <div className="grid gap-8 md:grid-cols-4">
-                            <div>
-                                <h3 className="mb-4 text-xl font-bold">Ditoekoe</h3>
-                                <p className="text-sm text-[#706f6c] dark:text-[#A1A09A]">
-                                    Platform belanja online terpercaya dengan berbagai produk berkualitas.
-                                </p>
-                            </div>
-                            <div>
-                                <h4 className="mb-4 font-semibold">Menu</h4>
-                                <ul className="space-y-2">
-                                    <li><Link href="/" className="text-sm hover:text-[#F53003] dark:hover:text-[#FF4433]">Home</Link></li>
-                                    <li><Link href="/products" className="text-sm hover:text-[#F53003] dark:hover:text-[#FF4433]">Produk</Link></li>
-                                    <li><Link href="/categories" className="text-sm hover:text-[#F53003] dark:hover:text-[#FF4433]">Kategori</Link></li>
-                                    <li><Link href="/about" className="text-sm hover:text-[#F53003] dark:hover:text-[#FF4433]">Tentang Kami</Link></li>
-                                </ul>
-                            </div>
-                            <div>
-                                <h4 className="mb-4 font-semibold">Bantuan</h4>
-                                <ul className="space-y-2">
-                                    <li><Link href="/contact" className="text-sm hover:text-[#F53003] dark:hover:text-[#FF4433]">Kontak</Link></li>
-                                    <li><Link href="/faq" className="text-sm hover:text-[#F53003] dark:hover:text-[#FF4433]">FAQ</Link></li>
-                                    <li><Link href="/shipping" className="text-sm hover:text-[#F53003] dark:hover:text-[#FF4433]">Pengiriman</Link></li>
-                                    <li><Link href="/returns" className="text-sm hover:text-[#F53003] dark:hover:text-[#FF4433]">Pengembalian</Link></li>
-                                </ul>
-                            </div>
-                            <div>
-                                <h4 className="mb-4 font-semibold">Legal</h4>
-                                <ul className="space-y-2">
-                                    <li><Link href="/privacy" className="text-sm hover:text-[#F53003] dark:hover:text-[#FF4433]">Privacy Policy</Link></li>
-                                    <li><Link href="/terms" className="text-sm hover:text-[#F53003] dark:hover:text-[#FF4433]">Terms of Service</Link></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div className="mt-8 border-t border-[#19140035] pt-8 text-center text-sm text-[#706f6c] dark:border-[#3E3E3A] dark:text-[#A1A09A]">
-                            © {new Date().getFullYear()} Ditoekoe. All rights reserved.
-                        </div>
-                    </div>
-                </footer >
+                {/* FOOTER */}
+                <NavFooter />
             </div >
         </>
     );

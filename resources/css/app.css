@@ -185,3 +185,39 @@
   border-radius: 10px 15px 15px 0;
 }
 
+.discount-wrapper-fs {
+  position: absolute;
+  top: 5px;
+  left: -18px;
+  z-index: 20;
+}
+
+.discount-dark-fs {
+  position: absolute;
+  top: 20px;
+
+  padding: 4px 3px;
+  background: rgb(179, 29, 64);
+
+  border-radius: 0 0 0 10px;
+}
+
+/* layer terang (DEPAN) */
+.discount-light-fs {
+  position: relative;
+
+  padding: 2.5px 8px;
+  background: rgb(249, 77, 99);
+  color: #fff;
+
+  font-weight: 800;
+  font-size: 0.8rem;
+  line-height: 1;
+
+  border-radius: 10px 15px 15px 0;
+}
+
+.scroll-smooth {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}

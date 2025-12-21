@@ -25,7 +25,7 @@ export default function NavMain() {
                             />
                         </svg>
 
-                        <span className="font-bold">Gratis Ongkir</span>
+                        <span className="font-bold">Gratis Ongkir + Banyak Promo</span>
                         <span className="hover:font-bold">belanja di aplikasi</span>
 
                         <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none"

@@ -4,11 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\BrandController;
 use App\Http\Controllers\OrderController;
-use App\Http\Controllers\CartController;
-use App\Http\Controllers\ReviewController;
-use App\Http\Controllers\FlashSaleController; // Tambahkan ini
+use App\Http\Controllers\FlashSaleController;
+use App\Http\Controllers\TopProductController;
 use Inertia\Inertia;
 
 // Public routes
@@ -17,6 +15,9 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 // Flash Sale route - TAMBAHKAN INI
 Route::get('/flash-sale', [FlashSaleController::class, 'index'])->name('flash-sale');
 Route::get('/flash-sale/all', [FlashSaleController::class, 'all'])->name('flash-sale.all');
+
+Route::get('/top-product', [TopProductController::class, 'index'])->name('top-product');
+Route::get('/top-product/all', [TopProductController::class, 'all'])->name('top-product.all');
 
 // Product routes
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
@@ -34,6 +35,11 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::post('/admin/flash-sale', [FlashSaleController::class, 'store'])->name('admin.flash-sale.store');
     Route::put('/admin/flash-sale/{id}', [FlashSaleController::class, 'update'])->name('admin.flash-sale.update');
     Route::delete('/admin/flash-sale/{id}', [FlashSaleController::class, 'destroy'])->name('admin.flash-sale.destroy');
+
+    Route::get('/admin/top-product', [TopProductController::class, 'manage'])->name('admin.top-product');
+    Route::post('/admin/top-product', [TopProductController::class, 'store'])->name('admin.top-product.store');
+    Route::put('/admin/top-product/{id}', [TopProductController::class, 'update'])->name('admin.top-product.update');
+    Route::delete('/admin/top-product/{id}', [TopProductController::class, 'destroy'])->name('admin.top-product.destroy');
 
     // Product management
     Route::get('/admin/products/create', [ProductController::class, 'create'])->name('admin.products.create');
@@ -66,4 +72,5 @@ Route::prefix('api')->group(function () {
     Route::get('/categories', [CategoryController::class, 'apiIndex']);
     // Flash Sale API - TAMBAHKAN INI
     Route::get('/flash-sale/products', [FlashSaleController::class, 'getProducts']);
+    Route::get('/top-product/products', [TopProductController::class, 'getProducts']);
 });

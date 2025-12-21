@@ -4,8 +4,6 @@ import NavMain from '@/components/nav-main';
 import { NavFooter } from '@/components/nav-footer';
 import { type SharedData } from '@/types';
 
-/* ================= DUMMY DATA ================= */
-
 const flashSaleItems = [
     {
         id: 1,
@@ -584,8 +582,6 @@ const upcomingSessions = [
     { time: '12:00', label: 'Tomorrow', status: 'upcoming' },
 ];
 
-/* ================= COMPONENT ================= */
-
 export default function FlashSale({
     auth,
 }: {
@@ -597,15 +593,12 @@ export default function FlashSale({
 
     const [activeSession, setActiveSession] = useState(upcomingSessions[0].time)
 
-    /* ===== CATEGORY ===== */
     const [activeCategory, setActiveCategory] = useState('all')
-    
+
     useEffect(() => {
         setActiveCategory('all')
     }, [])
 
-
-    /* ===== FILTER PRODUK ===== */
     const filteredProducts =
         activeCategory === 'all'
             ? flashSaleItems
@@ -615,19 +608,16 @@ export default function FlashSale({
                     activeCategory.replace('-', ' ').toLowerCase()
             )
 
-    /* ===== LOAD MORE ===== */
     const ITEMS_PER_LOAD = 30
     const [visibleCount, setVisibleCount] = useState(ITEMS_PER_LOAD)
 
     const visibleProducts = filteredProducts.slice(0, visibleCount)
     const canLoadMore = visibleCount < filteredProducts.length
 
-    /* RESET JUMLAH PRODUK SAAT GANTI KATEGORI */
     useEffect(() => {
         setVisibleCount(ITEMS_PER_LOAD)
     }, [activeCategory])
 
-    /* ===== COUNTDOWN ===== */
     const [timeLeft, setTimeLeft] = useState({ h: '00', m: '00', s: '00' })
 
     useEffect(() => {
@@ -679,10 +669,10 @@ export default function FlashSale({
                         />
 
                         {/* Berakhir dalam (DITAMBAHKAN) */}
-                        <div className="flex items-center gap-1 text-sm text-gray-600 dark:text-gray-300">
+                        <div className="flex items-center gap-1 text-md text-gray-600 dark:text-gray-300">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                className="w-4 h-4"
+                                className="w-5 h-5"
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
@@ -766,8 +756,8 @@ export default function FlashSale({
                                                 setOpenMore(false)
                                             }}
                                             className={`px-5 py-1.5 rounded-full text-sm font-medium whitespace-nowrap flex-shrink-0 transition ${activeCategory === c.slug
-                                                    ? 'bg-gradient-to-r from-green-500 to-green-600 text-white shadow-sm'
-                                                    : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
+                                                ? 'bg-gradient-to-r from-green-500 to-green-600 text-white shadow-sm'
+                                                : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
                                                 }`}
                                         >
                                             {c.name}

@@ -4,6 +4,7 @@ import { type SharedData } from '@/types';
 import { ChevronRight, ChevronLeft, ShoppingCart, Star, Truck, Shield, Clock } from 'lucide-react';
 import NavMain from "@/components/nav-main";
 import { NavFooter } from '@/components/nav-footer';
+import CardProducts from '@/components/card_product';
 
 const dummyTopProducts = [
     {
@@ -724,9 +725,9 @@ export default function Home({
                                 href="/lokal"
                                 className="flex flex-col items-center">
                                 <div className="rounded-xl border border-gray-200 dark:border-gray-700 p-3 bg-white dark:bg-[#161615]">
-                                    <img src="images/icon/icon_local.png" alt="Ditoekoe Lokal" className="h-8 w-8" />
+                                    <img src="images/icon/icon_local.png" alt="Ditoekoe Pilih Lokal" className="h-8 w-8" />
                                 </div>
-                                <p className="mt-2 text-[13px] font-regular text-gray-900 dark:text-gray-200">Ditoekoe Lokal</p>
+                                <p className="mt-2 text-[13px] font-regular text-gray-900 dark:text-gray-200">Ditoekoe Pilih Lokal</p>
                             </Link>
 
                             {/* Item 2 */}
@@ -1027,7 +1028,7 @@ export default function Home({
                                 </h2>
 
                                 <Link
-                                    href="/products?sort=top"
+                                    href="/top-product"
                                     className="text-green-600 text-sm font-bold flex items-center gap-1"
                                 >
                                     Lihat Semua
@@ -1127,6 +1128,11 @@ export default function Home({
                         </div>
                     </div>
                 </section >
+
+                <section className="mt-10">
+                    <CardProducts />
+                </section>
+
 
                 {/* CTA Section */}
                 {/* < section className="bg-gradient-to-r from-[#1b1b18] to-[#2d2d2a] py-16 text-white" >

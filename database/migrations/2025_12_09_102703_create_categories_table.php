@@ -11,15 +11,27 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // 1️⃣ Buat tabel TANPA foreign key dulu
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('slug')->unique();
             $table->text('description')->nullable();
             $table->string('image')->nullable();
-            $table->foreignId('parent_id')->nullable()->constrained('categories')->onDelete('cascade');
+
+            // tetap parent_id, hanya tanpa constrained dulu
+            $table->unsignedBigInteger('parent_id')->nullable()->index();
+
             $table->timestamps();
             $table->softDeletes();
+        });
+
+        // 2️⃣ Tambahkan foreign key self-reference SETELAH tabel ada
+        Schema::table('categories', function (Blueprint $table) {
+            $table->foreign('parent_id')
+                ->references('id')
+                ->on('categories')
+                ->onDelete('cascade');
         });
     }
 
@@ -28,6 +40,10 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('categories', function (Blueprint $table) {
+            $table->dropForeign(['parent_id']);
+        });
+
         Schema::dropIfExists('categories');
     }
 };

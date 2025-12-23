@@ -211,6 +211,7 @@ const bannerData = [
         subtitle: "HALEON",
         slug: "banner-01",
         src: "images/banner/01.webp",
+        href: "flash-sale",
     },
     {
         id: 2,
@@ -624,7 +625,7 @@ export default function Home({
                                 {bannerData.map((banner, index) => (
                                     <Link
                                         key={index}
-                                        href={`/products/${banner.slug}`}
+                                        href={`${banner.href}`}
                                         className="h-full w-full flex-shrink-0"
                                     >
                                         <img

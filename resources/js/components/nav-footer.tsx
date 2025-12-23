@@ -466,7 +466,7 @@ export function NavFooter() {
                         <div className="flex justify-center md:justify-end md:flex-1 mx-[-40px]">
                             <div className="w-[360px] md:w-[420px] lg:w-[480px]">
                                 <img
-                                    src="images/footer/foot-01.webp"
+                                    src="/images/footer/foot-01.webp"
                                     alt="Buka Toko di Ditoekoe"
                                     className="w-full h-auto object-contain"
                                 />
@@ -487,7 +487,7 @@ export function NavFooter() {
                                 <div className="flex-shrink-0 flex items-center justify-center">
                                     <div className="h-full aspect-square flex items-center justify-center">
                                         <img
-                                            src="images/footer/transparan.jfif"
+                                            src="/images/footer/transparan.jfif"
                                             alt="Transparan"
                                             className="h-[120px] object-contain"
                                         />
@@ -506,7 +506,7 @@ export function NavFooter() {
                                 <div className="flex-shrink-0 flex items-center justify-center">
                                     <div className="h-full aspect-square flex items-center justify-center">
                                         <img
-                                            src="images/footer/aman.jfif"
+                                            src="/images/footer/aman.jfif"
                                             alt="Aman"
                                             className="h-[120px] object-contain"
                                         />
@@ -525,7 +525,7 @@ export function NavFooter() {
                                 <div className="flex-shrink-0 flex items-center justify-center">
                                     <div className="h-full aspect-square flex items-center justify-center">
                                         <img
-                                            src="images/footer/escrow.jfif"
+                                            src="/images/footer/escrow.jfif"
                                             alt="Fasilitas Escrow"
                                             className="h-[120px] object-contain"
                                         />
@@ -551,7 +551,7 @@ export function NavFooter() {
                         <div className="mt-4 pt-8 dark:border-[#3E3E3A]">
                             <div className="grid grid-cols-1 md:grid-cols-4 gap-0.5 ">
 
-                                {/* Kolom 1: Ditoekoe */}
+                                {/* Ditoekoe */}
                                 <div className="pr-16">
                                     <div className="flex flex-col space-y-6 border-r border-gray-200/50 dark:border-gray-700 h-full">
                                         <h4 className="font-bold text-gray-900 dark:text-white mb-2">Ditoekoe</h4>
@@ -567,7 +567,7 @@ export function NavFooter() {
                                     </div>
                                 </div>
 
-                                {/* Kolom 2: Beli, Jual, Bantuan & Panduan */}
+                                {/* Beli, Jual, Bantuan & Panduan */}
                                 <div className="pr-16">
                                     <div className="flex flex-col space-y-6 border-r border-gray-200/50 dark:border-gray-700 h-full">
                                         {/* Beli */}
@@ -616,7 +616,7 @@ export function NavFooter() {
 
                                 <div className="pr-16">
                                     <div className="flex flex-col space-y-6 border-r border-gray-200/50 dark:border-gray-700 h-full">
-                                        {/* Kolom 3: Keamanan & Privasi + Ikuti Kami */}
+                                        {/* Keamanan & Privasi + Ikuti Kami */}
                                         <div className="space-y-6">
                                             {/* Keamanan & Privasi */}
                                             <div>
@@ -635,10 +635,10 @@ export function NavFooter() {
                                                 <h4 className="font-bold text-gray-900 dark:text-white mb-4">Ikuti Kami</h4>
                                                 <div className="flex space-x-2">
                                                     {[
-                                                        { name: 'Facebook', src: 'images/icon/fb.svg' },
-                                                        { name: 'Twitter', src: 'images/icon/tw.svg' },
-                                                        { name: 'Pinterest', src: 'images/icon/pin.svg' },
-                                                        { name: 'Instagram', src: 'images/icon/ig.svg' }
+                                                        { name: 'Facebook', src: '/images/icon/fb.svg' },
+                                                        { name: 'Twitter', src: '/images/icon/tw.svg' },
+                                                        { name: 'Pinterest', src: '/images/icon/pin.svg' },
+                                                        { name: 'Instagram', src: '/images/icon/ig.svg' }
                                                     ].map((item) => (
                                                         <a key={item.name} href="#" className="text-gray-600 dark:text-gray-400 hover:text-green-600 dark:hover:text-green-400">
                                                             <div className="w-7 h-7 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center overflow-hidden">
@@ -656,9 +656,8 @@ export function NavFooter() {
                                     </div>
                                 </div>
 
-                                {/* Kolom 4: Aplikasi Mobile (semua dalam satu div) */}
+                                {/* Aplikasi Mobile */}
                                 <div className="space-y-6">
-                                    {/* Kolom 4: Aplikasi Mobile */}
                                     <div>
                                         <div className="space-y-6">
                                             <h5 className="font-bold text-gray-900 dark:text-white mb-3">
@@ -670,7 +669,7 @@ export function NavFooter() {
                                                         text: 'Diskon 70% hanya di aplikasi',
                                                         icon: (
                                                             <svg className="nest-icon " width="24" height="24" fill="rgb(var(--GN500,0,158,66))" viewBox="0 0 24 24">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M2.5 12c0-5.24 4.26-9.5 9.5-9.5s9.5 4.26 9.5 9.5-4.26 9.5-9.5 9.5-9.5-4.26-9.5-9.5ZM4 12c0 4.41 3.59 8 8 8s8-3.59 8-8-3.59-8-8-8-8 3.59-8 8Zm8.68-2.49v1.81c1.82.49 2.6 1.23 2.6 2.58s-1.03 2.21-2.54 2.38v.64c0 .34-.28.62-.62.62-.34 0-.62-.27-.62-.62v-.65c-.85-.11-1.65-.41-2.36-.84-.25-.16-.41-.4-.41-.72 0-.47.36-.82.83-.82.16 0 .33.06.47.16.51.32.99.55 1.54.67v-1.91c-1.73-.46-2.58-1.12-2.58-2.55 0-1.32 1.01-2.2 2.52-2.36v-.14c0-.34.28-.62.62-.62.34 0 .62.27.62.62v.17c.65.1 1.22.29 1.74.58a.8.8 0 0 1 .43.72.8.8 0 0 1-.82.8c-.14 0-.29-.04-.42-.11-.34-.18-.68-.33-1-.41Zm-1.96.65c0 .37.17.62.83.86V9.4c-.58.09-.83.39-.83.76Zm1.96 2.96v1.67c.56-.08.85-.35.85-.78 0-.4-.2-.66-.85-.89Z">
+                                                                <path fillRule="evenodd" clipRule="evenodd" d="M2.5 12c0-5.24 4.26-9.5 9.5-9.5s9.5 4.26 9.5 9.5-4.26 9.5-9.5 9.5-9.5-4.26-9.5-9.5ZM4 12c0 4.41 3.59 8 8 8s8-3.59 8-8-3.59-8-8-8-8 3.59-8 8Zm8.68-2.49v1.81c1.82.49 2.6 1.23 2.6 2.58s-1.03 2.21-2.54 2.38v.64c0 .34-.28.62-.62.62-.34 0-.62-.27-.62-.62v-.65c-.85-.11-1.65-.41-2.36-.84-.25-.16-.41-.4-.41-.72 0-.47.36-.82.83-.82.16 0 .33.06.47.16.51.32.99.55 1.54.67v-1.91c-1.73-.46-2.58-1.12-2.58-2.55 0-1.32 1.01-2.2 2.52-2.36v-.14c0-.34.28-.62.62-.62.34 0 .62.27.62.62v.17c.65.1 1.22.29 1.74.58a.8.8 0 0 1 .43.72.8.8 0 0 1-.82.8c-.14 0-.29-.04-.42-.11-.34-.18-.68-.33-1-.41Zm-1.96.65c0 .37.17.62.83.86V9.4c-.58.09-.83.39-.83.76Zm1.96 2.96v1.67c.56-.08.85-.35.85-.78 0-.4-.2-.66-.85-.89Z">
                                                                 </path>
                                                             </svg>
                                                         )
@@ -679,7 +678,7 @@ export function NavFooter() {
                                                         text: 'Promo Khusus aplikasi',
                                                         icon: (
                                                             <svg className="nest-icon " width="24" height="24" fill="rgb(var(--GN500,0,158,66))" viewBox="0 0 24 24">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd" d="m21.09 10.05-.92-.91a1.31 1.31 0 0 1-.37-.9V7a2.701 2.701 0 0 0-.8-2 2.62 2.62 0 0 0-1.95-.81h-1.29a1.29 1.29 0 0 1-.9-.37L14 2.91a2.81 2.81 0 0 0-3.9 0l-.91.92a1.3 1.3 0 0 1-.89.37H7A2.66 2.66 0 0 0 5 5a2.7 2.7 0 0 0-.81 2v1.24a1.31 1.31 0 0 1-.37.9l-.92.91a2.73 2.73 0 0 0 0 3.9l.92.91c.234.241.367.564.37.9v1.29A2.7 2.7 0 0 0 5 19a2.73 2.73 0 0 0 1.94.81h1.31a1.3 1.3 0 0 1 .89.37l.91.92a2.73 2.73 0 0 0 3.9 0l.91-.92a1.2 1.2 0 0 1 .9-.37h1.29A2.89 2.89 0 0 0 19 19a2.7 2.7 0 0 0 .81-1.95v-1.29a1.31 1.31 0 0 1 .37-.9l.92-.91a2.73 2.73 0 0 0 0-3.9h-.01ZM20 12.89l-.92.91a2.77 2.77 0 0 0-.82 2v1.29a1.22 1.22 0 0 1-.37.89 1.19 1.19 0 0 1-.89.37h-1.3a2.75 2.75 0 0 0-1.95.82l-.91.92a1.3 1.3 0 0 1-1.78 0l-.91-.92a2.75 2.75 0 0 0-1.95-.82H7a1.27 1.27 0 0 1-1.167-.777 1.22 1.22 0 0 1-.093-.483v-1.33a2.77 2.77 0 0 0-.82-2L4 12.89a1.26 1.26 0 0 1 0-1.78l.92-.91a2.77 2.77 0 0 0 .82-2V7a1.22 1.22 0 0 1 .37-.89A1.42 1.42 0 0 1 7 5.69h1.3a2.75 2.75 0 0 0 1.95-.82l.86-.87a1.28 1.28 0 0 1 1.78 0l.91.91a2.75 2.75 0 0 0 1.95.82h1.3c.333.006.651.138.89.37a1.221 1.221 0 0 1 .37.89v1.25a2.77 2.77 0 0 0 .82 2l.92.91a1.26 1.26 0 0 1 0 1.78l-.05-.04Zm-9.882-2.126A1.4 1.4 0 0 1 9.34 11a1.36 1.36 0 0 1-1.4-1.4 1.4 1.4 0 1 1 2.178 1.164Zm3.524 2.712a1.4 1.4 0 0 1 .778-.236 1.31 1.31 0 0 1 1.4 1.4 1.4 1.4 0 1 1-2.178-1.164ZM15 8.25a.75.75 0 0 1 .53 1.279l-6 6a.75.75 0 0 1-1.06-1.06l6-6a.75.75 0 0 1 .53-.22Z">
+                                                                <path fillRule="evenodd" clipRule="evenodd" d="m21.09 10.05-.92-.91a1.31 1.31 0 0 1-.37-.9V7a2.701 2.701 0 0 0-.8-2 2.62 2.62 0 0 0-1.95-.81h-1.29a1.29 1.29 0 0 1-.9-.37L14 2.91a2.81 2.81 0 0 0-3.9 0l-.91.92a1.3 1.3 0 0 1-.89.37H7A2.66 2.66 0 0 0 5 5a2.7 2.7 0 0 0-.81 2v1.24a1.31 1.31 0 0 1-.37.9l-.92.91a2.73 2.73 0 0 0 0 3.9l.92.91c.234.241.367.564.37.9v1.29A2.7 2.7 0 0 0 5 19a2.73 2.73 0 0 0 1.94.81h1.31a1.3 1.3 0 0 1 .89.37l.91.92a2.73 2.73 0 0 0 3.9 0l.91-.92a1.2 1.2 0 0 1 .9-.37h1.29A2.89 2.89 0 0 0 19 19a2.7 2.7 0 0 0 .81-1.95v-1.29a1.31 1.31 0 0 1 .37-.9l.92-.91a2.73 2.73 0 0 0 0-3.9h-.01ZM20 12.89l-.92.91a2.77 2.77 0 0 0-.82 2v1.29a1.22 1.22 0 0 1-.37.89 1.19 1.19 0 0 1-.89.37h-1.3a2.75 2.75 0 0 0-1.95.82l-.91.92a1.3 1.3 0 0 1-1.78 0l-.91-.92a2.75 2.75 0 0 0-1.95-.82H7a1.27 1.27 0 0 1-1.167-.777 1.22 1.22 0 0 1-.093-.483v-1.33a2.77 2.77 0 0 0-.82-2L4 12.89a1.26 1.26 0 0 1 0-1.78l.92-.91a2.77 2.77 0 0 0 .82-2V7a1.22 1.22 0 0 1 .37-.89A1.42 1.42 0 0 1 7 5.69h1.3a2.75 2.75 0 0 0 1.95-.82l.86-.87a1.28 1.28 0 0 1 1.78 0l.91.91a2.75 2.75 0 0 0 1.95.82h1.3c.333.006.651.138.89.37a1.221 1.221 0 0 1 .37.89v1.25a2.77 2.77 0 0 0 .82 2l.92.91a1.26 1.26 0 0 1 0 1.78l-.05-.04Zm-9.882-2.126A1.4 1.4 0 0 1 9.34 11a1.36 1.36 0 0 1-1.4-1.4 1.4 1.4 0 1 1 2.178 1.164Zm3.524 2.712a1.4 1.4 0 0 1 .778-.236 1.31 1.31 0 0 1 1.4 1.4 1.4 1.4 0 1 1-2.178-1.164ZM15 8.25a.75.75 0 0 1 .53 1.279l-6 6a.75.75 0 0 1-1.06-1.06l6-6a.75.75 0 0 1 .53-.22Z">
                                                                 </path>
                                                             </svg>
                                                         )
@@ -688,7 +687,7 @@ export function NavFooter() {
                                                         text: 'Gratis Ongkir tiap hari',
                                                         icon: (
                                                             <svg className="nest-icon " width="24" height="24" fill="rgb(var(--GN500,0,158,66))" viewBox="0 0 24 24">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd" d="m18.66 8.19 2.41 2.75a2.75 2.75 0 0 1 .68 1.81V17A1.76 1.76 0 0 1 20 18.75h-1.41c.006.083.006.167 0 .25a2 2 0 0 1-4 0 1.896 1.896 0 0 1 0-.25H9.53a1.9 1.9 0 0 1 0 .25 2 2 0 0 1-4 0 1.9 1.9 0 0 1 0-.25H5A2.75 2.75 0 0 1 2.25 16v-4.25H2a.75.75 0 1 1 0-1.5h4a.75.75 0 1 1 0 1.5H3.75V16A1.25 1.25 0 0 0 5 17.25h7.25V7A1.25 1.25 0 0 0 11 5.75H5a.75.75 0 0 1 0-1.5h6A2.75 2.75 0 0 1 13.75 7v.25h2.84a2.73 2.73 0 0 1 2.07.94Zm1.517 8.987A.25.25 0 0 0 20.25 17v-4.25H17a.76.76 0 0 1-.75-.75v-1a.76.76 0 0 1 .75-.75h1.47l-.94-1.07a1.24 1.24 0 0 0-.94-.43h-2.84v8.5H20a.25.25 0 0 0 .177-.073ZM8.15 8.79h-4.5a.75.75 0 0 1 0-1.5h4.5a.75.75 0 1 1 0 1.5Z">
+                                                                <path fillRule="evenodd" clipRule="evenodd" d="m18.66 8.19 2.41 2.75a2.75 2.75 0 0 1 .68 1.81V17A1.76 1.76 0 0 1 20 18.75h-1.41c.006.083.006.167 0 .25a2 2 0 0 1-4 0 1.896 1.896 0 0 1 0-.25H9.53a1.9 1.9 0 0 1 0 .25 2 2 0 0 1-4 0 1.9 1.9 0 0 1 0-.25H5A2.75 2.75 0 0 1 2.25 16v-4.25H2a.75.75 0 1 1 0-1.5h4a.75.75 0 1 1 0 1.5H3.75V16A1.25 1.25 0 0 0 5 17.25h7.25V7A1.25 1.25 0 0 0 11 5.75H5a.75.75 0 0 1 0-1.5h6A2.75 2.75 0 0 1 13.75 7v.25h2.84a2.73 2.73 0 0 1 2.07.94Zm1.517 8.987A.25.25 0 0 0 20.25 17v-4.25H17a.76.76 0 0 1-.75-.75v-1a.76.76 0 0 1 .75-.75h1.47l-.94-1.07a1.24 1.24 0 0 0-.94-.43h-2.84v8.5H20a.25.25 0 0 0 .177-.073ZM8.15 8.79h-4.5a.75.75 0 0 1 0-1.5h4.5a.75.75 0 1 1 0 1.5Z">
                                                                 </path>
                                                             </svg>
                                                         )
@@ -712,7 +711,7 @@ export function NavFooter() {
                                         <div className="flex items-start gap-2">
                                             <div className="mx-[-10px] flex-shrink-0 w-30 h-28">
                                                 <img
-                                                    src="images/footer/qr-apk.webp"
+                                                    src="/images/footer/qr-apk.webp"
                                                     alt="QR Code Ditoekoe"
                                                     className="w-full h-full object-contain"
                                                 />
@@ -721,17 +720,17 @@ export function NavFooter() {
                                             <div className="flex flex-col mx-3.5 space-y-2 pt-1">
                                                 <a href="#" className="block">
                                                     <div className="h-7 bg-white dark:bg-white border border-gray-200 shadow-sm rounded-sm flex items-center justify-center px-4 w-30">
-                                                        <img src="images/footer/appstore.png" alt="Get it on Google Play" className="h-6 object-contain" />
+                                                        <img src="/images/footer/appstore.png" alt="Get it on Google Play" className="h-6 object-contain" />
                                                     </div>
                                                 </a>
                                                 <a href="#" className="block">
                                                     <div className="h-7 bg-white dark:bg-white border border-gray-200 shadow-sm rounded-sm flex items-center justify-center px-4 w-30">
-                                                        <img src="images/footer/gp.png" alt="Download on the App Store" className="h-6 object-contain" />
+                                                        <img src="/images/footer/gp.png" alt="Download on the App Store" className="h-6 object-contain" />
                                                     </div>
                                                 </a>
                                                 <a href="#" className="block">
                                                     <div className="h-7 bg-white dark:bg-white border border-gray-200 shadow-sm rounded-sm flex items-center justify-center px-4 w-30">
-                                                        <img src="images/footer/appgallery.png" alt="Explore it on AppGallery" className="h-6 object-contain" />
+                                                        <img src="/images/footer/appgallery.png" alt="Explore it on AppGallery" className="h-6 object-contain" />
                                                     </div>
                                                 </a>
                                             </div>
@@ -766,7 +765,7 @@ export function NavFooter() {
                                     © Ditoekoe 2025. All Rights Reserved.
                                 </p>
 
-                                {/* Toggle Switch Bahasa dengan Efek Slide */}
+                                {/* Toggle Switch Bahasa */}
                                 <div className="relative inline-flex h-8.5 w-40 bg-gray-200/70 dark:bg-gray-700 rounded-md p-1">
                                     {/* Slider */}
                                     <div

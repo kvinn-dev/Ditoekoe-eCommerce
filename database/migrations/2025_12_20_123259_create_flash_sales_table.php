@@ -13,15 +13,24 @@ return new class extends Migration
     {
         Schema::create('flash_sales', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('product_id')->constrained()->onDelete('cascade');
-            $table->integer('discount_percentage');
-            $table->integer('stock_limit');
-            $table->integer('sold_count')->default(0);
-            $table->timestamp('start_time');
-            $table->timestamp('end_time');
-            $table->boolean('is_active')->default(true);
+            $table->foreignId('product_id')
+                  ->constrained()
+                  ->onDelete('cascade');
+
+            $table->decimal('original_price', 12, 2); // Harga asli produk
+            $table->decimal('discounted_price', 12, 2); // Harga setelah diskon
+            $table->integer('discount_percentage'); // Persentase diskon
+
+            $table->integer('stock_limit'); // Limit stok untuk flash sale
+            $table->integer('sold_count')->default(0); // Jumlah yang sudah terjual
+
+            $table->timestamp('start_time'); // Waktu mulai flash sale
+            $table->timestamp('end_time');   // Waktu berakhir flash sale
+
+            $table->boolean('is_active')->default(true); // Status aktif
+
             $table->timestamps();
-            
+
             // Indexes
             $table->index('start_time');
             $table->index('end_time');

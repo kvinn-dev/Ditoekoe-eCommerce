@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class FlashSale extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'product_id',
         'discount_percentage',
@@ -36,115 +39,103 @@ class FlashSale extends Model
         'time_left',
     ];
 
+    /**
+     * Relasi ke Product
+     */
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);
     }
 
     /**
-     * Get remaining stock
+     * Remaining stock
      */
     protected function remainingStock(): Attribute
     {
         return Attribute::make(
-            get: fn () => max(0, $this->stock_limit - $this->sold_count)
+            get: fn() => max(0, $this->stock_limit - $this->sold_count)
         );
     }
 
     /**
-     * Get progress percentage
+     * Progress percentage
      */
     protected function progressPercentage(): Attribute
     {
         return Attribute::make(
-            get: function () {
-                if ($this->stock_limit == 0) return 0;
-                return min(100, ($this->sold_count / $this->stock_limit) * 100);
-            }
+            get: fn() => $this->stock_limit == 0 ? 0 : min(100, ($this->sold_count / $this->stock_limit) * 100)
         );
     }
 
     /**
-     * Check if flash sale is currently active
+     * Is currently active
      */
     protected function isCurrentlyActive(): Attribute
     {
         return Attribute::make(
-            get: function () {
-                $now = now();
-                return $this->is_active && 
-                       $this->start_time && 
-                       $this->end_time &&
-                       $now->greaterThanOrEqualTo($this->start_time) &&
-                       $now->lessThanOrEqualTo($this->end_time);
-            }
+            get: fn() => $this->is_active &&
+                $this->start_time &&
+                $this->end_time &&
+                now()->between($this->start_time, $this->end_time)
         );
     }
 
     /**
-     * Get time left in seconds
+     * Time left in seconds
      */
     protected function timeLeft(): Attribute
     {
         return Attribute::make(
-            get: function () {
-                if (!$this->is_currently_active) return 0;
-                return max(0, $this->end_time->diffInSeconds(now()));
-            }
+            get: fn() => $this->is_currently_active ? max(0, $this->end_time->diffInSeconds(now())) : 0
         );
     }
 
     /**
-     * Get time left formatted (HH:MM:SS)
+     * Time left formatted (HH:MM:SS)
      */
-    public function getTimeLeftFormattedAttribute()
+    public function getTimeLeftFormattedAttribute(): string
     {
         $seconds = $this->time_left;
         $hours = floor($seconds / 3600);
         $minutes = floor(($seconds % 3600) / 60);
         $seconds = $seconds % 60;
-        
         return sprintf('%02d:%02d:%02d', $hours, $minutes, $seconds);
     }
 
     /**
-     * Scope for active flash sales
+     * Scope active flash sales
      */
     public function scopeActive($query)
     {
         $now = now();
         return $query->where('is_active', true)
-                     ->where('start_time', '<=', $now)
-                     ->where('end_time', '>=', $now);
+            ->where('start_time', '<=', $now)
+            ->where('end_time', '>=', $now);
     }
 
     /**
-     * Scope for upcoming flash sales
+     * Scope upcoming flash sales
      */
     public function scopeUpcoming($query)
     {
         $now = now();
         return $query->where('is_active', true)
-                     ->where('start_time', '>', $now);
+            ->where('start_time', '>', $now);
     }
 
     /**
      * Increment sold count
      */
-    public function incrementSoldCount($quantity = 1)
+    public function incrementSoldCount(int $quantity = 1): void
     {
         $this->increment('sold_count', $quantity);
-        
-        // Update product sold count as well
-        if ($this->product) {
-            $this->product->increment('sold_count', $quantity);
-        }
+        $this->product?->increment('sold_count', $quantity); // null-safe operator
     }
 
     /**
-     * Check if there's enough stock
+     * Check stock availability
      */
-    public function hasStock($quantity = 1)
+    public function hasStock(int $quantity = 1): bool
     {
         return $this->remaining_stock >= $quantity;
     }

@@ -4,7 +4,6 @@ import { type SharedData } from "@/types";
 export default function NavMain() {
     const page = usePage<SharedData>();
 
-    // 🛡️ HARD GUARD (INI PENTING)
     const auth = page.props.auth ?? { user: null };
     const user = auth.user;
 

@@ -3,15 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Inertia\Inertia;
 
 class CategoryController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a paginated listing of categories.
      */
     public function index()
     {
@@ -26,17 +26,19 @@ class CategoryController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new category.
      */
     public function create()
     {
+        $parentCategories = Category::whereNull('parent_id')->get();
+
         return Inertia::render('Categories/Create', [
-            'parentCategories' => Category::whereNull('parent_id')->get(),
+            'parentCategories' => $parentCategories,
         ]);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created category in storage.
      */
     public function store(Request $request)
     {
@@ -61,13 +63,17 @@ class CategoryController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified category with its products.
      */
     public function show(Category $category)
     {
-        $category->load(['parent', 'children', 'products' => function ($query) {
-            $query->where('is_active', true)->paginate(12);
-        }]);
+        $category->load([
+            'parent',
+            'children',
+            'products' => function ($query) {
+                $query->where('is_active', true)->paginate(12);
+            },
+        ]);
 
         return Inertia::render('Categories/Show', [
             'category' => $category,
@@ -75,20 +81,22 @@ class CategoryController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified category.
      */
     public function edit(Category $category)
     {
+        $parentCategories = Category::whereNull('parent_id')
+            ->where('id', '!=', $category->id)
+            ->get();
+
         return Inertia::render('Categories/Edit', [
             'category' => $category,
-            'parentCategories' => Category::whereNull('parent_id')
-                ->where('id', '!=', $category->id)
-                ->get(),
+            'parentCategories' => $parentCategories,
         ]);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified category in storage.
      */
     public function update(Request $request, Category $category)
     {
@@ -109,10 +117,8 @@ class CategoryController extends Controller
                 Storage::disk('public')->delete($category->image);
             }
             $validated['image'] = $request->file('image')->store('categories', 'public');
-        } elseif ($request->boolean('remove_image')) {
-            if ($category->image) {
-                Storage::disk('public')->delete($category->image);
-            }
+        } elseif ($request->boolean('remove_image') && $category->image) {
+            Storage::disk('public')->delete($category->image);
             $validated['image'] = null;
         }
 
@@ -124,18 +130,16 @@ class CategoryController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified category from storage.
      */
     public function destroy(Category $category)
     {
-        // Check if category has products
         if ($category->products()->exists()) {
             return redirect()
                 ->route('categories.index')
                 ->with('error', 'Tidak dapat menghapus kategori yang memiliki produk!');
         }
 
-        // Check if category has children
         if ($category->children()->exists()) {
             return redirect()
                 ->route('categories.index')
@@ -154,7 +158,7 @@ class CategoryController extends Controller
     }
 
     /**
-     * Get categories for API
+     * API: Get all parent categories with their children and products count.
      */
     public function apiIndex()
     {

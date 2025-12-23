@@ -59,6 +59,7 @@ class ProductController extends Controller
             $query->where('is_active', true);
         }
 
+        // Pagination for normal product listing
         $products = $query->paginate(12)->withQueryString();
 
         return Inertia::render('Products/Index', [
@@ -66,6 +67,44 @@ class ProductController extends Controller
             'categories' => Category::whereNull('parent_id')->with('children')->get(),
             'brands' => Brand::where('is_active', true)->get(),
             'filters' => $request->only(['search', 'category', 'brand', 'min_price', 'max_price', 'featured']),
+        ]);
+    }
+
+    /**
+     * Display Flash Sale page (all products sent for client-side load)
+     */
+    public function flashSale()
+    {
+        $flashSaleProducts = Product::with(['category', 'brand'])
+            ->where('is_active', true)
+            ->where('is_flash_sale', true)
+            ->latest()
+            ->get(); // ambil semua flash sale
+
+        return Inertia::render('FlashSale', [
+            'flashSaleProducts' => $flashSaleProducts,
+        ]);
+    }
+
+    /**
+     * API endpoint for server-side batch loading (lazy load)
+     */
+    public function flashSaleBatch(Request $request)
+    {
+        $page = $request->get('page', 1);
+        $perPage = 30;
+
+        $products = Product::with(['category', 'brand'])
+            ->where('is_active', true)
+            ->where('is_flash_sale', true)
+            ->latest()
+            ->skip(($page - 1) * $perPage)
+            ->take($perPage)
+            ->get();
+
+        return response()->json([
+            'products' => $products,
+            'hasMore' => $products->count() === $perPage,
         ]);
     }
 
@@ -98,6 +137,7 @@ class ProductController extends Controller
             'brand_id' => 'nullable|exists:brands,id',
             'is_featured' => 'boolean',
             'is_active' => 'boolean',
+            'is_flash_sale' => 'boolean', // baru
             'meta_title' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string',
             'meta_keywords' => 'nullable|string',
@@ -137,7 +177,6 @@ class ProductController extends Controller
     {
         $product->load(['category', 'brand', 'reviews.user']);
 
-        // Get related products
         $relatedProducts = Product::where('category_id', $product->category_id)
             ->where('id', '!=', $product->id)
             ->where('is_active', true)
@@ -181,6 +220,7 @@ class ProductController extends Controller
             'brand_id' => 'nullable|exists:brands,id',
             'is_featured' => 'boolean',
             'is_active' => 'boolean',
+            'is_flash_sale' => 'boolean', // baru
             'meta_title' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string',
             'meta_keywords' => 'nullable|string',
@@ -191,44 +231,33 @@ class ProductController extends Controller
             'remove_images' => 'nullable|array',
         ]);
 
-        // Generate slug if name changed
+        // Slug
         if ($product->name !== $validated['name']) {
             $validated['slug'] = Str::slug($validated['name']);
         }
 
-        // Handle main image update
+        // Main image update
         if ($request->hasFile('image')) {
-            // Delete old image
-            if ($product->image) {
-                Storage::disk('public')->delete($product->image);
-            }
+            if ($product->image) Storage::disk('public')->delete($product->image);
             $validated['image'] = $request->file('image')->store('products', 'public');
         } elseif ($request->boolean('remove_image')) {
-            // Remove image
-            if ($product->image) {
-                Storage::disk('public')->delete($product->image);
-            }
+            if ($product->image) Storage::disk('public')->delete($product->image);
             $validated['image'] = null;
         }
 
-        // Handle multiple images update
+        // Multiple images
         $currentImages = $product->images ? json_decode($product->images, true) : [];
-        
-        // Remove selected images
         if ($request->has('remove_images')) {
-            foreach ($request->remove_images as $imageToRemove) {
-                Storage::disk('public')->delete($imageToRemove);
-                $currentImages = array_diff($currentImages, [$imageToRemove]);
+            foreach ($request->remove_images as $img) {
+                Storage::disk('public')->delete($img);
+                $currentImages = array_diff($currentImages, [$img]);
             }
         }
-
-        // Add new images
         if ($request->hasFile('images')) {
-            foreach ($request->file('images') as $image) {
-                $currentImages[] = $image->store('products/gallery', 'public');
+            foreach ($request->file('images') as $img) {
+                $currentImages[] = $img->store('products/gallery', 'public');
             }
         }
-
         $validated['images'] = json_encode(array_values($currentImages));
 
         $product->update($validated);
@@ -243,17 +272,12 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        // Delete images
-        if ($product->image) {
-            Storage::disk('public')->delete($product->image);
-        }
-
+        if ($product->image) Storage::disk('public')->delete($product->image);
         if ($product->images) {
-            foreach (json_decode($product->images, true) as $image) {
-                Storage::disk('public')->delete($image);
+            foreach (json_decode($product->images, true) as $img) {
+                Storage::disk('public')->delete($img);
             }
         }
-
         $product->delete();
 
         return redirect()
@@ -262,7 +286,7 @@ class ProductController extends Controller
     }
 
     /**
-     * Get products for API (for frontend components)
+     * API for frontend components (normal)
      */
     public function apiIndex(Request $request)
     {

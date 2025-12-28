@@ -1,5 +1,5 @@
 import { Head, Link, router } from '@inertiajs/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import NavMain from '@/components/nav-main';
 import { NavFooter } from '@/components/nav-footer';
 import { type SharedData } from '@/types';
@@ -56,7 +56,21 @@ export default function ProductView({
     const [products, setProducts] = useState<Product[]>(viewProducts);
 
     const [openInfoIndex, setOpenInfoIndex] = useState<number | null>(null);
+
     const [showInfoModal, setShowInfoModal] = useState(false);
+
+    useEffect(() => {
+        if (showInfoModal) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "auto";
+        }
+
+        return () => {
+            document.body.style.overflow = "auto";
+        };
+    }, [showInfoModal]);
+
     const [activeInfoIndex, setActiveInfoIndex] = useState(0);
 
     const [quantity, setQuantity] = useState<number | ''>(minOrder);
@@ -100,7 +114,18 @@ export default function ProductView({
     const sold = product.sold ?? 0;
     const reviewCount = product.review_count ?? 0;
 
-    const formatRupiah = (value: number) => `Rp ${value.toLocaleString('id-ID')}`;
+    function formatRupiah(amount: number | null | undefined) {
+        if (!amount) return "Rp0";
+        // pastikan angka utuh
+        const intAmount = Math.round(amount);
+        return new Intl.NumberFormat("id-ID", {
+            style: "currency",
+            currency: "IDR",
+            minimumFractionDigits: 0,
+        })
+            .format(intAmount)
+            .replace(/\u00A0/g, ''); // hapus spasi
+    }
 
     const importantInfo = product.important_info ?? [];
 
@@ -140,10 +165,8 @@ export default function ProductView({
             hasDiscount,
             discountPercent,
             finalPrice,
-            originalPriceFormatted: product.price_formatted ?? formatRupiah(originalPrice),
-            finalPriceFormatted: hasDiscount
-                ? product.discount_price_formatted ?? formatRupiah(finalPrice)
-                : product.price_formatted ?? formatRupiah(originalPrice),
+            originalPriceFormatted: formatRupiah(originalPrice),
+            finalPriceFormatted: formatRupiah(finalPrice),
             qtyNumber,
             subtotalFormatted,
         };
@@ -175,11 +198,8 @@ export default function ProductView({
             ...p,
             hasDiscount,
             discountPercent, // penting agar JSX bisa akses
-            originalPriceFormatted:
-                p.price_formatted ?? formatRupiah(originalPrice),
-            finalPriceFormatted: hasDiscount
-                ? p.discount_price_formatted ?? formatRupiah(finalPrice)
-                : p.price_formatted ?? formatRupiah(originalPrice),
+            originalPriceFormatted: formatRupiah(originalPrice),
+            finalPriceFormatted: formatRupiah(finalPrice),
         };
     });
 
@@ -463,12 +483,12 @@ export default function ProductView({
                                             {(product.important_info ?? []).map((item, index) => (
                                                 <div key={index} className="space-y-1">
                                                     {/* JUDUL */}
-                                                    <h3 className="font-semibold text-sm text-gray-900">
+                                                    <h3 className="font-semibold text-[15px] text-gray-900">
                                                         {item.title}
                                                     </h3>
 
                                                     {/* DESKRIPSI SINGKAT */}
-                                                    <p className="text-[12px] text-gray-600 line-clamp-2 mb-[-2px]">
+                                                    <p className="text-sm text-gray-600 line-clamp-2 mb-[-2px]">
                                                         {item.content}
                                                     </p>
 
@@ -478,7 +498,7 @@ export default function ProductView({
                                                             setActiveInfoIndex(index);
                                                             setShowInfoModal(true);
                                                         }}
-                                                        className="text-green-600 text-[12px] font-bold hover:font-black"
+                                                        className="text-green-600 text-sm font-bold hover:font-black"
                                                     >
                                                         Selengkapnya
                                                     </button>
@@ -721,7 +741,7 @@ export default function ProductView({
                                 Pilihan Lainnya Untukmu
                             </h2>
 
-                            <div className="grid gap-2 grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
+                            <div className="grid gap-2 grid-cols-3 sm:grid-cols-3 lg:grid-cols-5">
                                 {relatedProductsPrepared.map((p) => (
                                     <Link
                                         key={p.id}
@@ -758,13 +778,14 @@ export default function ProductView({
                                             <div className="flex gap-2 mt-3">
                                                 <div className="flex-1">
                                                     {/* Price */}
-                                                    <div className="mb-1">
-                                                        {p.hasDiscount && (
+                                                    <div className="mb-1 flex flex-col gap-0.5">
+                                                        {p.hasDiscount ? (
                                                             <div className="text-gray-400 text-[12px] line-through leading-tight">
                                                                 {p.originalPriceFormatted}
                                                             </div>
+                                                        ) : (
+                                                            <div className="invisible text-[12px] leading-tight">placeholder</div>
                                                         )}
-
                                                         <div className="text-green-600 font-semibold text-[18px] leading-tight">
                                                             {p.finalPriceFormatted}
                                                         </div>

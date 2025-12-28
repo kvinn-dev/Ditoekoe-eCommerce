@@ -224,7 +224,7 @@ export default function FlashSale({
 
                         {/* CATEGORY FILTER */}
                         <div className="mb-7 relative pt-2">
-                            <div className="flex flex-wrap gap-4.5 ml-1 items-center relative">
+                            <div className="flex flex-wrap gap-3 ml-1 items-center relative">
                                 <button
                                     onClick={() => setActiveCategory('all')}
                                     className={`px-5 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition ${activeCategory === 'all'
@@ -293,7 +293,7 @@ export default function FlashSale({
 
                         {/* PRODUCTS GRID */}
                         <div className="mb-10">
-                            <div className="grid gap-2 grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
+                            <div className="grid gap-2 grid-cols-3 sm:grid-cols-3 lg:grid-cols-5">
                                 {processedProducts.map((p) => (
                                     <Link
                                         key={p.id}

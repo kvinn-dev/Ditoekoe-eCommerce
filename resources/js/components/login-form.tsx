@@ -9,32 +9,94 @@ import {
   FieldSeparator,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
+import { useEffect, useState } from "react"
 
-export function LoginForm({
-  className,
-  ...props
-}: React.ComponentProps<"div">) {
+export function LoginForm({ className, ...props }: React.ComponentProps<"div">) {
+  const [csrfToken, setCsrfToken] = useState<string>("")
+  const [loading, setLoading] = useState(false)
+  const [errors, setErrors] = useState<string[]>([])
+
+  // Ambil CSRF token dari backend
+  useEffect(() => {
+    const fetchCsrf = async () => {
+      try {
+        const res = await fetch("/csrf-token", { credentials: "include" })
+        const data = await res.json()
+        setCsrfToken(data.csrfToken)
+      } catch (err) {
+        console.error("Failed to fetch CSRF token", err)
+      }
+    }
+    fetchCsrf()
+  }, [])
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setLoading(true)
+    setErrors([])
+
+    const formData = new FormData(e.currentTarget as HTMLFormElement)
+    const email = formData.get("email")
+    const password = formData.get("password")
+
+    try {
+      const res = await fetch("/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          "X-CSRF-TOKEN": csrfToken,
+        },
+        credentials: "include",
+        body: JSON.stringify({ email, password }),
+      })
+
+      if (res.ok) {
+        window.location.href = "/"
+      } else {
+        const data = await res.json()
+        if (data.errors) {
+          const errorMessages = Object.values(data.errors).flat() as string[]
+          setErrors(errorMessages)
+        } else {
+          setErrors([data.message || "Email atau password salah"])
+        }
+      }
+    } catch (err) {
+      console.error(err)
+      setErrors(["Terjadi kesalahan saat login"])
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card className="overflow-hidden p-0">
         <CardContent className="grid p-0 md:grid-cols-2">
-          <form className="p-6 md:p-8">
+          <form className="p-6 md:p-8" onSubmit={handleLogin}>
             <FieldGroup>
               <div className="flex flex-col items-center gap-2 text-center">
                 <h1 className="text-2xl font-bold">Welcome back</h1>
                 <p className="text-muted-foreground text-balance">
-                  Login to your Acme Inc account
+                  Login to your account
                 </p>
               </div>
+
+              {/* Tampilkan error */}
+              {errors.length > 0 && (
+                <div className="mb-4 text-red-600 text-sm space-y-1">
+                  {errors.map((err, i) => (
+                    <p key={i}>{err}</p>
+                  ))}
+                </div>
+              )}
+
               <Field>
                 <FieldLabel htmlFor="email">Email</FieldLabel>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder=""
-                  required
-                />
+                <Input id="email" name="email" type="email" placeholder="" required />
               </Field>
+
               <Field>
                 <div className="flex items-center">
                   <FieldLabel htmlFor="password">Password</FieldLabel>
@@ -45,14 +107,19 @@ export function LoginForm({
                     Forgot your password?
                   </a>
                 </div>
-                <Input id="password" type="password" required />
+                <Input id="password" name="password" type="password" required />
               </Field>
+
               <Field>
-                <Button type="submit">Login</Button>
+                <Button type="submit" disabled={loading}>
+                  {loading ? "Loading..." : "Login"}
+                </Button>
               </Field>
+
               <FieldSeparator className="*:data-[slot=field-separator-content]:bg-card">
                 Or continue with
               </FieldSeparator>
+
               <Field className="grid grid-cols-3 gap-4">
                 <Button variant="outline" type="button">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -82,11 +149,13 @@ export function LoginForm({
                   <span className="sr-only">Login with Meta</span>
                 </Button>
               </Field>
+
               <FieldDescription className="text-center">
                 Don&apos;t have an account? <a href="/register">Sign up</a>
               </FieldDescription>
             </FieldGroup>
           </form>
+
           <div className="bg-muted relative hidden md:block">
             <img
               src="images/login-illus.png"
@@ -96,6 +165,7 @@ export function LoginForm({
           </div>
         </CardContent>
       </Card>
+
       <FieldDescription className="px-6 text-center">
         By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
         and <a href="#">Privacy Policy</a>.

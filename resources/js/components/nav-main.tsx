@@ -1,11 +1,53 @@
 import { Link, usePage } from "@inertiajs/react";
 import { type SharedData } from "@/types";
+import { useEffect, useState } from "react";
+import { Bell, Mail } from "lucide-react";
+import { UserInfo } from "@/components/user-info";
+import NotificationDropdown from "@/components/notification-dropdown";
+import CartDropdown from "@/components/cart-dropdown";
 
 export default function NavMain() {
     const page = usePage<SharedData>();
-
     const auth = page.props.auth ?? { user: null };
     const user = auth.user;
+
+    // State untuk CSRF token
+    const [csrfToken, setCsrfToken] = useState<string>("");
+
+    useEffect(() => {
+        const fetchCsrf = async () => {
+            try {
+                const res = await fetch("/csrf-token", { credentials: "include" });
+                const data = await res.json();
+                setCsrfToken(data.csrfToken);
+            } catch (err) {
+                console.error("Gagal ambil CSRF token", err);
+            }
+        };
+        fetchCsrf();
+    }, []);
+
+    const handleLogout = async () => {
+        try {
+            const res = await fetch("/logout", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    "X-CSRF-TOKEN": csrfToken,
+                },
+                credentials: "include",
+            });
+
+            if (res.ok) {
+                window.location.reload();
+            } else {
+                console.error("Logout gagal");
+            }
+        } catch (err) {
+            console.error("Logout error", err);
+        }
+    };
 
     return (
         <header className="sticky top-0 z-50 bg-white border-b border-gray-200 dark:bg-gray-500 dark:border-gray-600">
@@ -81,49 +123,74 @@ export default function NavMain() {
                     </div>
 
                     {/* RIGHT SIDE */}
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center">
 
-                        {/* Cart */}
-                        <Link href="/cart" className="relative">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
-                            </svg>
-                            <span className="absolute -right-2 -top-1 bg-[rgb(249,77,99)] text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
-                                3
-                            </span>
-                        </Link>
+                        {/* ICON GROUP */}
+                        <div className="flex items-center gap-1">
+                            {/* CART */}
+                            <CartDropdown />
 
-                        {/* Divider */}
-                        <div className="h-6 w-[1px] bg-gray-300"></div>
+                            {auth.user && (
+                                <>
+                                    {/* NOTIF */}
+                                    <NotificationDropdown />
 
-                        {/* AUTH */}
-                        {auth.user ? (
-                            <Link
-                                href="/dashboard"
-                                className="rounded-md border border-gray-300 px-4 py-2 text-sm hover:border-gray-400 dark:border-[#3E3E3A] dark:hover:border-[#62605b]"
-                            >
-                                Dashboard
-                            </Link>
-                        ) : (
-                            <>
-                                <Link
-                                    href="/login"
-                                    className="rounded-md border border-green-600 px-3 py-1 font-semibold text-sm text-green-600 hover:bg-green-100"
-                                >
-                                    Masuk
-                                </Link>
+                                    {/* INBOX */}
+                                    <Link
+                                        href="/user-profile"
+                                        data={{
+                                            section: "inbox",
+                                            tab: "Chat",
+                                        }}
+                                        className="w-9 h-9 flex items-center justify-center rounded-md hover:bg-gray-100/70 cursor-pointer"
+                                    >
+                                        <Mail className="w-5 h-5 text-gray-700" />
+                                    </Link>
 
-                                <Link
-                                    href="/register"
-                                    className="rounded-md bg-green-600 px-3 py-1 font-semibold text-sm text-white hover:bg-green-600"
-                                >
-                                    Daftar
-                                </Link>
-                            </>
-                        )}
+                                </>
+                            )}
+                        </div>
+
+                        {/* AUTH AREA */}
+                        <div className="flex items-center gap-4">
+                            {auth.user ? (
+                                <>
+                                    {/* DIVIDER */}
+                                    <div className="mx-4 mr-4 h-6 w-px bg-gray-300" />
+
+                                    {/* USER PROFILE */}
+                                    <UserInfo
+                                        user={auth.user}
+                                        onLogout={handleLogout}
+                                    />
+                                </>
+                            ) : (
+                                <>
+                                    {/* DIVIDER */}
+                                    <div className="mx-4 h-6 w-px bg-gray-300" />
+
+                                    {/* MASUK */}
+                                    <Link
+                                        href="/login"
+                                        className="rounded-md border border-green-600 px-3 py-1 font-semibold text-sm text-green-600 hover:bg-green-100"
+                                    >
+                                        Masuk
+                                    </Link>
+
+                                    {/* DAFTAR */}
+                                    <Link
+                                        href="/register"
+                                        className="rounded-md bg-green-600 px-3 py-1 font-semibold text-sm text-white hover:bg-green-700"
+                                    >
+                                        Daftar
+                                    </Link>
+                                </>
+                            )}
+                        </div>
+
                     </div>
                 </div>
             </div>
-        </header>
+        </header >
     );
 }

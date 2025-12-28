@@ -68,7 +68,6 @@ class FlashSaleController extends Controller
             ->values();
 
         return Inertia::render('Flash_Sale', [
-            'auth' => Auth::user(),
             'flashSaleProducts' => $flashSaleProducts,
             'categories' => $categories,
             'pagination' => [

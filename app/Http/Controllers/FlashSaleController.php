@@ -18,8 +18,11 @@ class FlashSaleController extends Controller
         $perPage = $request->get('perPage', 30);
         $page = $request->get('page', 1);
 
+        $minDiscount = (int) $request->get('min_discount', 25);
+
         $query = FlashSale::with('product.category')
             ->active()
+            ->highDiscountProduct($minDiscount)
             ->latest();
 
         $total = $query->count();
@@ -87,20 +90,23 @@ class FlashSaleController extends Controller
         $perPage = 30;
         $page = (int) $request->get('page', 1);
         $categorySlug = $request->get('category', null);
+        $minDiscount = (int) $request->get('min_discount', default: 25);
 
-        $query = FlashSale::with('product.category')
+        $baseQuery = FlashSale::with('product.category')
             ->active()
+            ->highDiscountProduct($minDiscount)
             ->latest();
 
         if ($categorySlug && $categorySlug !== 'all') {
-            $query->whereHas('product.category', function ($q) use ($categorySlug) {
+            $baseQuery->whereHas('product.category', function ($q) use ($categorySlug) {
                 $q->where('slug', $categorySlug);
             });
         }
 
-        $total = $query->count();
+        $total = (clone $baseQuery)->count();
 
-        $flashSales = $query->skip(($page - 1) * $perPage)
+        $flashSales = $baseQuery
+            ->skip(($page - 1) * $perPage)
             ->take($perPage)
             ->get();
 
@@ -108,7 +114,7 @@ class FlashSaleController extends Controller
             $product = $fs->product;
             if (!$product) return null;
 
-            $discountPercent = $product->discount ?? 0;
+            $discountPercent = (int) ($product->discount ?? 0);
             $discountPrice = $discountPercent > 0
                 ? round($product->price * (1 - $discountPercent / 100), 2)
                 : $product->price;

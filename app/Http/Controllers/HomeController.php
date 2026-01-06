@@ -35,11 +35,27 @@ class HomeController extends Controller
             ->limit(6)
             ->get();
 
+        $topProducts = Product::with('category')
+            ->where('is_active', true)
+            ->latest()
+            ->limit(12)
+            ->get()
+            ->map(fn($product) => [
+                'id'       => $product->id,
+                'name'     => $product->name,
+                'slug'     => $product->slug,
+                'price'    => $product->discount_price ?? $product->price,
+                'image'    => $product->image,
+                'category' => $product->category,
+                'sold'     => null,
+            ]);
+
         // Render halaman React 'Home' dengan data
         return Inertia::render('Home', [
             'featuredProducts' => $featuredProducts,
             'newProducts' => $newProducts,
             'categories' => $categories,
+            'topProducts'      => $topProducts,
         ]);
     }
 }

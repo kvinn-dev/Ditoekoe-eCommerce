@@ -6,204 +6,6 @@ import NavMain from "@/components/nav-main";
 import { NavFooter } from '@/components/nav-footer';
 import CardProducts from '@/components/card_product';
 
-const dummyTopProducts = [
-    {
-        id: 1,
-        name: "SOMBONG 5-in-1 Face Wash With Coffee & Ginseng 100ml Sabun Muka Pria Membersihkan Mencerahkan Wajah Menthol",
-        image: "images/top-product/0001.jpeg",
-        sold: "257RB+"
-    },
-    {
-        id: 2,
-        name: "Gamen Titan V / 5 Wired Gaming Keyboard 60% Mechanical Garansi Resmi - Black Blue-Red Switch",
-        image: "images/top-product/0002.jpeg",
-        sold: "186RB+"
-    },
-    {
-        id: 3,
-        name: "CCTV Outdoor EYESEC DUAL LENS IP66 Waterproof IP camera PTZ Wide Angle - 8MP",
-        image: "images/top-product/0003.jpeg",
-        sold: "136RB+"
-    },
-    {
-        id: 4,
-        name: "Safiya Muesli Berry Yogurt 1 Kg With Almond Sereal Oatmeal Premium Food Granola Makanan - 500 Gram",
-        image: "images/top-product/0004.jpeg",
-        sold: "160RB+"
-    },
-    {
-        id: 5,
-        name: "ecentio Tumbler air panas Termos Botol Minum Vacuum 500ml - Hitam",
-        image: "images/top-product/0005.jpeg",
-        sold: "201RB+"
-    },
-    {
-        id: 6,
-        name: "GOOJODOQ 15,6 FHD 1080P Portable Monitor for Office/Gaming support 4K",
-        image: "images/top-product/0006.jpeg",
-        sold: "209RB+"
-    },
-    {
-        id: 7,
-        name: "SSD Transcend ESD310C 256GB 512GB 1TB 2TB - SSD Eksternal Portable - 1TB",
-        image: "images/top-product/0007.jpeg",
-        sold: "175RB+"
-    },
-    {
-        id: 8,
-        name: "ROBOT TWS Wireless Earphone Airbuds T50S Original Smart TWS Headset Bluetooth Earbuds Full Bass WaterProof - Garansi 1 Tahun - Bisa COD - White",
-        image: "images/top-product/0008.jpeg",
-        sold: "200RB+"
-    },
-    {
-        id: 9,
-        name: "Zinc Shampoo Active Fresh Lemon Mint Pump 680ml",
-        image: "images/top-product/0009.jpeg",
-        sold: "157RB+"
-    },
-    {
-        id: 10,
-        name: "[400ml] WHITE INC Alpha Glowhite Body Lotion Whitening & Moisturizing | Body Cream Body Lotion Menghidrasi Kulit",
-        image: "images/top-product/0010.jpeg",
-        sold: "275RB+"
-    }
-];
-
-const manualFlashSale = [
-    {
-        id: 1,
-        name: "Sikat Gigi Sensodyne Fresh Mint 120g",
-        slug: "sensodyne-fresh-mint",
-        price: 189000,
-        discount_price: 34900,
-        image: "images/flash-sale/001.jpeg",
-        category: { name: "Kesehatan", slug: "kesehatan" },
-        stock: 30,
-        max_stock: 100,
-    },
-    {
-        id: 2,
-        name: "Mouthwash Listerine Cool Mint 250ml",
-        slug: "listerine-cool-mint",
-        price: 699000,
-        discount_price: 111900,
-        image: "images/flash-sale/002.jpeg",
-        category: { name: "Kesehatan", slug: "kesehatan" },
-        stock: 15,
-        max_stock: 100,
-    },
-    {
-        id: 3,
-        name: "Masker Vit C 10pcs",
-        slug: "masker-vit-c",
-        price: 149000,
-        discount_price: 29900,
-        image: "images/flash-sale/003.jpeg",
-        category: { name: "Kecantikan", slug: "kecantikan" },
-        stock: 75,
-        max_stock: 100,
-    },
-    {
-        id: 4,
-        name: "Obat Kumur Betadine 100ml",
-        slug: "betadine-gargle",
-        price: 285000,
-        discount_price: 49900,
-        image: "images/flash-sale/004.jpeg",
-        category: { name: "Kesehatan", slug: "kesehatan" },
-        stock: 10,
-        max_stock: 100,
-    },
-    {
-        id: 5,
-        name: "Hansaplast Universal 40 Strips",
-        slug: "hansaplast-universal",
-        price: 34000,
-        discount_price: 5750,
-        image: "images/flash-sale/005.jpeg",
-        category: { name: "Kesehatan", slug: "kesehatan" },
-        stock: 50,
-        max_stock: 100,
-    },
-    {
-        id: 6,
-        name: "Biore Body Foam Antibacterial 450ml",
-        slug: "biore-antibacterial",
-        price: 329000,
-        discount_price: 59900,
-        image: "images/flash-sale/006.jpeg",
-        category: { name: "Perawatan Tubuh", slug: "perawatan-tubuh" },
-        stock: 45,
-        max_stock: 100,
-    },
-    {
-        id: 7,
-        name: "Dettol Hand Sanitizer 50ml",
-        slug: "dettol-hand-sanitizer",
-        price: 32000,
-        discount_price: 7900,
-        image: "images/flash-sale/007.jpeg",
-        category: { name: "Kesehatan", slug: "kesehatan" },
-        stock: 90,
-        max_stock: 100,
-    },
-    {
-        id: 8,
-        name: "Nivea Lip Balm Strawberry 4.8g",
-        slug: "nivea-lip-balm",
-        price: 55000,
-        discount_price: 15900,
-        image: "images/flash-sale/008.jpeg",
-        category: { name: "Kecantikan", slug: "kecantikan" },
-        stock: 68,
-        max_stock: 100,
-    },
-    {
-        id: 9,
-        name: "Pond's Bright Beauty Serum 30ml",
-        slug: "ponds-bright-serum",
-        price: 37000,
-        discount_price: 15900,
-        image: "images/flash-sale/009.jpeg",
-        category: { name: "Kecantikan", slug: "kecantikan" },
-        stock: 22,
-        max_stock: 100,
-    },
-    {
-        id: 10,
-        name: "Cetaphil Gentle Skin Cleanser 125ml",
-        slug: "cetaphil-cleanser",
-        price: 67000,
-        discount_price: 22900,
-        image: "images/flash-sale/010.jpeg",
-        category: { name: "Kecantikan", slug: "kecantikan" },
-        stock: 12,
-        max_stock: 100,
-    },
-    {
-        id: 11,
-        name: "Cetaphil Gentle Skin Cleanser 125ml",
-        slug: "tets",
-        price: 125000,
-        discount_price: 34000,
-        image: "images/flash-sale/011.jpg",
-        category: { name: "Kecantikan", slug: "kecantikan" },
-        stock: 22,
-        max_stock: 100,
-    },
-    {
-        id: 12,
-        name: "Cetaphil Gentle Skin Cleanser 125ml",
-        slug: "tets-2",
-        price: 155000,
-        discount_price: 45000,
-        image: "images/flash-sale/012.jpg",
-        category: { name: "Kecantikan", slug: "kecantikan" },
-        stock: 12,
-        max_stock: 100,
-    }
-];
-
 const bannerData = [
     {
         id: 1,
@@ -236,6 +38,23 @@ const bannerData = [
     }
 ];
 
+interface FlashSaleProduct {
+    id: number;
+    name: string;
+    slug: string;
+    price: number;
+    discount_price: number | null;
+    discount?: number;
+    image: string | null;
+    category: {
+        name: string;
+        slug: string;
+    };
+    stock?: number;
+    sold?: number;
+    progress?: number;
+}
+
 interface HomePageProps {
     featuredProducts: Array<{
         id: number;
@@ -261,25 +80,17 @@ interface HomePageProps {
         slug: string;
         products_count: number;
     }>;
-    flashSale: Array<{
-        id: number;
-        name: string;
-        slug: string;
-        price: number;
-        discount_price: number | null;
-        image: string | null;
-        category: { name: string; slug: string };
-        stock?: number;
-        max_stock?: number;
-    }>;
+    topProducts: any[];
 }
 
 export default function Home({
     featuredProducts = [],
     newProducts = [],
     categories = [],
-    flashSale = []
+    topProducts = [],
 }: HomePageProps) {
+    /* ================= STATE ================= */
+    const [flashSale, setFlashSale] = useState<any[]>([]);
     const [currentSlide, setCurrentSlide] = useState(1);
     const [isTransitioning, setIsTransitioning] = useState(false);
     const total = bannerData.length;
@@ -318,10 +129,41 @@ export default function Home({
     const handleMouseEnter = () => setIsAutoPlaying(false);
     const handleMouseLeave = () => setIsAutoPlaying(true);
 
-    const flashSaleData = flashSale.length ? flashSale : manualFlashSale;
+    /* ================= FETCH FLASH SALE ================= */
+    useEffect(() => {
+        let isMounted = true;
+
+        const fetchFlashSale = async () => {
+            try {
+                const res = await fetch('/flash-sale/batch?page=1', {
+                    headers: {
+                        'Accept': 'application/json',
+                    },
+                });
+
+                if (!res.ok) return;
+
+                const data = await res.json();
+
+                if (isMounted && Array.isArray(data?.products)) {
+                    setFlashSale(data.products);
+                }
+            } catch (error) {
+                console.error('Flash sale fetch failed:', error);
+            }
+        };
+
+        fetchFlashSale();
+
+        return () => {
+            isMounted = false;
+        };
+    }, []);
+
+    /* ================= DATA SOURCE ================= */
+    const flashSaleData = flashSale;
     const ITEM_WIDTH = 170;
     const ITEM_GAP = 16;
-
 
     const useCategorySlider = (ITEM_WIDTH: number, GAP: number) => {
         const ref = useRef<HTMLDivElement>(null);
@@ -479,27 +321,40 @@ export default function Home({
 
     const topProductSlider = useTopProductSlider();
 
-    const useChevronSlider = () => {
+    const useChevronSlider = (deps: any[] = []) => {
         const ref = useRef<HTMLDivElement>(null);
         const [canPrev, setCanPrev] = useState(false);
-        const [canNext, setCanNext] = useState(true);
+        const [canNext, setCanNext] = useState(false);
 
         const updateArrows = () => {
             const el = ref.current;
             if (!el) return;
-            setCanPrev(el.scrollLeft > 0);
-            setCanNext(el.scrollLeft + el.clientWidth < el.scrollWidth - 1);
+
+            const { scrollLeft, clientWidth, scrollWidth } = el;
+
+            setCanPrev(scrollLeft > 0);
+            setCanNext(scrollLeft + clientWidth < scrollWidth - 1);
         };
 
+        /* 🔑 FIX UTAMA: update setelah data & DOM siap */
         useEffect(() => {
-            updateArrows();
             const el = ref.current;
             if (!el) return;
+
+            requestAnimationFrame(() => {
+                updateArrows();
+            });
+        }, deps);
+
+        useEffect(() => {
+            const el = ref.current;
+            if (!el) return;
+
             let ticking = false;
 
             const onScroll = () => {
                 if (!ticking) {
-                    window.requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
                         updateArrows();
                         ticking = false;
                     });
@@ -509,8 +364,9 @@ export default function Home({
 
             el.addEventListener("scroll", onScroll, { passive: true });
             window.addEventListener("resize", updateArrows);
+
             return () => {
-                el.removeEventListener("scroll", updateArrows);
+                el.removeEventListener("scroll", onScroll);
                 window.removeEventListener("resize", updateArrows);
             };
         }, []);
@@ -520,9 +376,7 @@ export default function Home({
             if (!el) return;
 
             const ITEMS_PER_SCROLL = 3;
-
-            const distance =
-                (ITEM_WIDTH + ITEM_GAP) * Math.max(1, ITEMS_PER_SCROLL);
+            const distance = (ITEM_WIDTH + ITEM_GAP) * ITEMS_PER_SCROLL;
 
             el.scrollBy({
                 left: direction === "right" ? distance : -distance,
@@ -533,7 +387,7 @@ export default function Home({
         return { ref, canPrev, canNext, scroll };
     };
 
-    const flashSlider = useChevronSlider();
+    const flashSlider = useChevronSlider([flashSale.length]);
 
     const [timeLeft, setTimeLeft] = useState({ h: "00", m: "00", s: "00" });
 
@@ -891,13 +745,11 @@ export default function Home({
                     </div>
                 </section>
 
-
                 {/* Flash Sale Section */}
                 <section className="bg-white py-10 dark:bg-[#1A1A19]">
                     <div className="container mx-auto max-w-6xl rounded-xl">
                         {/* WRAPPER FLASH SALE */}
                         <div className="bg-white dark:bg-[#252523] rounded-xl p-4 shadow-sm border border-[#19140020] dark:border-[#3E3E3A]">
-
                             {/* Header Flash Sale */}
                             <div className="flex items-center justify-between mb-4">
                                 <div className="flex items-center space-x-3">
@@ -939,65 +791,79 @@ export default function Home({
                                 </Link>
                             </div>
 
-                            <div className="relative group">
+                            <div className="relative group pointer-events-none">
                                 {/* Scroll Slider */}
                                 <div
                                     ref={flashSlider.ref}
-                                    className="flex overflow-x-auto overflow-y-hidden scroll-smooth will-change-transform translate-z-0 px-2 pb-4 gap-4 scrollbar-hide"
+                                    className="flex overflow-x-auto overflow-y-hidden scroll-smooth will-change-transform translate-z-0 px-2 pb-4 gap-4 scrollbar-hide pointer-events-auto"
                                 >
-                                    {(flashSale.length ? flashSale : manualFlashSale).map((prod) => {
-                                        const stock = prod.stock ?? 0;
-                                        const maxStock = prod.max_stock ?? 100;
-                                        const stockPercent = Math.max(0, Math.min(100, Math.round((stock / maxStock) * 100)));
-                                        const finalPrice = prod.discount_price || prod.price;
-                                        const discount = prod.discount_price
-                                            ? Math.round(((prod.price - prod.discount_price) / prod.price) * 100)
-                                            : null;
+                                    {flashSale.length > 0 &&
+                                        flashSale.map((prod) => {
+                                            const stock = Number(prod.stock ?? 0);
+                                            const maxStock = Number(prod.max_stock ?? 100);
 
-                                        return (
-                                            <Link
-                                                href={`/products/${prod.slug}`}
-                                                key={prod.id}
-                                                className="min-w-[170px] max-w-[170px] snap-start bg-white dark:bg-[#2A2A28] rounded-lg border border-gray-300 dark:border-gray-400 flex flex-col"
-                                            >
-                                                <div className="relative">
-                                                    <img
-                                                        src={prod.image || ""}
-                                                        className="w-full h-[150px] object-cover rounded-t-lg object-center"
-                                                    />
-                                                    {discount && (
-                                                        <div className="discount-wrapper">
-                                                            <span className="discount-dark"></span>
-                                                            <span className="discount-light">-{discount}%</span>
-                                                        </div>
-                                                    )}
-                                                </div>
+                                            const stockPercent =
+                                                maxStock > 0
+                                                    ? Math.max(0, Math.min(100, Math.round((stock / maxStock) * 100)))
+                                                    : 0;
 
-                                                <div className="px-3 mb-[-15px] mt-2.5 flex flex-col min-h-[85px] items-center text-center">
-                                                    <p className="text-[19px] font-medium text-green-600 leading-tight">
-                                                        Rp {finalPrice.toLocaleString("id-ID")}
-                                                    </p>
-                                                    <div className="w-full mt-2">
-                                                        <div className="w-full bg-green-200 dark:bg-green-600 h-3.5 rounded-sm overflow-hidden relative">
-                                                            <div
-                                                                className="h-full bg-green-600 transition-all duration-700"
-                                                                style={{ width: `${stockPercent}%` }}
-                                                            />
-                                                            <span className="absolute inset-0 flex items-center justify-center text-[11px] font-semibold text-white">
-                                                                STOK TERBATAS
-                                                            </span>
+                                            const finalPrice =
+                                                typeof prod.discount_price === 'number'
+                                                    ? prod.discount_price
+                                                    : prod.price;
+
+                                            const discount =
+                                                typeof prod.discount_price === 'number' && prod.price > 0
+                                                    ? Math.round(((prod.price - prod.discount_price) / prod.price) * 100)
+                                                    : null;
+
+                                            return (
+                                                <Link
+                                                    href={`/product/${prod.slug}`}
+                                                    key={prod.id}
+                                                    className="min-w-[170px] max-w-[170px] snap-start bg-white dark:bg-[#2A2A28] rounded-lg border border-gray-300 dark:border-gray-400 flex flex-col"
+                                                >
+                                                    <div className="relative">
+                                                        <img
+                                                            src={prod.image || ''}
+                                                            alt={prod.name}
+                                                            className="w-full h-[150px] object-cover rounded-t-lg object-center"
+                                                        />
+
+                                                        {discount !== null && discount > 0 && (
+                                                            <div className="discount-wrapper">
+                                                                <span className="discount-dark"></span>
+                                                                <span className="discount-light">-{discount}%</span>
+                                                            </div>
+                                                        )}
+                                                    </div>
+
+                                                    <div className="px-3 mb-[-15px] mt-2.5 flex flex-col min-h-[85px] items-center text-center">
+                                                        <p className="text-[19px] font-medium text-green-600 leading-tight">
+                                                            Rp{finalPrice.toLocaleString('id-ID')}
+                                                        </p>
+
+                                                        <div className="w-full mt-2">
+                                                            <div className="w-full bg-green-200 dark:bg-green-600 h-3.5 rounded-sm overflow-hidden relative">
+                                                                <div
+                                                                    className="h-full bg-green-600 transition-all duration-700"
+                                                                    style={{ width: `${stockPercent}%` }}
+                                                                />
+                                                                <span className="absolute inset-0 flex items-center justify-center text-[11px] font-semibold text-white">
+                                                                    STOK TERBATAS
+                                                                </span>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </Link>
-                                        );
-                                    })}
+                                                </Link>
+                                            );
+                                        })}
                                 </div>
 
                                 {/* CHEVRONS */}
                                 {flashSlider.canPrev && (
                                     <button
-                                        onClick={() => flashSlider.scroll("left")}
+                                        onClick={() => flashSlider.scroll('left')}
                                         className="pointer-events-auto absolute left-0 top-1/2 -translate-y-1/2 bg-white/90 dark:bg-[#333]/90 shadow-md p-3 rounded-full opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 hover:scale-110 transition-all duration-300"
                                     >
                                         <ChevronLeft className="h-5 w-5" />
@@ -1006,7 +872,7 @@ export default function Home({
 
                                 {flashSlider.canNext && (
                                     <button
-                                        onClick={() => flashSlider.scroll("right")}
+                                        onClick={() => flashSlider.scroll('right')}
                                         className="pointer-events-auto absolute right-0 top-1/2 -translate-y-1/2 bg-white/90 dark:bg-[#333]/90 shadow-md p-3 rounded-full opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 hover:scale-110 transition-all duration-300"
                                     >
                                         <ChevronRight className="h-5 w-5" />
@@ -1015,7 +881,7 @@ export default function Home({
                             </div>
                         </div>
                     </div>
-                </section >
+                </section>
 
                 {/* Top Product Section */}
                 < section className="bg-white py-0 mb-10 dark:bg-[#1A1A19]" >
@@ -1055,10 +921,10 @@ export default function Home({
                                     id="top-products-scroll"
                                     className="flex overflow-x-auto overflow-y-hidden scroll-smooth will-change-transform translate-z-0 pb-4 gap-6 scrollbar-hide"
                                 >
-                                    {dummyTopProducts.slice(0, 10).map((prod) => (
+                                    {topProducts.map((prod) => (
                                         <Link
                                             key={prod.id}
-                                            href={`/products/${prod.id}`}
+                                            href={`/product/${prod.slug}`}
                                             className="w-[calc((100%-5*1.5rem)/6)] flex-shrink-0"
                                         >
                                             {/* IMAGE */}
@@ -1133,26 +999,6 @@ export default function Home({
                 <section className="mt-10">
                     <CardProducts />
                 </section>
-
-
-                {/* CTA Section */}
-                {/* < section className="bg-gradient-to-r from-[#1b1b18] to-[#2d2d2a] py-16 text-white" >
-                    <div className="container mx-auto px-4 text-center">
-                        <h2 className="mb-4 text-3xl font-bold">
-                            Bergabung dengan Ribuan Pelanggan Puas
-                        </h2>
-                        <p className="mx-auto mb-8 max-w-2xl text-lg opacity-90">
-                            Dapatkan akses eksklusif ke promo dan penawaran spesial dengan mendaftar sekarang.
-                        </p>
-                        <Link
-                            href="/register"
-                            className="inline-flex items-center gap-2 rounded-sm bg-[#F53003] px-8 py-3 font-medium hover:bg-[#e02b00]"
-                        >
-                            Daftar Sekarang
-                            <ChevronRight className="h-4 w-4" />
-                        </Link>
-                    </div>
-                </section > */}
 
                 {/* FOOTER */}
                 <NavFooter />

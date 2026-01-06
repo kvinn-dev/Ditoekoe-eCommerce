@@ -13,8 +13,7 @@ class TopProductController extends Controller
 
     public function index()
     {
-        $topProducts = Product::where('is_top_product', true)
-            ->with('category')
+        $products = Product::with('category')
             ->latest()
             ->take(20)
             ->get()
@@ -31,21 +30,21 @@ class TopProductController extends Controller
             ]);
 
         return Inertia::render('Top_Product', [
-            'auth'               => Auth::user(),
-            'topProducts'  => $topProducts,
+            'auth'     => Auth::user(),
+            'products' => $products,
         ]);
     }
 
+
     public function all()
     {
-        $topProducts = Product::where('is_top_product', true)
-            ->with('category')
+        $products = Product::with('category')
             ->latest()
             ->paginate(40);
 
         return Inertia::render('TopProduct/All', [
             'auth'     => Auth::user(),
-            'products' => $topProducts,
+            'products' => $products,
         ]);
     }
 
@@ -55,8 +54,7 @@ class TopProductController extends Controller
     public function getProducts()
     {
         return response()->json(
-            Product::where('is_top_product', true)
-                ->with('category')
+            Product::with('category')
                 ->latest()
                 ->take(20)
                 ->get()

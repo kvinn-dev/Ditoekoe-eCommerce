@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Support\Carbon;
 
 class FlashSale extends Model
 {
@@ -21,15 +22,15 @@ class FlashSale extends Model
         'start_time',
         'end_time',
         'is_active',
-        'session_type', // 'morning', 'afternoon', 'evening'
+        'session_type',
     ];
 
     protected $casts = [
         'start_time' => 'datetime',
         'end_time' => 'datetime',
-        'is_active' => 'boolean',
         'original_price' => 'decimal:2',
         'discounted_price' => 'decimal:2',
+        'is_active' => 'integer', // PENTING
     ];
 
     protected $appends = [
@@ -39,104 +40,100 @@ class FlashSale extends Model
         'time_left',
     ];
 
-    /**
-     * Relasi ke Product
-     */
+    /* ================= RELATIONS ================= */
+
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);
     }
 
-    /**
-     * Remaining stock
-     */
+    /* ================= ATTRIBUTES ================= */
+
     protected function remainingStock(): Attribute
     {
         return Attribute::make(
-            get: fn() => max(0, $this->stock_limit - $this->sold_count)
+            get: fn() => max(0, (int) $this->stock_limit - (int) $this->sold_count)
         );
     }
 
-    /**
-     * Progress percentage
-     */
     protected function progressPercentage(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->stock_limit == 0 ? 0 : min(100, ($this->sold_count / $this->stock_limit) * 100)
+            get: fn() => $this->stock_limit > 0
+                ? min(100, round(($this->sold_count / $this->stock_limit) * 100))
+                : 0
         );
     }
 
-    /**
-     * Is currently active
-     */
     protected function isCurrentlyActive(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->is_active &&
-                $this->start_time &&
-                $this->end_time &&
-                now()->between($this->start_time, $this->end_time)
+            get: function () {
+                if ((int) $this->is_active !== 1) {
+                    return false;
+                }
+
+                $now = Carbon::now();
+
+                if ($this->start_time && $now->lt($this->start_time)) {
+                    return false;
+                }
+
+                if ($this->end_time && $now->gt($this->end_time)) {
+                    return false;
+                }
+
+                return true;
+            }
         );
     }
 
-    /**
-     * Time left in seconds
-     */
     protected function timeLeft(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->is_currently_active ? max(0, $this->end_time->diffInSeconds(now())) : 0
+            get: fn() =>
+            $this->is_currently_active && $this->end_time
+                ? max(0, Carbon::now()->diffInSeconds($this->end_time, false))
+                : 0
         );
     }
 
-    /**
-     * Time left formatted (HH:MM:SS)
-     */
-    public function getTimeLeftFormattedAttribute(): string
-    {
-        $seconds = $this->time_left;
-        $hours = floor($seconds / 3600);
-        $minutes = floor(($seconds % 3600) / 60);
-        $seconds = $seconds % 60;
-        return sprintf('%02d:%02d:%02d', $hours, $minutes, $seconds);
-    }
+    /* ================= SCOPES ================= */
 
     /**
-     * Scope active flash sales
+     * SAFE ACTIVE SCOPE
+     * - Hanya filter status
+     * - TIDAK filter waktu
      */
     public function scopeActive($query)
     {
-        $now = now();
-        return $query->where('is_active', true)
-            ->where('start_time', '<=', $now)
-            ->where('end_time', '>=', $now);
+        return $query->where('is_active', 1);
     }
 
-    /**
-     * Scope upcoming flash sales
-     */
     public function scopeUpcoming($query)
     {
-        $now = now();
-        return $query->where('is_active', true)
-            ->where('start_time', '>', $now);
+        return $query->where('is_active', 1);
     }
 
-    /**
-     * Increment sold count
-     */
+    /* ================= HELPERS ================= */
+
     public function incrementSoldCount(int $quantity = 1): void
     {
         $this->increment('sold_count', $quantity);
-        $this->product?->increment('sold_count', $quantity); // null-safe operator
+        $this->product?->increment('sold_count', $quantity);
     }
 
-    /**
-     * Check stock availability
-     */
     public function hasStock(int $quantity = 1): bool
     {
         return $this->remaining_stock >= $quantity;
+    }
+
+    public function scopeHighDiscountProduct($query, int $min = 25)
+    {
+        return $query->whereHas('product', function ($q) use ($min) {
+            $q->whereNotNull('discount_price')
+                ->whereColumn('discount_price', '<', 'price')
+                ->whereRaw('((price - discount_price) / price * 100) >= ?', [$min]);
+        });
     }
 }

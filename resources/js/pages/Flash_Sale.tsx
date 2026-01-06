@@ -47,6 +47,7 @@ export default function FlashSale({
     categories?: Category[];
 }) {
     const ITEMS_PER_LOAD = 30;
+    console.log(flashSaleProducts)
 
     const [activeCategory, setActiveCategory] = useState<'all' | string>('all');
     const [products, setProducts] = useState<Product[]>(flashSaleProducts);
@@ -154,7 +155,7 @@ export default function FlashSale({
     });
 
     // Pisahkan kategori utama dan "Lainnya"
-    const MAIN_LIMIT = 7;
+    const MAIN_LIMIT = 8;
     const mainCategories = categories.slice(0, MAIN_LIMIT - 1);
     const moreCategories = categories.slice(MAIN_LIMIT - 1);
 
@@ -224,7 +225,7 @@ export default function FlashSale({
 
                         {/* CATEGORY FILTER */}
                         <div className="mb-7 relative pt-2">
-                            <div className="flex flex-wrap gap-3 ml-1 items-center relative">
+                            <div className="flex flex-wrap gap-1.5 ml-1 items-center relative">
                                 <button
                                     onClick={() => setActiveCategory('all')}
                                     className={`px-5 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition ${activeCategory === 'all'

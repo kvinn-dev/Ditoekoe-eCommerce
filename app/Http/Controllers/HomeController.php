@@ -50,12 +50,32 @@ class HomeController extends Controller
                 'sold'     => null,
             ]);
 
+        $products = Product::where('is_active', true)
+            ->latest()
+            ->get()
+            ->map(fn($p) => [
+                'id' => $p->id,
+                'slug' => $p->slug,
+                'name' => $p->name,
+                'price' => (int) $p->price,
+                'discount_price' => $p->discount_price !== null
+                    ? (int) $p->discount_price
+                    : null,
+                'discount' => (int) ($p->discount ?? 0),
+                'stock' => (int) ($p->stock ?? 0),
+                'image' => $p->image
+                    ? $p->image
+                    : '/images/placeholder.png',
+            ]);
+
+
         // Render halaman React 'Home' dengan data
         return Inertia::render('Home', [
             'featuredProducts' => $featuredProducts,
             'newProducts' => $newProducts,
             'categories' => $categories,
             'topProducts'      => $topProducts,
+            'products' => $products,
         ]);
     }
 }

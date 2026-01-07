@@ -466,7 +466,7 @@ export function NavFooter() {
                         <div className="flex justify-center md:justify-end md:flex-1 mx-[-40px]">
                             <div className="w-[360px] md:w-[420px] lg:w-[480px]">
                                 <img
-                                    src="/images/footer/foot-01.webp"
+                                    src="/images/nav/foot-01.webp"
                                     alt="Buka Toko di Ditoekoe"
                                     className="w-full h-auto object-contain"
                                 />
@@ -487,7 +487,7 @@ export function NavFooter() {
                                 <div className="flex-shrink-0 flex items-center justify-center">
                                     <div className="h-full aspect-square flex items-center justify-center">
                                         <img
-                                            src="/images/footer/transparan.jfif"
+                                            src="/images/nav/transparan.jfif"
                                             alt="Transparan"
                                             className="h-[120px] object-contain"
                                         />
@@ -506,7 +506,7 @@ export function NavFooter() {
                                 <div className="flex-shrink-0 flex items-center justify-center">
                                     <div className="h-full aspect-square flex items-center justify-center">
                                         <img
-                                            src="/images/footer/aman.jfif"
+                                            src="/images/nav/aman.jfif"
                                             alt="Aman"
                                             className="h-[120px] object-contain"
                                         />
@@ -525,7 +525,7 @@ export function NavFooter() {
                                 <div className="flex-shrink-0 flex items-center justify-center">
                                     <div className="h-full aspect-square flex items-center justify-center">
                                         <img
-                                            src="/images/footer/escrow.jfif"
+                                            src="/images/nav/escrow.jfif"
                                             alt="Fasilitas Escrow"
                                             className="h-[120px] object-contain"
                                         />
@@ -711,7 +711,7 @@ export function NavFooter() {
                                         <div className="flex items-start gap-2">
                                             <div className="mx-[-10px] flex-shrink-0 w-30 h-28">
                                                 <img
-                                                    src="/images/footer/qr-apk.webp"
+                                                    src="/images/nav/qr-apk.webp"
                                                     alt="QR Code Ditoekoe"
                                                     className="w-full h-full object-contain"
                                                 />
@@ -720,17 +720,17 @@ export function NavFooter() {
                                             <div className="flex flex-col mx-3.5 space-y-2 pt-1">
                                                 <a href="#" className="block">
                                                     <div className="h-7 bg-white dark:bg-white border border-gray-200 shadow-sm rounded-sm flex items-center justify-center px-4 w-30">
-                                                        <img src="/images/footer/appstore.png" alt="Get it on Google Play" className="h-6 object-contain" />
+                                                        <img src="/images/nav/appstore.png" alt="Get it on Google Play" className="h-6 object-contain" />
                                                     </div>
                                                 </a>
                                                 <a href="#" className="block">
                                                     <div className="h-7 bg-white dark:bg-white border border-gray-200 shadow-sm rounded-sm flex items-center justify-center px-4 w-30">
-                                                        <img src="/images/footer/gp.png" alt="Download on the App Store" className="h-6 object-contain" />
+                                                        <img src="/images/nav/gp.png" alt="Download on the App Store" className="h-6 object-contain" />
                                                     </div>
                                                 </a>
                                                 <a href="#" className="block">
                                                     <div className="h-7 bg-white dark:bg-white border border-gray-200 shadow-sm rounded-sm flex items-center justify-center px-4 w-30">
-                                                        <img src="/images/footer/appgallery.png" alt="Explore it on AppGallery" className="h-6 object-contain" />
+                                                        <img src="/images/nav/appgallery.png" alt="Explore it on AppGallery" className="h-6 object-contain" />
                                                     </div>
                                                 </a>
                                             </div>

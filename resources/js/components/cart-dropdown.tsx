@@ -63,7 +63,7 @@ export default function CartDropdown() {
                     {/* EMPTY CART */}
                     <div className="px-6 py-2 text-center">
                         <img
-                            src="/images/nav-main/no-cart.webp"
+                            src="/images/nav/no-cart.webp"
                             alt="Keranjang kosong"
                             className="mx-auto w-36 mb-4"
                         />

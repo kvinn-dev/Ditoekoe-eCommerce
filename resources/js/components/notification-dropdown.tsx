@@ -107,7 +107,7 @@ export default function NotificationDropdown() {
                 {/* EMPTY STATE */}
                 <div className="px-6 py-4 border-t text-center">
                     <img
-                        src="/images/nav-main/no-notif.webp"
+                        src="/images/nav/no-notif.webp"
                         alt="Belum ada notifikasi"
                         className="mx-auto mb-2 w-20"
                     />

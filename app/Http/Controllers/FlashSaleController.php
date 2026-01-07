@@ -56,7 +56,7 @@ class FlashSaleController extends Controller
                     'name' => $product->category->name,
                     'slug' => $product->category->slug ?? strtolower(str_replace(' ', '-', $product->category->name)),
                 ] : null,
-                'stock' => $fs->remaining_stock ?? 0,
+                'stock' => $product->stock,
                 'sold' => $fs->sold_count ?? 0,
                 'time_left' => $fs->time_left ?? 0,
                 'progress' => $fs->progress_percentage ?? 0,

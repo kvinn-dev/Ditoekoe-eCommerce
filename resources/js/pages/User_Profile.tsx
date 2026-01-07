@@ -99,11 +99,11 @@ export default function UserProfile() {
         <div className="flex justify-between items-center mb-3">
             <span className="w-40 text-gray-700">{label}</span>
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-1">
                 <span className="text-gray-600">{value}</span>
 
                 {badge && (
-                    <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded">
+                    <span className="text-xs bg-green-100 text-green-700 px-1 py-0.5 rounded">
                         {badge}
                     </span>
                 )}

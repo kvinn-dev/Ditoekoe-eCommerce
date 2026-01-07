@@ -56,24 +56,70 @@ export default function NavMain() {
             <div className="bg-gray-100 text-[13px] border-b border-gray-200 px-4 dark:bg-gray-500 dark:border-gray-600">
                 <div className="max-w-7xl mx-auto flex items-center justify-between text-gray-600 dark:text-gray-300">
 
-                    <Link
-                        href="/promo-aplikasi"
-                        className="flex items-center gap-1 py-1 text-gray-900"
-                    >
-                        <svg xmlns="http://www.w3.org/2000/svg" className="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
-                                d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5A2.25 2.25 0 0 0 8.25 22.5h7.5A2.25 2.25 0 0 0 18 20.25V3.75A2.25 2.25 0 0 0 15.75 1.5H13.5m-3 0V3h3V1.5"
-                            />
-                        </svg>
+                    <div className="relative group inline-block">
+                        {/* TEXT / TRIGGER */}
+                        <Link
+                            href="/promo-aplikasi"
+                            className="flex items-center gap-1 py-1 text-gray-900"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" className="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
+                                    d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5A2.25 2.25 0 0 0 8.25 22.5h7.5A2.25 2.25 0 0 0 18 20.25V3.75A2.25 2.25 0 0 0 15.75 1.5H13.5m-3 0V3h3V1.5"
+                                />
+                            </svg>
 
-                        <span className="font-bold">Gratis Ongkir + Banyak Promo</span>
-                        <span className="hover:font-bold">belanja di aplikasi</span>
+                            <span className="font-bold">Gratis Ongkir + Banyak Promo</span>
+                            <span className="text-gray-900 group-hover:font-bold">
+                                belanja di aplikasi
+                            </span>
 
-                        <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none"
-                            viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                        </svg>
-                    </Link>
+                            <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                            </svg>
+                        </Link>
+
+                        {/* POPUP */}
+                        <div
+                            className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-64 bg-white border rounded-sm shadow-lg p-4 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                            <p className="text-xs text-center text-gray-900 mb-1">
+                                Scan QR ini untuk download aplikasi dan dapatkan promonya!
+                            </p>
+
+                            <div className="flex justify-center mb-1">
+                                <img
+                                    src="/images/nav/qr-apk.webp"
+                                    alt="QR Download App"
+                                    className="w-36 h-36"
+                                />
+                            </div>
+
+                            <p className="text-xs text-center text-gray-500 mb-2">
+                                atau klik tombol di bawah:
+                            </p>
+
+                            <div className="grid grid-cols-2 gap-2">
+                                {/* BARIS ATAS */}
+                                <img
+                                    src="/images/nav/google-play.svg"
+                                    className="h-10 object-contain justify-self-center"
+                                    alt="Google Play"
+                                />
+                                <img
+                                    src="/images/nav/app-store.svg"
+                                    className="h-10 object-contain justify-self-center"
+                                    alt="App Store"
+                                />
+
+                                {/* BARIS BAWAH - TENGAH */}
+                                <img
+                                    src="/images/nav/app-gallery.svg"
+                                    className="h-8 object-contain col-span-2 justify-self-center"
+                                    alt="App Gallery"
+                                />
+                            </div>
+                        </div>
+                    </div>
 
                     <div className="flex items-center gap-6">
                         {["Tentang Ditoekoe", "Mulai Berjualan", "Promo", "Ditoekoe Care"].map((item) => (

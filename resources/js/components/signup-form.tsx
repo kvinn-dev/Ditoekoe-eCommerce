@@ -62,11 +62,11 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"div">)
           "X-CSRF-TOKEN": csrfToken,
         },
         credentials: "include",
-        body: JSON.stringify({ 
-          name, 
-          email, 
-          password, 
-          password_confirmation: confirmPassword 
+        body: JSON.stringify({
+          name,
+          email,
+          password,
+          password_confirmation: confirmPassword
         }),
       })
 
@@ -96,9 +96,9 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"div">)
         <CardContent className="grid p-0 md:grid-cols-2">
           <form className="p-6 md:p-8" onSubmit={handleSignup}>
             <FieldGroup>
-              <div className="flex flex-col items-center gap-2 text-center">
-                <h1 className="text-2xl font-bold">Create your account</h1>
-                <p className="text-muted-foreground text-sm text-balance">
+              <div className="flex flex-col items-center gap-1 text-center">
+                <h1 className="text-2xl text-green-600 font-bold">Create your account</h1>
+                <p className="text-gray-900 text-sm text-balance">
                   Enter your details below to create your account
                 </p>
               </div>
@@ -112,36 +112,34 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"div">)
               )}
 
               {/* Field Nama */}
-              <Field>
+              <Field className="!text-gray-500 placeholder:!text-gray-500">
                 <FieldLabel htmlFor="name">Name</FieldLabel>
                 <Input id="name" name="name" type="text" required />
-                <FieldDescription>
-                  Masukkan nama lengkap Anda
-                </FieldDescription>
               </Field>
 
-              <Field>
+              <Field className="!text-gray-500 placeholder:!text-gray-500">
                 <FieldLabel htmlFor="email">Email</FieldLabel>
                 <Input id="email" name="email" type="email" required />
               </Field>
 
               <Field className="grid grid-cols-2 gap-4">
-                <Field>
+                <Field className="!text-gray-500 placeholder:!text-gray-500">
                   <FieldLabel htmlFor="password">Password</FieldLabel>
                   <Input id="password" name="password" type="password" required />
                 </Field>
-                <Field>
+                <Field className="!text-gray-500 placeholder:!text-gray-500">
                   <FieldLabel htmlFor="confirm-password">Confirm Password</FieldLabel>
                   <Input id="confirm-password" name="confirm-password" type="password" required />
                 </Field>
               </Field>
-              <FieldDescription>
-                Must be at least 8 characters long.
-              </FieldDescription>
 
               <Field>
-                <Button type="submit" disabled={loading}>
-                  {loading ? "Loading..." : "Create Account"}
+                <Button
+                  type="submit"
+                  disabled={loading}
+                  className="bg-green-600 hover:bg-green-700 text-white"
+                >
+                  {loading ? ". . ." : "Create Account"}
                 </Button>
               </Field>
 
@@ -150,14 +148,14 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"div">)
               </FieldSeparator>
 
               <FieldDescription className="text-center">
-                Already have an account? <a href="/login">Sign in</a>
+                Already have an account? <a href="/login" className="font-medium text-green-600 hover:!text-green-600 hover:font-semibold">Sign in</a>
               </FieldDescription>
             </FieldGroup>
           </form>
 
           <div className="bg-muted relative hidden md:block">
             <img
-              src="images/login-illus.png"
+              src="images/login-ill.webp"
               alt="Image"
               className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
             />
@@ -166,8 +164,8 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"div">)
       </Card>
 
       <FieldDescription className="px-6 text-center">
-        By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
-        and <a href="#">Privacy Policy</a>.
+        By clicking continue, you agree to our <a href="#" className="text-green-600 hover:!text-green-600 font-medium hover:!font-semibold transition-colors underline-offset-2 hover:underline">Terms of Service</a>{" "}
+        and <a href="#" className="text-green-600 hover:!text-green-600 font-medium hover:!font-semibold transition-colors underline-offset-2 hover:underline">Privacy Policy</a>.
       </FieldDescription>
     </div>
   )

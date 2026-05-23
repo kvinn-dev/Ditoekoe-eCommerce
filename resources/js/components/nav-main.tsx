@@ -1,7 +1,7 @@
 import { Link, usePage } from "@inertiajs/react";
 import { type SharedData } from "@/types";
 import { useEffect, useState } from "react";
-import { Bell, Mail } from "lucide-react";
+import { Mail } from "lucide-react";
 import { UserInfo } from "@/components/user-info";
 import NotificationDropdown from "@/components/notification-dropdown";
 import CartDropdown from "@/components/cart-dropdown";
@@ -9,7 +9,6 @@ import CartDropdown from "@/components/cart-dropdown";
 export default function NavMain() {
     const page = usePage<SharedData>();
     const auth = page.props.auth ?? { user: null };
-    const user = auth.user;
 
     // State untuk CSRF token
     const [csrfToken, setCsrfToken] = useState<string>("");

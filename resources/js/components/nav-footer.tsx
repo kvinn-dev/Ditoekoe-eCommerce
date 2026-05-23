@@ -337,11 +337,6 @@ export function NavFooter() {
     const [activeTab, setActiveTab] = useState<TabKey>("Promo");
     const [lang, setLang] = useState<"ID" | "EN">("ID"); // Bahasa default Indonesia
 
-    // Toggle bahasa
-    const handleToggleLang = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setLang(e.target.checked ? "EN" : "ID");
-    };
-
     // Tabs indicator
     const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
     const [indicatorStyle, setIndicatorStyle] = useState({ width: 0, left: 0 });
@@ -479,7 +474,7 @@ export function NavFooter() {
                     </div>
 
                     {/* KEAMANAN DITOEKOE - ELEMEN BARU */}
-                    <div className="mt-0 pt-6 dark:border-[#3E3E3A] ">
+                    <div className="mt-0 pt-6 dark:border-[#252523] ">
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 
                             {/* TRANSPARAN */}

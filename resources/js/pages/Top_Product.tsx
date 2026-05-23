@@ -1,5 +1,5 @@
 import { Head, Link, router } from '@inertiajs/react';
-import { useState, useEffect, useRef, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import NavMain from '@/components/nav-main';
 import { NavFooter } from '@/components/nav-footer';
 import { type SharedData } from '@/types';

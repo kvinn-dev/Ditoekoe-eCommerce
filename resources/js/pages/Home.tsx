@@ -1,5 +1,5 @@
 import { Head, Link, router, usePage } from '@inertiajs/react';
-import { useState, useEffect, useRef, JSX } from "react";
+import { useState, useEffect, useRef } from "react";
 import { type SharedData } from '@/types';
 import { ChevronRight, ChevronLeft, ShoppingCart, Star, Truck, Shield, Clock } from 'lucide-react';
 import NavMain from "@/components/nav-main";

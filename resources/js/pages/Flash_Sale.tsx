@@ -47,7 +47,6 @@ export default function FlashSale({
     categories?: Category[];
 }) {
     const ITEMS_PER_LOAD = 30;
-    console.log(flashSaleProducts)
 
     const [activeCategory, setActiveCategory] = useState<'all' | string>('all');
     const [products, setProducts] = useState<Product[]>(flashSaleProducts);

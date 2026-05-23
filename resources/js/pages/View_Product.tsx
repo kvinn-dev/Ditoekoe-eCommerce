@@ -40,10 +40,9 @@ type ImportantInfoType = {
 };
 
 export default function ProductView({
-    auth,
     product,
     relatedProducts = [],
-    viewProducts = [],
+    // viewProducts = [],
 }: {
     auth: SharedData['auth'];
     product: Product;
@@ -53,9 +52,9 @@ export default function ProductView({
     const minOrder = product.min_order ?? 1;
     const stock = product.stock ?? 0;
 
-    const [products, setProducts] = useState<Product[]>(viewProducts);
+    // const [products, setProducts] = useState<Product[]>(viewProducts);
 
-    const [openInfoIndex, setOpenInfoIndex] = useState<number | null>(null);
+    // const [openInfoIndex, setOpenInfoIndex] = useState<number | null>(null);
 
     const [showInfoModal, setShowInfoModal] = useState(false);
 
@@ -735,7 +734,7 @@ export default function ProductView({
 
                 {/* RELATED PRODUCTS */}
                 {relatedProductsPrepared.length > 0 && (
-                    <section className="bg-white dark:bg-[#1A1A19] py-6 mt-3">
+                    <section className="dark:bg-[#1A1A19] py-6 mt-3">
                         <div className="max-w-6xl mx-auto px-4">
                             <h2 className="text-lg font-semibold px-2 mb-4">
                                 Pilihan Lainnya Untukmu

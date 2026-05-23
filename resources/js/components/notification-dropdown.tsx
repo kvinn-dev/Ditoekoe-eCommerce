@@ -41,10 +41,10 @@ export default function NotificationDropdown() {
     const containerRef = useRef<HTMLDivElement | null>(null);
     const tabRefs = useRef<Record<string, HTMLButtonElement | null>>({});
 
-    // const [indicator, setIndicator] = useState({
-    //     left: 0,
-    //     width: 0,
-    // });
+    const [indicator, setIndicator] = useState({
+        left: 0,
+        width: 0,
+    });
 
     useEffect(() => {
         const activeEl = tabRefs.current[activeTab];

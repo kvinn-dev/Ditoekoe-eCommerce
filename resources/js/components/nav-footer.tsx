@@ -337,11 +337,6 @@ export function NavFooter() {
     const [activeTab, setActiveTab] = useState<TabKey>("Promo");
     const [lang, setLang] = useState<"ID" | "EN">("ID"); // Bahasa default Indonesia
 
-    // Toggle bahasa
-    const handleToggleLang = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setLang(e.target.checked ? "EN" : "ID");
-    };
-
     // Tabs indicator
     const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
     const [indicatorStyle, setIndicatorStyle] = useState({ width: 0, left: 0 });
@@ -360,7 +355,7 @@ export function NavFooter() {
     return (
         <footer className="bg-white py-10 dark:bg-[#1A1A19]">
             <div className="container mx-auto max-w-6xl">
-                <div className="bg-white dark:bg-[#252523]">
+                <div className="bg-white dark:bg-[#1A1A19]">
 
                     {/* HEADER */}
                     <div className="mb-6">
@@ -369,7 +364,7 @@ export function NavFooter() {
                         </h2>
 
                         {/* TABS */}
-                        <div className="relative border-b border-gray-200 dark:border-[#3E3E3A]">
+                        <div className="relative border-b border-gray-200 dark:border-[#252523]">
                             {/* TAB BUTTONS */}
                             <div className="flex flex-wrap gap-4 relative">
                                 {TABS.map((tab, index) => (
@@ -414,7 +409,7 @@ export function NavFooter() {
                                     {column.map((item, itemIndex) => (
                                         <div
                                             key={itemIndex}
-                                            className="w-full text-[12.5px] text-gray-600 dark:text-gray-400 py-1.5 border-b border-gray-100 hover:text-green-600 dark:hover:text-green-400 transition-colors"
+                                            className="w-full text-[12.5px] text-gray-600 dark:text-gray-400 py-1.5 border-b border-gray-100 dark:border-[#252523] hover:text-green-600 dark:hover:text-green-400 transition-colors"
                                         >
                                             {item}
                                         </div>
@@ -479,7 +474,7 @@ export function NavFooter() {
                     </div>
 
                     {/* KEAMANAN DITOEKOE - ELEMEN BARU */}
-                    <div className="mt-0 pt-6 dark:border-[#3E3E3A] ">
+                    <div className="mt-0 pt-6 dark:border-[#252523] ">
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 
                             {/* TRANSPARAN */}
@@ -766,7 +761,7 @@ export function NavFooter() {
                                 </p>
 
                                 {/* Toggle Switch Bahasa */}
-                                <div className="relative inline-flex h-8.5 w-40 bg-gray-200/70 dark:bg-gray-700 rounded-md p-1">
+                                <div className="relative inline-flex h-8.5 w-40 bg-gray-200/70 dark:bg-[#252523] rounded-md p-1">
                                     {/* Slider */}
                                     <div
                                         className="absolute top-1 left-1 h-6.5 w-1/2 max-w-19 bg-green-600 rounded-md transition-all duration-300"

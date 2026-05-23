@@ -405,7 +405,7 @@ export interface DashboardStats {
 export interface PageProps<T = Record<string, any>> {
     auth: Auth;
     flash: SharedData['flash'];
-    [key: string]: T | any;
+    [key: string]: T | unknown;
 }
 
 // Product Page Props

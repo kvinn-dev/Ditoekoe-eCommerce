@@ -29,25 +29,25 @@ export function UserInfo({ user, onLogout }: UserInfoProps) {
                     </AvatarFallback>
                 </Avatar>
 
-                <span className="text-sm font-medium truncate max-w-[120px]">
+                <span className="text-sm font-medium truncate max-w-[120px] dark:text-white">
                     {user.name}
                 </span>
             </Link>
 
             {/* DROPDOWN (HOVER) */}
             <div
-                className="absolute right-0 mt-2 w-44 rounded-md border bg-white shadow-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition"
+                className="absolute right-0 mt-2 w-44 rounded-md border bg-white shadow-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition dark:bg-[#252523] dark:border-[#3E3E3A]"
             >
                 <Link
                     href="/profile"
-                    className="block px-4 py-2 text-sm hover:bg-gray-100 rounded-t-sm"
+                    className="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-[#1A1A19] rounded-t-sm dark:text-white"
                 >
                     Profil Saya
                 </Link>
 
                 <Link
                     href="/orders"
-                    className="block px-4 py-2 text-sm hover:bg-gray-100"
+                    className="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-[#1A1A19] dark:text-white"
                 >
                     Pesanan
                 </Link>
@@ -55,7 +55,7 @@ export function UserInfo({ user, onLogout }: UserInfoProps) {
                 <button
                     onClick={onLogout}
                     className="w-full text-left px-4 py-2 text-sm text-red-600
-                    hover:bg-red-100/30 rounded-b-sm"
+                    hover:bg-red-100/30 rounded-b-sm dark:text-red-400 dark:hover:bg-red-900/30"
                 >
                     Logout
                 </button>

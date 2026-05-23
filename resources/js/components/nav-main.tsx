@@ -1,7 +1,7 @@
 import { Link, usePage } from "@inertiajs/react";
 import { type SharedData } from "@/types";
 import { useEffect, useState } from "react";
-import { Bell, Mail } from "lucide-react";
+import { Mail } from "lucide-react";
 import { UserInfo } from "@/components/user-info";
 import NotificationDropdown from "@/components/notification-dropdown";
 import CartDropdown from "@/components/cart-dropdown";
@@ -9,7 +9,6 @@ import CartDropdown from "@/components/cart-dropdown";
 export default function NavMain() {
     const page = usePage<SharedData>();
     const auth = page.props.auth ?? { user: null };
-    const user = auth.user;
 
     // State untuk CSRF token
     const [csrfToken, setCsrfToken] = useState<string>("");
@@ -50,17 +49,17 @@ export default function NavMain() {
     };
 
     return (
-        <header className="sticky top-0 z-50 bg-white border-b border-gray-200 dark:bg-gray-500 dark:border-gray-600">
+        <header className="sticky top-0 z-50 bg-white border-b border-gray-200 dark:bg-[#1A1A19] dark:border-[#3E3E3A]">
 
             {/* TOP PROMO BAR */}
-            <div className="bg-gray-100 text-[13px] border-b border-gray-200 px-4 dark:bg-gray-500 dark:border-gray-600">
+            <div className="bg-gray-100 text-[13px] border-b border-gray-200 px-4 dark:bg-[#252523] dark:border-[#3E3E3A]">
                 <div className="max-w-7xl mx-auto flex items-center justify-between text-gray-600 dark:text-gray-300">
 
                     <div className="relative group inline-block">
                         {/* TEXT / TRIGGER */}
                         <Link
                             href="/promo-aplikasi"
-                            className="flex items-center gap-1 py-1 text-gray-900"
+                            className="flex items-center gap-1 py-1 text-gray-900 dark:text-white"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" className="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
@@ -69,7 +68,7 @@ export default function NavMain() {
                             </svg>
 
                             <span className="font-bold">Gratis Ongkir + Banyak Promo</span>
-                            <span className="text-gray-900 group-hover:font-bold">
+                            <span className="text-gray-900 group-hover:font-bold dark:text-gray-300">
                                 belanja di aplikasi
                             </span>
 
@@ -81,8 +80,8 @@ export default function NavMain() {
 
                         {/* POPUP */}
                         <div
-                            className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-64 bg-white border rounded-sm shadow-lg p-4 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                            <p className="text-xs text-center text-gray-900 mb-1">
+                            className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-64 bg-white border rounded-sm shadow-lg p-4 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 dark:bg-[#252523] dark:border-[#3E3E3A]">
+                            <p className="text-xs text-center text-gray-900 mb-1 dark:text-white">
                                 Scan QR ini untuk download aplikasi dan dapatkan promonya!
                             </p>
 
@@ -126,7 +125,7 @@ export default function NavMain() {
                             <Link
                                 key={item}
                                 href="/"
-                                className="hover:text-green-600"
+                                className="hover:text-green-600 dark:hover:text-green-400 dark:text-gray-300"
                             >
                                 {item}
                             </Link>
@@ -135,7 +134,7 @@ export default function NavMain() {
                 </div>
             </div>
 
-            <div className="container mx-auto px-4 py-2 bg-white">
+            <div className="container mx-auto px-4 py-2 bg-white dark:bg-[#1A1A19]">
                 <div className="flex items-center justify-between gap-6">
 
                     {/* LOGO */}
@@ -149,12 +148,12 @@ export default function NavMain() {
                             <input
                                 type="text"
                                 placeholder="Cari di Ditoekoe"
-                                className="w-full rounded-lg border border-gray-300 py-2.5 pl-10 pr-4 text-sm shadow-xs outline-none focus:ring-1 focus:ring-green-600 focus:border-green-600 dark:border-green-600 dark:bg-green-700 dark:text-gray-200"
+                                className="w-full rounded-lg border border-gray-300 py-2.5 pl-10 pr-4 text-sm shadow-xs outline-none focus:ring-1 focus:ring-green-600 focus:border-green-600 dark:border-[#3E3E3A] dark:bg-[#252523] dark:text-gray-200 focus:dark:border-green-600 focus:dark:ring-green-600"
                             />
 
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                className="h-5 w-5 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                                className="h-5 w-5 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500"
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
@@ -188,9 +187,9 @@ export default function NavMain() {
                                             section: "inbox",
                                             tab: "Chat",
                                         }}
-                                        className="w-9 h-9 flex items-center justify-center rounded-md hover:bg-gray-100/70 cursor-pointer"
+                                        className="w-9 h-9 flex items-center justify-center rounded-md hover:bg-gray-100/70 dark:hover:bg-[#252523] cursor-pointer"
                                     >
-                                        <Mail className="w-5 h-5 text-gray-700" />
+                                        <Mail className="w-5 h-5 text-gray-700 dark:text-gray-300" />
                                     </Link>
 
                                 </>
@@ -202,7 +201,7 @@ export default function NavMain() {
                             {auth.user ? (
                                 <>
                                     {/* DIVIDER */}
-                                    <div className="mx-4 mr-4 h-6 w-px bg-gray-300" />
+                                    <div className="mx-4 mr-4 h-6 w-px bg-gray-300 dark:bg-[#3E3E3A]" />
 
                                     {/* USER PROFILE */}
                                     <UserInfo
@@ -213,7 +212,7 @@ export default function NavMain() {
                             ) : (
                                 <>
                                     {/* DIVIDER */}
-                                    <div className="mx-4 h-6 w-px bg-gray-300" />
+                                    <div className="mx-4 h-6 w-px bg-gray-300 dark:bg-[#3E3E3A]" />
 
                                     {/* MASUK */}
                                     <Link

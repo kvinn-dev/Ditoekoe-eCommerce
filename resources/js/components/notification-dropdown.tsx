@@ -70,7 +70,7 @@ export default function NotificationDropdown() {
                 {/* PEMBELIAN */}
                 <div className="px-4 py-3">
                     <div className="flex items-center justify-between mb-3">
-                        <span className="font-semibold text-[14.5px] text-gray-900">
+                        <span className="font-semibold text-[14.5px] text-gray-900 dark:text-white">
                             Pembelian
                         </span>
                         <Link href="#" className="text-green-600 text-[12px]">
@@ -78,7 +78,7 @@ export default function NotificationDropdown() {
                         </Link>
                     </div>
 
-                    <div className="grid grid-cols-4 gap-4 text-center text-[11px] text-gray-700">
+                    <div className="grid grid-cols-4 gap-4 text-center text-[11px] text-gray-700 dark:text-gray-300">
                         <StatusItem icon={<Clock size={16} />} label="Menunggu Konfirmasi" />
                         <StatusItem icon={<RefreshCw size={16} />} label="Pesanan Diproses" />
                         <StatusItem icon={<Truck size={16} />} label="Sedang Dikirim" />
@@ -87,11 +87,11 @@ export default function NotificationDropdown() {
                 </div>
 
                 {/* PENJUALAN */}
-                <div className="px-4 py-3 border-t">
-                    <h4 className="font-semibold text-[14.5px] text-gray-900 mb-1">
+                <div className="px-4 py-3 border-t dark:border-[#3E3E3A]">
+                    <h4 className="font-semibold text-[14.5px] text-gray-900 dark:text-white mb-1">
                         Penjualan
                     </h4>
-                    <p className="text-[11px] text-gray-600 mb-3">
+                    <p className="text-[11px] text-gray-600 dark:text-gray-400 mb-3">
                         Cek pesanan yang masuk dan perkembangan tokomu
                         secara rutin di satu tempat
                     </p>
@@ -105,18 +105,18 @@ export default function NotificationDropdown() {
                 </div>
 
                 {/* EMPTY STATE */}
-                <div className="px-6 py-4 border-t text-center">
+                <div className="px-6 py-4 border-t dark:border-[#3E3E3A] text-center">
                     <img
                         src="/images/nav/no-notif.webp"
                         alt="Belum ada notifikasi"
                         className="mx-auto mb-2 w-20"
                     />
 
-                    <h4 className="font-semibold text-[14.5px] text-gray-900 mb-1">
+                    <h4 className="font-semibold text-[14.5px] text-gray-900 dark:text-white mb-1">
                         Belum ada notifikasi
                     </h4>
 
-                    <p className="text-[11px] text-gray-500 mb-2">
+                    <p className="text-[11px] text-gray-500 dark:text-gray-400 mb-2">
                         Notifikasi terkait transaksi kamu bakal muncul di sini
                     </p>
 
@@ -130,7 +130,7 @@ export default function NotificationDropdown() {
             </div>
 
             {/* STICKY FOOTER */}
-            <div className="sticky bottom-0 bg-white flex items-center justify-between px-4 py-2 text-[11px]
+            <div className="sticky bottom-0 bg-white dark:bg-[#252523] border-t dark:border-[#3E3E3A] flex items-center justify-between px-4 py-2 text-[11px]
                         shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)]">
                 <Link href="#" className="text-green-600 font-medium hover:text-green-700">
                     Tandai Semua Dibaca
@@ -149,8 +149,8 @@ export default function NotificationDropdown() {
             <div className="flex-1 overflow-y-auto">
 
                 {/* NOTIFICATION ITEM */}
-                <div className="px-4 py-3 border-b bg-green-50">
-                    <div className="flex items-center gap-2 text-[11px] text-gray-600 mb-1">
+                <div className="px-4 py-3 border-b dark:border-[#3E3E3A] bg-green-50 dark:bg-[#1A1A19]">
+                    <div className="flex items-center gap-2 text-[11px] text-gray-600 dark:text-gray-400 mb-1">
                         <span className="flex items-center gap-1 text-green-600 font-semibold">
                             <Megaphone size={12} />
                             Promo
@@ -159,11 +159,11 @@ export default function NotificationDropdown() {
                         <span>24 Des</span>
                     </div>
 
-                    <h4 className="font-semibold text-[13px] text-gray-900 leading-snug mb-1">
+                    <h4 className="font-semibold text-[13px] text-gray-900 dark:text-white leading-snug mb-1">
                         Cashback 80% untuk pengguna baru
                     </h4>
 
-                    <p className="text-[11px] text-gray-700 leading-relaxed line-clamp-2">
+                    <p className="text-[11px] text-gray-700 dark:text-gray-300 leading-relaxed line-clamp-2">
                         Tokopedia sudah berhasil mengirimkan produk kejutan
                         pembeli di Indonesia. Sekarang waktunya kamu cobain
                         nyamannya belanja apapun di Tokopedia pakai c...
@@ -181,7 +181,7 @@ export default function NotificationDropdown() {
             </div>
 
             {/* STICKY FOOTER */}
-            <div className="sticky bottom-0 bg-white flex items-center justify-between px-4 py-2 text-[11px]
+            <div className="sticky bottom-0 bg-white dark:bg-[#252523] border-t dark:border-[#3E3E3A] flex items-center justify-between px-4 py-2 text-[11px]
                         shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)]">
                 <Link href="#" className="text-green-600 font-medium hover:text-green-700">
                     Tandai Semua Dibaca
@@ -200,38 +200,38 @@ export default function NotificationDropdown() {
             onMouseLeave={handleMouseLeave}
         >
             {/* ICON */}
-            <button className="relative p-2 rounded-md hover:bg-gray-100/70">
-                <Bell className="w-5 h-5 text-gray-700" />
+            <button className="relative p-2 rounded-md hover:bg-gray-100/70 dark:hover:bg-[#252523]">
+                <Bell className="w-5 h-5 text-gray-700 dark:text-gray-300" />
             </button>
 
             {/* DROPDOWN */}
             {open && (
-                <div className="absolute left-1/2 mt-4 w-[280px] -translate-x-1/2 bg-white rounded-b-sm border border-gray-200 shadow-xl z-50 overflow-hidden">
+                <div className="absolute left-1/2 mt-4 w-[280px] -translate-x-1/2 bg-white dark:bg-[#252523] rounded-b-sm border border-gray-200 dark:border-[#3E3E3A] shadow-xl z-50 overflow-hidden">
 
                     {/* HEADER */}
-                    <div className="flex items-center justify-between h-12 px-4 border-b shadow-md">
-                        <h3 className="font-semibold text-gray-900 text-sm">
+                    <div className="flex items-center justify-between h-12 px-4 border-b dark:border-[#3E3E3A] shadow-md">
+                        <h3 className="font-semibold text-gray-900 dark:text-white text-sm">
                             Notifikasi
                         </h3>
-                        <Settings className="w-4 h-4 text-gray-500 cursor-pointer hover:text-gray-700" />
+                        <Settings className="w-4 h-4 text-gray-500 cursor-pointer hover:text-gray-700 dark:hover:text-gray-300" />
                     </div>
 
                     {/* TABS */}
                     <div className="relative shrink-0">
 
                         {/* GARIS ABU */}
-                        <div className="absolute bottom-0 left-0 right-0 h-px bg-gray-200" />
+                        <div className="absolute bottom-0 left-0 right-0 h-px bg-gray-200 dark:bg-[#3E3E3A]" />
 
                         {/* TABS */}
                         <div className="relative grid grid-cols-2 text-sm font-semibold">
-                            {TABS.map((tab, index) => (
+                            {TABS.map((tab) => (
                                 <button
                                     key={tab}
                                     onClick={() => setActiveTab(tab)}
                                     className={` py-2 text-center transition-colors
                                         ${activeTab === tab
                                             ? 'text-green-600'
-                                            : 'text-gray-500 hover:text-gray-700'
+                                            : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200'
                                         }
                 `}
                                 >
@@ -267,11 +267,11 @@ function StatusItem({
     label: string;
 }) {
     return (
-        <div className="flex flex-col items-center gap-1 cursor-pointer hover:text-green-600">
-            <div className="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center text-green-600">
+        <div className="flex flex-col items-center gap-1 cursor-pointer hover:text-green-600 dark:hover:text-green-400">
+            <div className="w-10 h-10 rounded-full bg-green-50 dark:bg-[#1A1A19] flex items-center justify-center text-green-600 dark:text-green-400">
                 {icon}
             </div>
-            <span className="text-center leading-tight">{label}</span>
+            <span className="text-center leading-tight dark:text-gray-300">{label}</span>
         </div>
     );
 }

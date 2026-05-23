@@ -166,7 +166,7 @@ export default function FlashSale({
                 <NavMain />
 
                 {/* Countdown Banner */}
-                <div className="flex items-center justify-center w-full gap-4 pt-5 pb-5">
+                <div className="flex items-center justify-center w-full gap-4 pt-5 pb-5 dark:bg-[#1A1A19]">
                     <div className="flex-1 max-w-[50px] h-[1px] bg-gray-400" />
                     <div className="flex items-center gap-1">
                         <img src="images/icon/flashsale.png" alt="Flash Sale" className="h-8 w-auto object-contain" />
@@ -188,7 +188,7 @@ export default function FlashSale({
                     <div className="flex-1 max-w-[50px] h-[1px] bg-gray-400" />
                 </div>
 
-                <section className="bg-white">
+                <section className="bg-white dark:bg-[#1A1A19]">
                     <div className="container mx-auto max-w-6xl">
                         {/* Banner */}
                         <div className="my-0">
@@ -212,7 +212,7 @@ export default function FlashSale({
                         ${isLast ? 'rounded-br-xl' : ''}
                         ${isActive
                                                     ? 'bg-gradient-to-r from-green-600 to-green-500 text-white'
-                                                    : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
+                                                    : 'bg-gray-100 dark:bg-[#252523] text-gray-900 dark:text-gray-100 hover:bg-gray-200'
                                                 }`}
                                         >
                                             <div className="font-semibold text-[23px] mb-[-5px]">{s.time}</div>
@@ -230,7 +230,7 @@ export default function FlashSale({
                                     onClick={() => setActiveCategory('all')}
                                     className={`px-5 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition ${activeCategory === 'all'
                                         ? 'bg-gradient-to-r from-green-500 to-green-600 text-white shadow-sm'
-                                        : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
+                                        : 'bg-gray-100 dark:bg-[#252523] text-gray-700 dark:text-gray-100 hover:bg-gray-200'
                                         }`}
                                 >
                                     All
@@ -242,7 +242,7 @@ export default function FlashSale({
                                         onClick={() => { setActiveCategory(c.slug); setOpenMore(false); }}
                                         className={`px-5 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition ${activeCategory === c.slug
                                             ? 'bg-gradient-to-r from-green-500 to-green-600 text-white shadow-sm'
-                                            : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
+                                            : 'bg-gray-100 dark:bg-[#252523] text-gray-700 dark:text-gray-100 hover:bg-gray-200'
                                             }`}
                                     >
                                         {c.name}
@@ -253,7 +253,7 @@ export default function FlashSale({
                                     <button
                                         ref={moreBtnRef}
                                         onClick={() => setOpenMore(prev => !prev)}
-                                        className="px-5 py-1.5 rounded-full text-sm font-medium bg-gray-100 hover:bg-gray-200 text-gray-700 flex items-center gap-1.5 transition"
+                                        className="px-5 py-1.5 rounded-full text-sm font-medium bg-gray-100 dark:bg-[#252523] hover:bg-gray-200 text-gray-700 dark:text-gray-100 flex items-center gap-1.5 transition"
                                     >
                                         Lainnya
                                         <svg
@@ -299,7 +299,7 @@ export default function FlashSale({
                                     <Link
                                         key={p.id}
                                         href={`/product/${p.slug}`}
-                                        className="relative bg-white rounded-xl border border-gray-200 transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-sm"
+                                        className="relative bg-white dark:bg-[#1A1A19] rounded-xl border border-gray-200 dark:border-[#252523] transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-sm"
                                     >
                                         {/* Badge Diskon */}
                                         {p.hasDiscount && (
@@ -324,7 +324,7 @@ export default function FlashSale({
 
                                         {/* Info Produk */}
                                         <div className="px-2.5 py-2.5 mb-3">
-                                            <h3 className="text-sm font-medium line-clamp-2 mb-1.5 min-h-[40px] text-gray-800">
+                                            <h3 className="text-sm font-medium line-clamp-2 mb-1.5 min-h-[40px] text-gray-800 dark:text-gray-100">
                                                 {p.name ?? '-'}
                                             </h3>
 

@@ -26,13 +26,13 @@ export default function CartDropdown() {
             onMouseLeave={handleMouseLeave}
         >
             {/* CART ICON */}
-            <Link href="/cart" className="w-9 h-9 flex items-center justify-center rounded-md hover:bg-gray-100/70">
+            <Link href="/cart" className="w-9 h-9 flex items-center justify-center rounded-md">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
-                    stroke="#374151"
+                    stroke="#16a34a"
                     className="size-5.5"
                 >
                     <path
@@ -45,11 +45,11 @@ export default function CartDropdown() {
 
             {/* DROPDOWN */}
             {open && (
-                <div className="absolute left-1/2 mt-4 w-[350px] -translate-x-1/2 bg-white border border-gray-200 rounded-b-sm shadow-xl z-50 overflow-hidden">
+                <div className="absolute left-1/2 mt-4 w-[350px] -translate-x-1/2 bg-white dark:bg-[#1A1A19] border border-gray-200 dark:border-[#252523] rounded-b-sm shadow-xl z-50 overflow-hidden">
 
                     {/* HEADER */}
                     <div className="flex items-center justify-between h-12 px-4 border-b shadow-md">
-                        <h3 className="font-semibold text-gray-900 text-sm">
+                        <h3 className="font-semibold text-gray-900 dark:text-gray-100 text-sm">
                             Keranjang
                         </h3>
                         <Link

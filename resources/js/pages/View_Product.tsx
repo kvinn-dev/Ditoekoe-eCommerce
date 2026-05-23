@@ -735,7 +735,7 @@ export default function ProductView({
 
                 {/* RELATED PRODUCTS */}
                 {relatedProductsPrepared.length > 0 && (
-                    <section className="bg-white py-6 mt-3">
+                    <section className="bg-white dark:bg-[#1A1A19] py-6 mt-3">
                         <div className="max-w-6xl mx-auto px-4">
                             <h2 className="text-lg font-semibold px-2 mb-4">
                                 Pilihan Lainnya Untukmu

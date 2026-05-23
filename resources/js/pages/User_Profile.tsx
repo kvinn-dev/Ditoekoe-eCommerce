@@ -97,13 +97,13 @@ export default function UserProfile() {
         onClick?: () => void;
     }) => (
         <div className="flex justify-between items-center mb-3">
-            <span className="w-40 text-gray-700">{label}</span>
+            <span className="w-40 text-gray-700 dark:text-gray-300">{label}</span>
 
             <div className="flex items-center gap-1">
-                <span className="text-gray-600">{value}</span>
+                <span className="text-gray-600 dark:text-gray-400">{value}</span>
 
                 {badge && (
-                    <span className="text-xs bg-green-100 text-green-700 px-1 py-0.5 rounded">
+                    <span className="text-xs bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-1 py-0.5 rounded">
                         {badge}
                     </span>
                 )}
@@ -205,8 +205,8 @@ export default function UserProfile() {
             <div>
 
                 {/* PHOTO CARD */}
-                <div className="bg-white rounded-sm shadow-sm border p-3 space-y-2 mb-6">
-                    <div className="aspect-square rounded-lg overflow-hidden bg-gray-100">
+                <div className="bg-white dark:bg-[#252523] rounded-sm shadow-sm border dark:border-[#3E3E3A] p-3 space-y-2 mb-6">
+                    <div className="aspect-square rounded-lg overflow-hidden bg-gray-100 dark:bg-[#1A1A19]">
                         <Avatar className="w-full h-full">
                             <AvatarImage
                                 src={user.avatar ?? "/images/login-illus.png"}
@@ -221,11 +221,11 @@ export default function UserProfile() {
                         </Avatar>
                     </div>
 
-                    <label className="block text-center border text-sm rounded-sm py-1.5 font-semibold cursor-pointer hover:bg-gray-50">
+                    <label className="block text-center border dark:border-[#3E3E3A] text-sm rounded-sm py-1.5 font-semibold cursor-pointer hover:bg-gray-50 dark:hover:bg-[#1A1A19]">
                         Pilih Foto
                     </label>
 
-                    <p className="text-xs text-gray-500 text-center">
+                    <p className="text-xs text-gray-500 dark:text-gray-400 text-center">
                         Besar file maksimum 10 MB<br />
                         JPG, JPEG, PNG
                     </p>
@@ -233,15 +233,15 @@ export default function UserProfile() {
 
                 {/* BUTTON GROUP */}
                 <div className="space-y-1">
-                    <button className="w-full border rounded-sm py-1.5 text-sm font-semibold hover:bg-gray-50">
+                    <button className="w-full border dark:border-[#3E3E3A] rounded-sm py-1.5 text-sm font-semibold hover:bg-gray-50 dark:hover:bg-[#252523]">
                         Buat Kata Sandi
                     </button>
 
-                    <button className="w-full border rounded-sm py-1.5 text-sm font-semibold hover:bg-gray-50">
+                    <button className="w-full border dark:border-[#3E3E3A] rounded-sm py-1.5 text-sm font-semibold hover:bg-gray-50 dark:hover:bg-[#252523]">
                         PIN Ditoekoe
                     </button>
 
-                    <button className="w-full border rounded-sm py-1.5 text-sm font-semibold hover:bg-gray-50">
+                    <button className="w-full border dark:border-[#3E3E3A] rounded-sm py-1.5 text-sm font-semibold hover:bg-gray-50 dark:hover:bg-[#252523]">
                         Verifikasi Instan
                     </button>
                 </div>
@@ -283,12 +283,12 @@ export default function UserProfile() {
         <div className="grid grid-cols-1 md:grid-cols-[260px_1fr] gap-6">
 
             {/* LEFT MENU */}
-            <div className="bg-white rounded-xl border text-sm">
+            <div className="bg-white dark:bg-[#1A1A19] rounded-xl border dark:border-[#3E3E3A] text-sm overflow-hidden">
                 {['GoPay', 'DANA', 'Kartu Kredit / Debit', 'Kredivo Express', 'Debit Instan']
                     .map(item => (
                         <div
                             key={item}
-                            className="px-4 py-3 border-b hover:bg-gray-50 cursor-pointer font-medium"
+                            className="px-4 py-3 border-b dark:border-[#3E3E3A] hover:bg-gray-50 dark:hover:bg-[#252523] cursor-pointer font-medium"
                         >
                             {item}
                         </div>
@@ -296,7 +296,7 @@ export default function UserProfile() {
             </div>
 
             {/* RIGHT CONTENT */}
-            <div className="bg-white rounded-xl border p-6 text-center">
+            <div className="bg-white dark:bg-[#1A1A19] rounded-xl border dark:border-[#3E3E3A] p-6 text-center">
                 <h2 className="text-xl font-bold mb-2">
                     Yuk, Aktifkan GoPay!
                 </h2>
@@ -312,49 +312,49 @@ export default function UserProfile() {
     )
 
     const TabAlamat = () => (
-        <div className="bg-white rounded-xl border p-6">
+        <div className="bg-white dark:bg-[#1A1A19] rounded-xl border dark:border-[#3E3E3A] p-6">
             Daftar Alamat
         </div>
     )
 
     const TabRekening = () => (
-        <div className="bg-white rounded-xl border p-6">
+        <div className="bg-white dark:bg-[#1A1A19] rounded-xl border dark:border-[#3E3E3A] p-6">
             Rekening Bank
         </div>
     )
 
     const TabMode = () => (
-        <div className="bg-white rounded-xl border p-6">
+        <div className="bg-white dark:bg-[#1A1A19] rounded-xl border dark:border-[#3E3E3A] p-6">
             Mode Tampilan
         </div>
     )
 
     const TabKeamanan = () => (
-        <div className="bg-white rounded-xl border p-6">
+        <div className="bg-white dark:bg-[#1A1A19] rounded-xl border dark:border-[#3E3E3A] p-6">
             Keamanan
         </div>
     )
 
     const TabNotifikasi = () => (
-        <div className="bg-white rounded-xl border p-6">
+        <div className="bg-white dark:bg-[#1A1A19] rounded-xl border dark:border-[#3E3E3A] p-6">
             Notifikasi
         </div>
     )
 
     const TabChat = () => (
-        <div className="bg-white rounded-xl border p-6">
+        <div className="bg-white dark:bg-[#1A1A19] rounded-xl border dark:border-[#3E3E3A] p-6">
             Chat
         </div>
     )
 
     const TabMenungguPembayaran = () => (
-        <div className="bg-white rounded-xl border p-6">
+        <div className="bg-white dark:bg-[#1A1A19] rounded-xl border dark:border-[#3E3E3A] p-6">
             Menunggu Pembayaran
         </div>
     )
 
     const TabDaftarTransaksi = () => (
-        <div className="bg-white rounded-xl border p-6">
+        <div className="bg-white dark:bg-[#1A1A19] rounded-xl border dark:border-[#3E3E3A] p-6">
             Transaksi
         </div>
     )
@@ -363,7 +363,7 @@ export default function UserProfile() {
         <>
             <Head title="Profil - Ditoekoe" />
 
-            <div className="min-h-screen bg-gray-50 text-gray-900">
+            <div className="min-h-screen bg-gray-50 text-gray-900 dark:bg-[#121212] dark:text-white">
                 {/* NAV */}
                 <NavMain />
 
@@ -373,7 +373,7 @@ export default function UserProfile() {
                         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 min-h-[calc(100vh-120px)] items-stretch">
                             {/* Left Sidebar */}
                             <div className="lg:col-span-3 h-full">
-                                <div className="bg-white rounded-xl border shadow-sm text-sm overflow-hidden h-full flex flex-col">
+                                <div className="bg-white dark:bg-[#1A1A19] rounded-xl border dark:border-[#3E3E3A] shadow-sm text-sm overflow-hidden h-full flex flex-col">
 
                                     {/* USER CARD */}
                                     <div className="p-4">
@@ -400,17 +400,17 @@ export default function UserProfile() {
                                         </div>
 
                                         {/* DIVIDER */}
-                                        <div className="border-t border-gray-300 -mx-4" />
+                                        <div className="border-t border-gray-300 dark:border-[#3E3E3A] -mx-4" />
 
                                         {/* PROMO */}
-                                        <div className="border mt-5 rounded-lg p-3 text-sm">
+                                        <div className="border dark:border-[#3E3E3A] mt-5 rounded-lg p-3 text-sm bg-white dark:bg-[#252523]">
                                             <span className="inline-block bg-linear-to-r from-green-500 to-green-600 text-white font-semibold italic text-xs px-1.5 rounded mb-2">
                                                 PLUS <span className="font-black text-sm">+</span>
                                             </span>
                                             <p className="font-bold leading-snug">
                                                 Nikmatin Gratis Ongkir tanpa batas!
                                             </p>
-                                            <p className="text-gray-500 text-xs mt-1">
+                                            <p className="text-gray-500 dark:text-gray-400 text-xs mt-1">
                                                 Min. belanja Rp0, bebas biaya aplikasi
                                             </p>
                                         </div>
@@ -433,7 +433,7 @@ export default function UserProfile() {
                                     </div>
 
                                     {/* DIVIDER */}
-                                    <div className="border-t border-gray-300" />
+                                    <div className="border-t border-gray-300 dark:border-[#3E3E3A]" />
 
                                     {/* MENU */}
                                     <div className="p-2 flex flex-col flex-1">
@@ -442,7 +442,7 @@ export default function UserProfile() {
                                         <div>
                                             <button
                                                 onClick={() => toggleMenu('Profil Saya')}
-                                                className="w-full flex justify-between items-center px-4 py-2 font-semibold hover:bg-gray-50"
+                                                className="w-full flex justify-between items-center px-4 py-2 font-semibold hover:bg-gray-50 dark:hover:bg-[#252523]"
                                             >
                                                 Profil Saya
                                                 <ChevronIcon open={openMenu['Profil Saya']} />
@@ -460,7 +460,7 @@ export default function UserProfile() {
                                                             className={`cursor-pointer transition
                                                                 ${activeSection === 'profil' && activeTab === tab
                                                                     ? 'text-green-600 font-black'
-                                                                    : 'text-gray-600 hover:text-green-500'
+                                                                    : 'text-gray-600 dark:text-gray-400 hover:text-green-500'
                                                                 }`}
                                                         >
                                                             {tab}
@@ -474,14 +474,14 @@ export default function UserProfile() {
                                         <div>
                                             <button
                                                 onClick={() => toggleMenu('Kotak Masuk')}
-                                                className="w-full flex justify-between items-center px-4 py-2 font-semibold hover:bg-gray-50"
+                                                className="w-full flex justify-between items-center px-4 py-2 font-semibold hover:bg-gray-50 dark:hover:bg-[#252523]"
                                             >
                                                 Kotak Masuk
                                                 <ChevronIcon open={openMenu['Kotak Masuk']} />
                                             </button>
 
                                             {openMenu['Kotak Masuk'] && (
-                                                <div className="px-6 pb-2.5 space-y-2 text-gray-600">
+                                                <div className="px-6 pb-2.5 space-y-2 text-gray-600 dark:text-gray-400">
                                                     {SECTION_TABS.inbox.map(tab => (
                                                         <div
                                                             key={tab}
@@ -506,14 +506,14 @@ export default function UserProfile() {
                                         <div>
                                             <button
                                                 onClick={() => toggleMenu('Pembelian')}
-                                                className="w-full flex justify-between items-center px-4 py-2 font-semibold hover:bg-gray-50"
+                                                className="w-full flex justify-between items-center px-4 py-2 font-semibold hover:bg-gray-50 dark:hover:bg-[#252523]"
                                             >
                                                 Pembelian
                                                 <ChevronIcon open={openMenu['Pembelian']} />
                                             </button>
 
                                             {openMenu['Pembelian'] && (
-                                                <div className="px-6 pb-2.5 space-y-2 text-gray-600">
+                                                <div className="px-6 pb-2.5 space-y-2 text-gray-600 dark:text-gray-400">
                                                     {SECTION_TABS.pembelian.map(tab => (
                                                         <div
                                                             key={tab}
@@ -542,13 +542,13 @@ export default function UserProfile() {
 
                             {/* Right Content */}
                             <div className="lg:col-span-9">
-                                <div className="bg-white rounded-xl shadow-sm border h-[calc(100vh-80px)] flex flex-col overflow-hidden">
+                                <div className="bg-white dark:bg-[#1A1A19] rounded-xl shadow-sm border dark:border-[#3E3E3A] h-[calc(100vh-80px)] flex flex-col overflow-hidden">
 
                                     {/* TABS */}
                                     <div className="relative shrink-0 pt-3">
 
                                         {/* GARIS ABU-ABU */}
-                                        <div className="absolute bottom-0 left-0 right-0 h-px bg-gray-300" />
+                                        <div className="absolute bottom-0 left-0 right-0 h-px bg-gray-300 dark:bg-[#3E3E3A]" />
 
                                         {/* WRAPPER */}
                                         <div className="relative">
@@ -568,7 +568,7 @@ export default function UserProfile() {
                                                         className={`px-5 pb-3 whitespace-nowrap shrink-0 transition-colors
                                                             ${activeTab === tab
                                                                 ? 'text-green-600'
-                                                                : 'text-gray-500 hover:text-gray-700'
+                                                                : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200'
                                                             }`}
                                                     >
                                                         {tab}

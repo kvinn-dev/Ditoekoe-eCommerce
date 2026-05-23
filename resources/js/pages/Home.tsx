@@ -428,7 +428,7 @@ export default function Home({
                 />
             </Head>
 
-            <div className="min-h-screen bg-white text-gray-900 dark:bg-gray-600">
+            <div className="min-h-screen bg-white text-gray-900 dark:bg-[#1A1A19]">
                 {/* Header Navigation */}
                 <NavMain />
 
@@ -513,9 +513,9 @@ export default function Home({
                                     setIsTransitioning(true);
                                     setCurrentSlide(prev => prev - 1);
                                 }}
-                                className="pointer-events-auto absolute left-2 top-1/2 -translate-y-1/2 bg-white/90 dark:bg-[#333]/90 shadow-md p-3 rounded-full opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 hover:scale-110 transition-all duration-300"
+                                className="pointer-events-auto absolute left-2 top-1/2 -translate-y-1/2 bg-white/90 dark:bg-[#1A1A19]/90 shadow-md p-3 rounded-full opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 hover:scale-110 transition-all duration-300"
                             >
-                                <ChevronLeft className="h-5 w-5" />
+                                <ChevronLeft className="h-5 w-5 text-gray-800 dark:text-gray-100" />
                             </button>
 
                             <button
@@ -524,9 +524,9 @@ export default function Home({
                                     setIsTransitioning(true);
                                     setCurrentSlide(prev => prev + 1);
                                 }}
-                                className="pointer-events-auto absolute right-2 top-1/2 -translate-y-1/2 bg-white/90 dark:bg-[#333]/90 shadow-md p-3 rounded-full opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 hover:scale-110 transition-all duration-300"
+                                className="pointer-events-auto absolute right-2 top-1/2 -translate-y-1/2 bg-white/90 dark:bg-[#1A1A19]/90 shadow-md p-3 rounded-full opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 hover:scale-110 transition-all duration-300"
                             >
-                                <ChevronRight className="h-5 w-5" />
+                                <ChevronRight className="h-5 w-5 text-gray-800 dark:text-gray-100" />
                             </button>
                         </div>
 
@@ -579,100 +579,100 @@ export default function Home({
                             <Link
                                 href="/lokal"
                                 className="flex flex-col items-center">
-                                <div className="rounded-xl border border-gray-200 dark:border-gray-700 p-3 bg-white dark:bg-[#161615]">
+                                <div className="rounded-xl border border-gray-200 dark:border-[#252523] p-3 bg-white dark:bg-[#1A1A19]">
                                     <img src="images/icon/icon_local.png" alt="Ditoekoe Pilih Lokal" className="h-8 w-8" />
                                 </div>
-                                <p className="mt-2 text-[13px] font-regular text-gray-900 dark:text-gray-200">Ditoekoe Pilih Lokal</p>
+                                <p className="mt-2 text-[13px] font-regular text-gray-900 dark:text-gray-300">Ditoekoe Pilih Lokal</p>
                             </Link>
 
                             {/* Item 2 */}
                             <Link
                                 href="/mall"
                                 className="flex flex-col items-center">
-                                <div className="rounded-xl border border-gray-200 dark:border-gray-700 p-3 bg-white dark:bg-[#161615]">
+                                <div className="rounded-xl border border-gray-200 dark:border-[#252523] p-3 bg-white dark:bg-[#1A1A19]">
                                     <img src="images/icon/icon_bag.png" alt="Ditoekoe Mall" className="h-8 w-8" />
                                 </div>
-                                <p className="mt-2 text-[13px] font-regular text-gray-900 dark:text-gray-200">Ditoekoe Mall</p>
+                                <p className="mt-2 text-[13px] font-regular text-gray-900 dark:text-gray-300">Ditoekoe Mall</p>
                             </Link>
 
                             {/* Item 3 */}
                             <Link
                                 href="/pulsa"
                                 className="flex flex-col items-center">
-                                <div className="rounded-xl border border-gray-200 dark:border-gray-700 p-3 bg-white dark:bg-[#161615]">
+                                <div className="rounded-xl border border-gray-200 dark:border-[#252523] p-3 bg-white dark:bg-[#1A1A19]">
                                     <img src="images/icon/icon_pulsa.png" alt="Pulsa Tagihan Tiket" className="h-8 w-8" />
                                 </div>
-                                <p className="mt-2 text-[13px] font-regular text-gray-900 dark:text-gray-200">Pulsa, Tagihan, dan Tiket</p>
+                                <p className="mt-2 text-[13px] font-regular text-gray-900 dark:text-gray-300">Pulsa, Tagihan, dan Tiket</p>
                             </Link>
 
                             {/* Item 4 */}
                             <Link
                                 href="/flash-sale"
                                 className="flex flex-col items-center">
-                                <div className="rounded-xl border border-gray-200 dark:border-gray-700 p-3 bg-white dark:bg-[#161615]">
+                                <div className="rounded-xl border border-gray-200 dark:border-[#252523] p-3 bg-white dark:bg-[#1A1A19]">
                                     <img src="images/icon/icon_flashsale.png" alt="Flash Sale" className="h-8 w-8" />
                                 </div>
-                                <p className="mt-2 text-[13px] font-regular text-gray-900 dark:text-gray-200">Flash Sale</p>
+                                <p className="mt-2 text-[13px] font-regular text-gray-900 dark:text-gray-300">Flash Sale</p>
                             </Link>
 
                             {/* Item 5 */}
                             <Link
                                 href="/supermarket"
                                 className="flex flex-col items-center">
-                                <div className="rounded-xl border border-gray-200 dark:border-gray-700 p-3 bg-white dark:bg-[#161615]">
+                                <div className="rounded-xl border border-gray-200 dark:border-[#252523] p-3 bg-white dark:bg-[#1A1A19]">
                                     <img src="images/icon/icon_supermarket.png" alt="Supermarket" className="h-8 w-10" />
                                 </div>
-                                <p className="mt-2 text-[13px] font-regular text-gray-900 dark:text-gray-200">Ditoekoe Supermarket</p>
+                                <p className="mt-2 text-[13px] font-regular text-gray-900 dark:text-gray-300">Ditoekoe Supermarket</p>
                             </Link>
 
                             {/* Item 6 */}
                             <Link
                                 href="/kelola"
                                 className="flex flex-col items-center">
-                                <div className="rounded-xl border border-gray-200 dark:border-gray-700 p-3 bg-white dark:bg-[#161615]">
+                                <div className="rounded-xl border border-gray-200 dark:border-[#252523] p-3 bg-white dark:bg-[#1A1A19]">
                                     <img src="images/icon/icon_kelola.png" alt="Dikelola Ditoekoe" className="h-8 w-8" />
                                 </div>
-                                <p className="mt-2 text-[13px] font-regular text-gray-900 dark:text-gray-200">Dikelola Ditoekoe</p>
+                                <p className="mt-2 text-[13px] font-regular text-gray-900 dark:text-gray-300">Dikelola Ditoekoe</p>
                             </Link>
 
                             {/* Item 7 */}
                             <Link
                                 href="/diskon"
                                 className="flex flex-col items-center">
-                                <div className="rounded-xl border border-gray-200 dark:border-gray-700 p-3 bg-white dark:bg-[#161615]">
+                                <div className="rounded-xl border border-gray-200 dark:border-[#252523] p-3 bg-white dark:bg-[#1A1A19]">
                                     <img src="images/icon/icon_fitcheck.png" alt="FitCheck Diskon" className="h-8 w-8" />
                                 </div>
-                                <p className="mt-2 text-[13px] font-regular text-gray-900 dark:text-gray-200">FitCheck Diskon 35%</p>
+                                <p className="mt-2 text-[13px] font-regular text-gray-900 dark:text-gray-300">FitCheck Diskon 35%</p>
                             </Link>
 
                             {/* Item 8 */}
                             <Link
                                 href="/gratis-ongkir"
                                 className="flex flex-col items-center">
-                                <div className="rounded-xl border border-gray-200 dark:border-gray-700 p-3 bg-white dark:bg-[#161615]">
+                                <div className="rounded-xl border border-gray-200 dark:border-[#252523] p-3 bg-white dark:bg-[#1A1A19]">
                                     <img src="images/icon/icon_voucher.png" alt="Gratis Ongkir" className=" h-8 w-8.5" />
                                 </div>
-                                <p className="mt-2 text-[13px] font-regular text-gray-900 dark:text-gray-200">Gratis Ongkir & Voucher</p>
+                                <p className="mt-2 text-[13px] font-regular text-gray-900 dark:text-gray-300">Gratis Ongkir & Voucher</p>
                             </Link>
 
                             {/* Item 9 */}
                             <Link
                                 href="/berkah"
                                 className="flex flex-col items-center">
-                                <div className="rounded-xl border border-gray-200 dark:border-gray-700 p-3 bg-white dark:bg-[#161615]">
+                                <div className="rounded-xl border border-gray-200 dark:border-[#252523] p-3 bg-white dark:bg-[#1A1A19]">
                                     <img src="images/icon/icon_berkah.png" alt="Ditoekoe Berkah" className="h-8 w-8" />
                                 </div>
-                                <p className="mt-2 text-[13px] font-regular text-gray-900 dark:text-gray-200">Ditoekoe Berkah</p>
+                                <p className="mt-2 text-[13px] font-regular text-gray-900 dark:text-gray-300">Ditoekoe Berkah</p>
                             </Link>
 
                             {/* Item 10 */}
                             <Link
                                 href="/semua"
                                 className="flex flex-col items-center">
-                                <div className="rounded-xl border border-gray-200 dark:border-gray-700 p-3 bg-white dark:bg-[#161615]">
+                                <div className="rounded-xl border border-gray-200 dark:border-[#252523] p-3 bg-white dark:bg-[#1A1A19]">
                                     <img src="images/icon/icon_promo.png" alt="Semua Promo" className="h-8 w-8" />
                                 </div>
-                                <p className="mt-2 text-[13px] font-regular text-gray-900 dark:text-gray-200">Semua Promo</p>
+                                <p className="mt-2 text-[13px] font-regular text-gray-900 dark:text-gray-300">Semua Promo</p>
                             </Link>
                         </div>
                     </div>
@@ -680,11 +680,11 @@ export default function Home({
 
                 {/* Category Section */}
                 <section className="py-0 relative">
-                    <div className="max-w-6xl mx-auto bg-white dark:bg-[#161615] rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 relative group overflow-hidden">
+                    <div className="max-w-6xl mx-auto bg-white dark:bg-[#1A1A19] rounded-xl shadow-sm border border-gray-200 dark:border-[#252523] relative group overflow-hidden">
 
                         {/* Header */}
-                        <div className="px-6 py-5 border-b border-gray-200 dark:border-gray-700">
-                            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-200">
+                        <div className="px-6 py-5 border-b border-gray-200 dark:border-[#252523]">
+                            <h2 className="text-xl font-bold text-gray-900 dark:text-white">
                                 Kategori
                             </h2>
                         </div>
@@ -693,18 +693,18 @@ export default function Home({
                         {categorySlider.canPrev && (
                             <button
                                 onClick={() => categorySlider.scroll("left")}
-                                className="pointer-events-auto absolute left-0 top-1/2 -translate-y-1/2 bg-white/90 dark:bg-[#333]/90 shadow-md p-3 rounded-full opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 hover:scale-110 transition-all duration-300"
+                                className="pointer-events-auto absolute left-0 top-1/2 -translate-y-1/2 bg-white/90 dark:bg-[#1A1A19]/90 shadow-md p-3 rounded-full opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 hover:scale-110 transition-all duration-300"
                             >
-                                <ChevronLeft className="h-5 w-5" />
+                                <ChevronLeft className="h-5 w-5 text-gray-800 dark:text-gray-100" />
                             </button>
                         )}
 
                         {categorySlider.canNext && (
                             <button
                                 onClick={() => categorySlider.scroll("right")}
-                                className="pointer-events-auto absolute right-0 top-1/2 -translate-y-1/2 bg-white/90 dark:bg-[#333]/90 shadow-md p-3 rounded-full opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 hover:scale-110 transition-all duration-300"
+                                className="pointer-events-auto absolute right-0 top-1/2 -translate-y-1/2 bg-white/90 dark:bg-[#1A1A19]/90 shadow-md p-3 rounded-full opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 hover:scale-110 transition-all duration-300"
                             >
-                                <ChevronRight className="h-5 w-5" />
+                                <ChevronRight className="h-5 w-5 text-gray-800 dark:text-gray-100" />
                             </button>
                         )}
 
@@ -713,17 +713,17 @@ export default function Home({
 
                             {/* GRID */}
                             <div
-                                className="inline-grid grid-rows-2 auto-cols-[10%] divide-x divide-y divide-gray-300 dark:divide-gray-700"
+                                className="inline-grid grid-rows-2 auto-cols-[10%] divide-x divide-y divide-gray-300 dark:divide-[#252523]"
                                 style={{ gridAutoFlow: "column" }}
                             >
                                 {categoryItems.map((item, index) => (
                                     <div
                                         key={index}
-                                        className="flex flex-col items-center bg-white dark:bg-[#161615]"
+                                        className="flex flex-col items-center bg-white dark:bg-[#1A1A19]"
                                     >
                                         {/* ICON AREA (FIX HEIGHT) */}
                                         <div className="flex items-center justify-center h-[104px]">
-                                            <div className="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center">
+                                            <div className="w-20 h-20 rounded-full bg-gray-100 dark:bg-[#1A1A19] flex items-center justify-center">
                                                 <img
                                                     src={item.icon}
                                                     alt={item.label}
@@ -749,7 +749,7 @@ export default function Home({
                 <section className="bg-white py-10 dark:bg-[#1A1A19]">
                     <div className="container mx-auto max-w-6xl rounded-xl">
                         {/* WRAPPER FLASH SALE */}
-                        <div className="bg-white dark:bg-[#252523] rounded-xl p-4 shadow-sm border border-[#19140020] dark:border-[#3E3E3A]">
+                        <div className="bg-white dark:bg-[#1A1A19] rounded-xl p-4 shadow-sm border border-gray-200 dark:border-[#252523]">
                             {/* Header Flash Sale */}
                             <div className="flex items-center justify-between mb-4">
                                 <div className="flex items-center space-x-3">
@@ -821,7 +821,7 @@ export default function Home({
                                                 <Link
                                                     href={`/product/${prod.slug}`}
                                                     key={prod.id}
-                                                    className="min-w-[170px] max-w-[170px] snap-start bg-white dark:bg-[#2A2A28] rounded-lg border border-gray-300 dark:border-gray-400 flex flex-col"
+                                                    className="min-w-[170px] max-w-[170px] snap-start bg-white dark:bg-[#1A1A19] rounded-lg border border-gray-300 dark:border-[#252523] flex flex-col"
                                                 >
                                                     <div className="relative">
                                                         <img
@@ -864,18 +864,18 @@ export default function Home({
                                 {flashSlider.canPrev && (
                                     <button
                                         onClick={() => flashSlider.scroll('left')}
-                                        className="pointer-events-auto absolute left-0 top-1/2 -translate-y-1/2 bg-white/90 dark:bg-[#333]/90 shadow-md p-3 rounded-full opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 hover:scale-110 transition-all duration-300"
+                                        className="pointer-events-auto absolute left-0 top-1/2 -translate-y-1/2 bg-white/90 dark:bg-[#1A1A19]/90 shadow-md p-3 rounded-full opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 hover:scale-110 transition-all duration-300"
                                     >
-                                        <ChevronLeft className="h-5 w-5" />
+                                        <ChevronLeft className="h-5 w-5 text-gray-800 dark:text-gray-100" />
                                     </button>
                                 )}
 
                                 {flashSlider.canNext && (
                                     <button
                                         onClick={() => flashSlider.scroll('right')}
-                                        className="pointer-events-auto absolute right-0 top-1/2 -translate-y-1/2 bg-white/90 dark:bg-[#333]/90 shadow-md p-3 rounded-full opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 hover:scale-110 transition-all duration-300"
+                                        className="pointer-events-auto absolute right-0 top-1/2 -translate-y-1/2 bg-white/90 dark:bg-[#1A1A19]/90 shadow-md p-3 rounded-full opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 hover:scale-110 transition-all duration-300"
                                     >
-                                        <ChevronRight className="h-5 w-5" />
+                                        <ChevronRight className="h-5 w-5 text-gray-800 dark:text-gray-100" />
                                     </button>
                                 )}
                             </div>
@@ -886,7 +886,7 @@ export default function Home({
                 {/* Top Product Section */}
                 < section className="bg-white py-0 mb-10 dark:bg-[#1A1A19]" >
                     <div className="container mx-auto max-w-6xl rounded-xl">
-                        <div className="bg-white dark:bg-[#252523] rounded-xl px-6 py-4 shadow-sm border border-[#19140020] dark:border-[#3E3E3A]">
+                        <div className="bg-white dark:bg-[#1A1A19] rounded-xl px-6 py-4 shadow-sm border border-gray-200 dark:border-[#252523]">
 
                             {/* HEADER */}
                             <div className="mb-6 flex items-center justify-between">
@@ -961,7 +961,7 @@ export default function Home({
                                             </div>
 
                                             {/* CONTENT */}
-                                            <div className="bg-white dark:bg-[#252523] rounded-b-xl px-1 pt-4">
+                                            <div className="bg-white dark:bg-[#1A1A19] rounded-b-xl px-1 pt-4">
                                                 <p
                                                     className="text-sm font-medium text-gray-900 dark:text-white line-clamp-1"
                                                     title={prod.name}
@@ -977,18 +977,18 @@ export default function Home({
                                 {topProductSlider.canPrev && (
                                     <button
                                         onClick={() => topProductSlider.scroll("left")}
-                                        className="pointer-events-auto absolute left-0 top-1/2 -translate-y-1/2 bg-white/90 dark:bg-[#333]/90 shadow-md p-3 rounded-full opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 hover:scale-110 transition-all duration-300"
+                                        className="pointer-events-auto absolute left-0 top-1/2 -translate-y-1/2 bg-white/90 dark:bg-[#1A1A19]/90 shadow-md p-3 rounded-full opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 hover:scale-110 transition-all duration-300"
                                     >
-                                        <ChevronLeft className="h-5 w-5" />
+                                        <ChevronLeft className="h-5 w-5 text-gray-800 dark:text-gray-100" />
                                     </button>
                                 )}
 
                                 {topProductSlider.canNext && (
                                     <button
                                         onClick={() => topProductSlider.scroll("right")}
-                                        className="pointer-events-auto absolute right-0 top-1/2 -translate-y-1/2 bg-white/90 dark:bg-[#333]/90 shadow-md p-3 rounded-full opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 hover:scale-110 transition-all duration-300"
+                                        className="pointer-events-auto absolute right-0 top-1/2 -translate-y-1/2 bg-white/90 dark:bg-[#1A1A19]/90 shadow-md p-3 rounded-full opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 hover:scale-110 transition-all duration-300"
                                     >
-                                        <ChevronRight className="h-5 w-5" />
+                                        <ChevronRight className="h-5 w-5 text-gray-800 dark:text-gray-100" />
                                     </button>
                                 )}
                             </div>
@@ -1014,8 +1014,8 @@ function ProductCard({ product }: { product: HomePageProps['featuredProducts'][0
 
     return (
         <Link href={`/products/${product.slug}`} className="group">
-            <div className="overflow-hidden rounded-lg border border-[#19140035] bg-white transition-all hover:shadow-lg dark:border-[#3E3E3A] dark:bg-[#161615]">
-                <div className="aspect-square overflow-hidden bg-gray-100">
+            <div className="overflow-hidden rounded-lg border border-[#19140035] bg-white transition-all hover:shadow-lg dark:border-[#3E3E3A] dark:bg-[#1A1A19]">
+                <div className="aspect-square overflow-hidden bg-gray-100 dark:bg-[#1A1A19]">
                     <img
                         src={product.image || '/images/placeholder.jpg'}
                         alt={product.name}
@@ -1031,12 +1031,12 @@ function ProductCard({ product }: { product: HomePageProps['featuredProducts'][0
                     <span className="mb-1 block text-xs text-[#706f6c] dark:text-[#A1A09A]">
                         {product.category.name}
                     </span>
-                    <h3 className="mb-2 line-clamp-1 font-medium group-hover:text-[#F53003] dark:group-hover:text-[#FF4433]">
+                    <h3 className="mb-2 line-clamp-1 font-medium group-hover:text-[#F53003] dark:group-hover:text-[#FF4433] dark:text-white">
                         {product.name}
                     </h3>
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
-                            <span className="text-lg font-bold text-[#1b1b18] dark:text-[#EDEDEC]">
+                            <span className="text-lg font-bold text-[#1b1b18] dark:text-white">
                                 Rp {finalPrice.toLocaleString('id-ID')}
                             </span>
                             {hasDiscount && (
@@ -1059,11 +1059,11 @@ function ProductCard({ product }: { product: HomePageProps['featuredProducts'][0
 function CategoryCard({ category }: { category: HomePageProps['categories'][0] }) {
     return (
         <Link href={`/categories/${category.slug}`} className="group">
-            <div className="rounded-lg border border-[#19140035] bg-white p-6 text-center transition-all hover:border-[#F53003] hover:shadow-md dark:border-[#3E3E3A] dark:bg-[#161615] dark:hover:border-[#FF4433]">
+            <div className="rounded-lg border border-[#19140035] bg-white p-6 text-center transition-all hover:border-[#F53003] hover:shadow-md dark:border-[#3E3E3A] dark:bg-[#252523] dark:hover:border-[#FF4433]">
                 <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-[#F53003]/10 mx-auto dark:bg-[#FF4433]/10">
                     <span className="text-xl">🛍️</span>
                 </div>
-                <h3 className="font-semibold group-hover:text-[#F53003] dark:group-hover:text-[#FF4433]">
+                <h3 className="font-semibold group-hover:text-[#F53003] dark:group-hover:text-[#FF4433] dark:text-white">
                     {category.name}
                 </h3>
                 <p className="mt-1 text-sm text-[#706f6c] dark:text-[#A1A09A]">

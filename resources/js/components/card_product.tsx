@@ -96,7 +96,7 @@ export default function CardProducts() {
 
   return (
     <div className="min-h-screen text-gray-900">
-      <section className="bg-white">
+      <section className="bg-white dark:bg-[#1A1A19]">
         <div className="container mx-auto max-w-6xl py-5">
           {/* PRODUCTS GRID */}
           <div className="mb-10">
@@ -108,7 +108,7 @@ export default function CardProducts() {
                   <Link
                     key={p.id}
                     href={`/product/${p.slug}`}
-                    className="relative bg-white rounded-xl border border-gray-200 transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-sm"
+                    className="relative bg-white dark:bg-[#1A1A19] rounded-xl border border-gray-200 dark:border-[#252523] transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-sm"
                   >
                     {/* Badge Diskon */}
                     {p.hasDiscount && (
@@ -134,7 +134,7 @@ export default function CardProducts() {
 
                     {/* Info Produk */}
                     <div className="px-2.5 py-2.5 mb-3">
-                      <h3 className="text-sm font-medium line-clamp-2 mb-1.5 min-h-[40px] text-gray-800">
+                      <h3 className="text-sm font-medium line-clamp-2 mb-1.5 min-h-[40px] text-gray-800 dark:text-gray-100">
                         {p.name ?? '-'}
                       </h3>
 
